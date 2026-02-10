@@ -1,0 +1,52 @@
+# Environnement virtuel
+.venv/
+venv/
+ENV/
+env/
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# MyPy cache
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest cache
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Base de données
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+
+# Fichiers de build
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+
+# Fichiers temporaires
+*.tmp
+.cache/
+
+# OS
+Thumbs.db
+.DS_Store
