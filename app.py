@@ -159,6 +159,33 @@ def logout():
     return redirect(url_for("index"))
 
 
+<<<<<<< HEAD
+=======
+@app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    if request.method == "POST":
+        current_password = request.form.get("current_password", "")
+        new_password = request.form.get("new_password", "")
+
+        if not current_password or not new_password:
+            flash("Veuillez renseigner l'ancien et le nouveau mot de passe.", "danger")
+            return redirect(url_for("profile"))
+
+        if not g.user.check_password(current_password):
+            flash("Mot de passe actuel invalide.", "danger")
+            return redirect(url_for("profile"))
+
+        g.user.set_password(new_password)
+        db.session.commit()
+        flash("Mot de passe mis à jour.", "success")
+        return redirect(url_for("profile"))
+
+    ticket_count = Ticket.query.filter_by(author_id=g.user.id).count()
+    return render_template("profile.html", ticket_count=ticket_count)
+
+
+>>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 @app.route("/tickets/new", methods=["GET", "POST"])
 @login_required
 def create_ticket():
@@ -180,6 +207,38 @@ def create_ticket():
     return render_template("create_ticket.html")
 
 
+<<<<<<< HEAD
+=======
+@app.route("/tickets/<int:ticket_id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_ticket(ticket_id: int):
+    ticket = db.session.get(Ticket, ticket_id)
+    if ticket is None:
+        flash("Ticket introuvable.", "danger")
+        return redirect(url_for("index"))
+
+    if ticket.author_id != g.user.id:
+        flash("Vous ne pouvez modifier que vos propres tickets.", "danger")
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        title = request.form.get("title", "").strip()
+        content = request.form.get("content", "").strip()
+
+        if not title or not content:
+            flash("Le titre et le contenu sont obligatoires.", "danger")
+            return redirect(url_for("edit_ticket", ticket_id=ticket_id))
+
+        ticket.title = title
+        ticket.content = content
+        db.session.commit()
+        flash("Ticket modifié avec succès.", "success")
+        return redirect(url_for("index"))
+
+    return render_template("edit_ticket.html", ticket=ticket)
+
+
+>>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 @app.route("/tickets/<int:ticket_id>/admin", methods=["POST"])
 @admin_required
 def admin_update_ticket(ticket_id: int):
