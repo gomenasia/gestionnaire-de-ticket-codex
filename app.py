@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 from functools import wraps
 
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
@@ -14,13 +14,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
+def get_utc_now():
+    return datetime.now(timezone.utc)
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created_at = db.Column(db.DateTime, default=get_utc_now, nullable=False)
 
     tickets = db.relationship("Ticket", back_populates="author", lazy=True)
 
@@ -38,8 +42,8 @@ class Ticket(db.Model):
     status = db.Column(db.String(20), default="en_attente", nullable=False)
     admin_response = db.Column(db.Text, nullable=True)
     deadline = db.Column(db.DateTime, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = db.Column(db.DateTime, default=get_utc_now, nullable=False)
+    updated_at = db.Column(db.DateTime, default=get_utc_now, onupdate=get_utc_now, nullable=False)
 
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     author = db.relationship("User", back_populates="tickets")
@@ -102,7 +106,7 @@ def index():
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
     overdue_only = request.args.get("overdue", "0") == "1"
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
 
     query = Ticket.query.join(User)
 

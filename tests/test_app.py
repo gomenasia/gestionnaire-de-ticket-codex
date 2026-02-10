@@ -1,5 +1,5 @@
 import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 
@@ -71,7 +71,7 @@ def test_overdue_filter_only_shows_late_tickets(client):
 
     with app.app_context():
         ticket = Ticket.query.filter_by(title="Ticket futur").first()
-        ticket.deadline = datetime.utcnow() - timedelta(days=2)
+        ticket.deadline = datetime.now(timezone.utc) - timedelta(days=2)
         db.session.commit()
 
     response = client.get("/?overdue=1")
