@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+  <section class="card">
+    <h2>Inscription</h2>
+    <form method="post">
+      <label for="username">Nom d'utilisateur</label>
+      <input id="username" name="username" type="text" required />
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+
+      <label for="password">Mot de passe</label>
+      <input id="password" name="password" type="password" required />
+
+      <button type="submit">Créer le compte</button>
+    </form>
+  </section>
+{% endblock %}
