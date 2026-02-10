@@ -4,13 +4,18 @@ Application web Flask de gestion de demandes (tickets) avec :
 
 - Inscription / connexion des utilisateurs.
 - Création de tickets uniquement pour les utilisateurs connectés.
+- Modification du **propre** ticket (titre + description) par son auteur.
+- Date limite de réponse (deadline) lors de la création de ticket.
 - Gestion des tickets (statut + réponse) uniquement par les admins.
-- Page principale listant les tickets avec :
+- Barre de filtres horizontale sur la page principale avec :
   - filtre par statut (`en_attente`, `en_cours`, `resolu`),
   - tri (`recent`, `oldest`),
   - recherche texte dans le contenu/titre,
-  - recherche par auteur.
-- Stockage SQL via SQLite (peut être remplacé par un autre SGBD SQL via URI).
+  - recherche par auteur,
+  - option pour afficher uniquement les tickets en retard.
+- Menu compte déroulant au survol (profil + déconnexion).
+- Page profil avec : nom, email, rôle admin, nombre de tickets, changement de mot de passe.
+- Stockage SQL via SQLite (remplaçable par un autre SGBD SQL via URI).
 
 ## Installation
 

@@ -30,7 +30,7 @@ a {
 }
 
 main {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 1.5rem auto;
   padding: 0 1rem;
 }
@@ -42,6 +42,27 @@ main {
   gap: 0.6rem;
 }
 
+.filters.horizontal form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.8rem;
+}
+
+.filter-item {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.filter-item.grow {
+  flex: 1;
+  min-width: 220px;
+}
+
+.filter-item.align-end {
+  align-self: end;
+}
+
 .filters,
 .card,
 .ticket {
@@ -49,6 +70,10 @@ main {
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card {
+  margin-bottom: 1rem;
 }
 
 .ticket-list {
@@ -84,15 +109,26 @@ main {
 
 .message {
   margin: 0.5rem auto;
-  max-width: 960px;
+  max-width: 1080px;
   padding: 0.8rem;
   border-radius: 8px;
 }
 
-.message.success { background: #dcfce7; }
-.message.warning { background: #fef9c3; }
-.message.danger { background: #fee2e2; }
-.message.info { background: #dbeafe; }
+.message.success {
+  background: #dcfce7;
+}
+
+.message.warning {
+  background: #fef9c3;
+}
+
+.message.danger {
+  background: #fee2e2;
+}
+
+.message.info {
+  background: #dbeafe;
+}
 
 input,
 textarea,
@@ -117,9 +153,86 @@ button {
   padding: 0.2rem 0.7rem;
 }
 
+.account-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.account-button {
+  border: none;
+}
+
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: white;
+  color: #1f2937;
+  min-width: 170px;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  display: none;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.dropdown a {
+  display: block;
+  padding: 0.7rem 0.9rem;
+}
+
+.dropdown a:hover {
+  background: #eff6ff;
+}
+
+.account-menu:hover .dropdown {
+  display: block;
+}
+
 .admin-response {
   margin-top: 0.7rem;
   padding: 0.5rem;
   background: #eff6ff;
   border-radius: 8px;
+}
+
+.author-actions {
+  margin-top: 0.5rem;
+}
+
+.link-button {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+}
+
+.profile-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.checkbox-item {
+  min-width: 260px;
+}
+
+.inline-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.deadline {
+  margin-top: 0.6rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  background: #eef2ff;
+}
+
+.deadline.late {
+  background: #fee2e2;
 }

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 from functools import wraps
 
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
@@ -37,6 +37,7 @@ class Ticket(db.Model):
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), default="en_attente", nullable=False)
     admin_response = db.Column(db.Text, nullable=True)
+    deadline = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
@@ -72,12 +73,36 @@ def admin_required(view):
     return wrapped_view
 
 
+def parse_deadline(value: str):
+    if not value:
+        return None
+
+    try:
+        parsed_date = datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+    return datetime.combine(parsed_date, time.max)
+
+
+def format_countdown(deadline: datetime, reference: datetime) -> str:
+    seconds_left = int((deadline - reference).total_seconds())
+    days = abs(seconds_left) // 86400
+    hours = (abs(seconds_left) % 86400) // 3600
+
+    if seconds_left >= 0:
+        return f"{days}j {hours}h restantes"
+    return f"En retard de {days}j {hours}h"
+
+
 @app.route("/")
 def index():
     status = request.args.get("status", "all")
     sort = request.args.get("sort", "recent")
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
+    overdue_only = request.args.get("overdue", "0") == "1"
+    now = datetime.utcnow()
 
     query = Ticket.query.join(User)
 
@@ -90,6 +115,9 @@ def index():
     if author:
         query = query.filter(User.username.ilike(f"%{author}%"))
 
+    if overdue_only:
+        query = query.filter(Ticket.deadline.isnot(None), Ticket.deadline < now, Ticket.status != "resolu")
+
     if sort == "oldest":
         query = query.order_by(Ticket.created_at.asc())
     else:
@@ -100,10 +128,13 @@ def index():
     return render_template(
         "index.html",
         tickets=tickets,
+        now=now,
+        format_countdown=format_countdown,
         current_status=status,
         current_sort=sort,
         current_q=q,
         current_author=author,
+        current_overdue=overdue_only,
     )
 
 
@@ -159,18 +190,48 @@ def logout():
     return redirect(url_for("index"))
 
 
+@app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    if request.method == "POST":
+        current_password = request.form.get("current_password", "")
+        new_password = request.form.get("new_password", "")
+
+        if not current_password or not new_password:
+            flash("Veuillez renseigner l'ancien et le nouveau mot de passe.", "danger")
+            return redirect(url_for("profile"))
+
+        if not g.user.check_password(current_password):
+            flash("Mot de passe actuel invalide.", "danger")
+            return redirect(url_for("profile"))
+
+        g.user.set_password(new_password)
+        db.session.commit()
+        flash("Mot de passe mis à jour.", "success")
+        return redirect(url_for("profile"))
+
+    ticket_count = Ticket.query.filter_by(author_id=g.user.id).count()
+    return render_template("profile.html", ticket_count=ticket_count)
+
+
 @app.route("/tickets/new", methods=["GET", "POST"])
 @login_required
 def create_ticket():
     if request.method == "POST":
         title = request.form.get("title", "").strip()
         content = request.form.get("content", "").strip()
+        deadline_input = request.form.get("deadline", "").strip()
+        deadline = parse_deadline(deadline_input)
 
         if not title or not content:
             flash("Le titre et le contenu sont obligatoires.", "danger")
             return redirect(url_for("create_ticket"))
 
-        ticket = Ticket(title=title, content=content, author=g.user)
+        if deadline_input and deadline is None:
+            flash("Format de date limite invalide.", "danger")
+            return redirect(url_for("create_ticket"))
+
+        ticket = Ticket(title=title, content=content, deadline=deadline, author=g.user)
         db.session.add(ticket)
         db.session.commit()
 
@@ -178,6 +239,35 @@ def create_ticket():
         return redirect(url_for("index"))
 
     return render_template("create_ticket.html")
+
+
+@app.route("/tickets/<int:ticket_id>/edit", methods=["GET", "POST"])
+@login_required
+def edit_ticket(ticket_id: int):
+    ticket = db.session.get(Ticket, ticket_id)
+    if ticket is None:
+        flash("Ticket introuvable.", "danger")
+        return redirect(url_for("index"))
+
+    if ticket.author_id != g.user.id:
+        flash("Vous ne pouvez modifier que vos propres tickets.", "danger")
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        title = request.form.get("title", "").strip()
+        content = request.form.get("content", "").strip()
+
+        if not title or not content:
+            flash("Le titre et le contenu sont obligatoires.", "danger")
+            return redirect(url_for("edit_ticket", ticket_id=ticket_id))
+
+        ticket.title = title
+        ticket.content = content
+        db.session.commit()
+        flash("Ticket modifié avec succès.", "success")
+        return redirect(url_for("index"))
+
+    return render_template("edit_ticket.html", ticket=ticket)
 
 
 @app.route("/tickets/<int:ticket_id>/admin", methods=["POST"])

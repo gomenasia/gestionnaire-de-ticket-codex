@@ -13,8 +13,13 @@
         <a href="{{ url_for('index') }}">Accueil</a>
         {% if g.user %}
           <a href="{{ url_for('create_ticket') }}">Nouveau ticket</a>
-          <span class="pill">{{ g.user.username }}{% if g.user.is_admin %} (admin){% endif %}</span>
-          <a href="{{ url_for('logout') }}">Déconnexion</a>
+          <div class="account-menu">
+            <button type="button" class="pill account-button">{{ g.user.username }}{% if g.user.is_admin %} (admin){% endif %}</button>
+            <div class="dropdown">
+              <a href="{{ url_for('profile') }}">Profil</a>
+              <a href="{{ url_for('logout') }}">Déconnexion</a>
+            </div>
+          </div>
         {% else %}
           <a href="{{ url_for('login') }}">Connexion</a>
           <a href="{{ url_for('register') }}">Inscription</a>
