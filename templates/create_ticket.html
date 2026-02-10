@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <section class="card">
+    <h2>Créer un ticket</h2>
+    <form method="post">
+      <label for="title">Titre</label>
+      <input id="title" name="title" type="text" required />
+
+      <label for="content">Description</label>
+      <textarea id="content" name="content" rows="6" required></textarea>
+
+      <button type="submit">Soumettre</button>
+    </form>
+  </section>
+{% endblock %}
