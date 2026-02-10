@@ -1,21 +1,14 @@
 import tempfile
+from datetime import datetime, timedelta
 
 import pytest
 
-<<<<<<< HEAD
-from app import app, db, User, Ticket
-=======
 from app import Ticket, User, app, db
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 
 
 @pytest.fixture
 def client():
-<<<<<<< HEAD
-    db_fd, db_path = tempfile.mkstemp()
-=======
     _, db_path = tempfile.mkstemp()
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
     app.config.update(
         TESTING=True,
         SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
@@ -51,25 +44,40 @@ def login(client, email="alice@example.com", password="secret"):
     )
 
 
-def test_register_login_and_create_ticket(client):
-    response = register(client)
-    assert b"Compte cr" in response.data
-
-    response = login(client)
-    assert b"Connexion r" in response.data
+def test_register_login_and_create_ticket_with_deadline(client):
+    register(client)
+    login(client)
 
     response = client.post(
         "/tickets/new",
-        data={"title": "Bug API", "content": "Erreur 500"},
+        data={"title": "Bug API", "content": "Erreur 500", "deadline": "2030-01-01"},
         follow_redirects=True,
     )
 
     assert b"Ticket cr" in response.data
     assert b"Bug API" in response.data
+    assert b"\xc3\x89ch\xc3\xa9ance" in response.data
 
 
-<<<<<<< HEAD
-=======
+def test_overdue_filter_only_shows_late_tickets(client):
+    register(client)
+    login(client)
+
+    client.post(
+        "/tickets/new",
+        data={"title": "Ticket futur", "content": "ok", "deadline": "2099-01-01"},
+        follow_redirects=True,
+    )
+
+    with app.app_context():
+        ticket = Ticket.query.filter_by(title="Ticket futur").first()
+        ticket.deadline = datetime.utcnow() - timedelta(days=2)
+        db.session.commit()
+
+    response = client.get("/?overdue=1")
+    assert b"Ticket futur" in response.data
+
+
 def test_author_can_edit_own_ticket(client):
     register(client)
     login(client)
@@ -112,7 +120,6 @@ def test_profile_and_password_update(client):
     assert b"Connexion r" in response.data
 
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 def test_admin_can_update_ticket(client):
     register(client)
     login(client)

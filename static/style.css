@@ -30,11 +30,7 @@ a {
 }
 
 main {
-<<<<<<< HEAD
-  max-width: 960px;
-=======
   max-width: 1080px;
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
   margin: 1.5rem auto;
   padding: 0 1rem;
 }
@@ -46,8 +42,6 @@ main {
   gap: 0.6rem;
 }
 
-<<<<<<< HEAD
-=======
 .filters.horizontal form {
   display: flex;
   flex-wrap: wrap;
@@ -69,7 +63,6 @@ main {
   align-self: end;
 }
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 .filters,
 .card,
 .ticket {
@@ -79,13 +72,10 @@ main {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-<<<<<<< HEAD
-=======
 .card {
   margin-bottom: 1rem;
 }
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 .ticket-list {
   display: grid;
   gap: 1rem;
@@ -119,21 +109,11 @@ main {
 
 .message {
   margin: 0.5rem auto;
-<<<<<<< HEAD
-  max-width: 960px;
-=======
   max-width: 1080px;
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
   padding: 0.8rem;
   border-radius: 8px;
 }
 
-<<<<<<< HEAD
-.message.success { background: #dcfce7; }
-.message.warning { background: #fef9c3; }
-.message.danger { background: #fee2e2; }
-.message.info { background: #dbeafe; }
-=======
 .message.success {
   background: #dcfce7;
 }
@@ -149,7 +129,6 @@ main {
 .message.info {
   background: #dbeafe;
 }
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 
 input,
 textarea,
@@ -174,8 +153,6 @@ button {
   padding: 0.2rem 0.7rem;
 }
 
-<<<<<<< HEAD
-=======
 .account-menu {
   position: relative;
   display: inline-block;
@@ -212,15 +189,12 @@ button {
   display: block;
 }
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 .admin-response {
   margin-top: 0.7rem;
   padding: 0.5rem;
   background: #eff6ff;
   border-radius: 8px;
 }
-<<<<<<< HEAD
-=======
 
 .author-actions {
   margin-top: 0.5rem;
@@ -241,4 +215,24 @@ button {
   display: grid;
   gap: 0.5rem;
 }
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
+
+.checkbox-item {
+  min-width: 260px;
+}
+
+.inline-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.deadline {
+  margin-top: 0.6rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  background: #eef2ff;
+}
+
+.deadline.late {
+  background: #fee2e2;
+}

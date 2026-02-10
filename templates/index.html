@@ -1,30 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<<<<<<< HEAD
-  <section class="filters">
-    <form method="get">
-      <label for="status">Statut</label>
-      <select name="status" id="status">
-        <option value="all" {% if current_status == 'all' %}selected{% endif %}>Tous</option>
-        <option value="en_attente" {% if current_status == 'en_attente' %}selected{% endif %}>En attente</option>
-        <option value="en_cours" {% if current_status == 'en_cours' %}selected{% endif %}>En cours</option>
-        <option value="resolu" {% if current_status == 'resolu' %}selected{% endif %}>Résolu</option>
-      </select>
-
-      <label for="sort">Tri</label>
-      <select name="sort" id="sort">
-        <option value="recent" {% if current_sort == 'recent' %}selected{% endif %}>Plus récents</option>
-        <option value="oldest" {% if current_sort == 'oldest' %}selected{% endif %}>Plus anciens</option>
-      </select>
-
-      <label for="q">Recherche contenu</label>
-      <input type="search" id="q" name="q" placeholder="mot clé" value="{{ current_q }}" />
-
-      <label for="author">Auteur</label>
-      <input type="search" id="author" name="author" placeholder="nom d'utilisateur" value="{{ current_author }}" />
-
-      <button type="submit">Filtrer</button>
-=======
   <section class="filters horizontal">
     <form method="get">
       <div class="filter-item">
@@ -55,10 +30,16 @@
         <input type="search" id="author" name="author" placeholder="nom d'utilisateur" value="{{ current_author }}" />
       </div>
 
+      <div class="filter-item checkbox-item">
+        <label class="inline-check" for="overdue">
+          <input type="checkbox" id="overdue" name="overdue" value="1" {% if current_overdue %}checked{% endif %} />
+          Voir seulement les tickets en retard
+        </label>
+      </div>
+
       <div class="filter-item align-end">
         <button type="submit">Filtrer</button>
       </div>
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
     </form>
   </section>
 
@@ -73,8 +54,12 @@
         <small>
           Auteur: {{ ticket.author.username }} · Créé le {{ ticket.created_at.strftime('%d/%m/%Y %H:%M') }}
         </small>
-<<<<<<< HEAD
-=======
+
+        {% if ticket.deadline %}
+          <div class="deadline {% if ticket.deadline < now and ticket.status != 'resolu' %}late{% endif %}">
+            <strong>Échéance:</strong> {{ ticket.deadline.strftime('%d/%m/%Y') }} · {{ format_countdown(ticket.deadline, now) }}
+          </div>
+        {% endif %}
 
         {% if g.user and g.user.id == ticket.author_id %}
           <div class="author-actions">
@@ -82,7 +67,6 @@
           </div>
         {% endif %}
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
         {% if ticket.admin_response %}
           <div class="admin-response">
             <strong>Réponse admin:</strong>
