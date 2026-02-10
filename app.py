@@ -159,8 +159,6 @@ def logout():
     return redirect(url_for("index"))
 
 
-<<<<<<< HEAD
-=======
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
@@ -185,7 +183,6 @@ def profile():
     return render_template("profile.html", ticket_count=ticket_count)
 
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 @app.route("/tickets/new", methods=["GET", "POST"])
 @login_required
 def create_ticket():
@@ -207,8 +204,6 @@ def create_ticket():
     return render_template("create_ticket.html")
 
 
-<<<<<<< HEAD
-=======
 @app.route("/tickets/<int:ticket_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_ticket(ticket_id: int):
@@ -238,7 +233,6 @@ def edit_ticket(ticket_id: int):
     return render_template("edit_ticket.html", ticket=ticket)
 
 
->>>>>>> 23263c0de9d4f925ff941a244cb4ff6efc0d7eed
 @app.route("/tickets/<int:ticket_id>/admin", methods=["POST"])
 @admin_required
 def admin_update_ticket(ticket_id: int):
