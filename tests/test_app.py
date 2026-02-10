@@ -1,0 +1,144 @@
+import tempfile
+from datetime import datetime, timedelta
+
+import pytest
+
+from app import Ticket, User, app, db
+
+
+@pytest.fixture
+def client():
+    _, db_path = tempfile.mkstemp()
+    app.config.update(
+        TESTING=True,
+        SQLALCHEMY_DATABASE_URI=f"sqlite:///{db_path}",
+        WTF_CSRF_ENABLED=False,
+        SECRET_KEY="test",
+    )
+
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+
+    with app.test_client() as client:
+        yield client
+
+    with app.app_context():
+        db.session.remove()
+        db.drop_all()
+
+
+def register(client, username="alice", email="alice@example.com", password="secret"):
+    return client.post(
+        "/register",
+        data={"username": username, "email": email, "password": password},
+        follow_redirects=True,
+    )
+
+
+def login(client, email="alice@example.com", password="secret"):
+    return client.post(
+        "/login",
+        data={"email": email, "password": password},
+        follow_redirects=True,
+    )
+
+
+def test_register_login_and_create_ticket_with_deadline(client):
+    register(client)
+    login(client)
+
+    response = client.post(
+        "/tickets/new",
+        data={"title": "Bug API", "content": "Erreur 500", "deadline": "2030-01-01"},
+        follow_redirects=True,
+    )
+
+    assert b"Ticket cr" in response.data
+    assert b"Bug API" in response.data
+    assert b"\xc3\x89ch\xc3\xa9ance" in response.data
+
+
+def test_overdue_filter_only_shows_late_tickets(client):
+    register(client)
+    login(client)
+
+    client.post(
+        "/tickets/new",
+        data={"title": "Ticket futur", "content": "ok", "deadline": "2099-01-01"},
+        follow_redirects=True,
+    )
+
+    with app.app_context():
+        ticket = Ticket.query.filter_by(title="Ticket futur").first()
+        ticket.deadline = datetime.utcnow() - timedelta(days=2)
+        db.session.commit()
+
+    response = client.get("/?overdue=1")
+    assert b"Ticket futur" in response.data
+
+
+def test_author_can_edit_own_ticket(client):
+    register(client)
+    login(client)
+    client.post("/tickets/new", data={"title": "Ancien", "content": "Desc"}, follow_redirects=True)
+
+    with app.app_context():
+        ticket = Ticket.query.first()
+
+    response = client.post(
+        f"/tickets/{ticket.id}/edit",
+        data={"title": "Nouveau titre", "content": "Nouvelle description"},
+        follow_redirects=True,
+    )
+
+    assert b"Ticket modifi" in response.data
+    assert b"Nouveau titre" in response.data
+
+
+def test_profile_and_password_update(client):
+    register(client)
+    login(client)
+
+    response = client.get("/profile")
+    assert b"Mon profil" in response.data
+    assert b"Nombre de tickets" in response.data
+
+    response = client.post(
+        "/profile",
+        data={"current_password": "secret", "new_password": "new-secret"},
+        follow_redirects=True,
+    )
+    assert b"Mot de passe mis" in response.data
+
+    client.get("/logout", follow_redirects=True)
+    response = client.post(
+        "/login",
+        data={"email": "alice@example.com", "password": "new-secret"},
+        follow_redirects=True,
+    )
+    assert b"Connexion r" in response.data
+
+
+def test_admin_can_update_ticket(client):
+    register(client)
+    login(client)
+    client.post("/tickets/new", data={"title": "A", "content": "B"}, follow_redirects=True)
+
+    with app.app_context():
+        admin = User(username="admin", email="admin@example.com", is_admin=True)
+        admin.set_password("secret")
+        db.session.add(admin)
+        db.session.commit()
+        ticket = Ticket.query.first()
+
+    client.get("/logout", follow_redirects=True)
+    client.post("/login", data={"email": "admin@example.com", "password": "secret"}, follow_redirects=True)
+    response = client.post(
+        f"/tickets/{ticket.id}/admin",
+        data={"status": "resolu", "admin_response": "Corrigé"},
+        follow_redirects=True,
+    )
+
+    assert b"Ticket mis" in response.data
+    assert b"Corrig" in response.data

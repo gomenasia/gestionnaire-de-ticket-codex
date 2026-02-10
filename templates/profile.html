@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  <section class="card">
+    <h2>Mon profil</h2>
+    <ul class="profile-list">
+      <li><strong>Nom:</strong> {{ g.user.username }}</li>
+      <li><strong>Email:</strong> {{ g.user.email }}</li>
+      <li><strong>Rôle admin:</strong> {{ 'Oui (peut modifier les tickets)' if g.user.is_admin else 'Non' }}</li>
+      <li><strong>Nombre de tickets:</strong> {{ ticket_count }}</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Modifier mon mot de passe</h2>
+    <form method="post">
+      <label for="current_password">Mot de passe actuel</label>
+      <input id="current_password" name="current_password" type="password" required />
+
+      <label for="new_password">Nouveau mot de passe</label>
+      <input id="new_password" name="new_password" type="password" required />
+
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </section>
+{% endblock %}
