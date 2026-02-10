@@ -156,6 +156,7 @@ button {
 .account-menu {
   position: relative;
   display: inline-block;
+  padding-bottom: 0.4rem;
 }
 
 .account-button {
@@ -165,7 +166,7 @@ button {
 .dropdown {
   position: absolute;
   right: 0;
-  top: 110%;
+  top: calc(100% + 0.1rem);
   background: white;
   color: #1f2937;
   min-width: 170px;
@@ -186,6 +187,10 @@ button {
 }
 
 .account-menu:hover .dropdown {
+  display: block;
+}
+
+.account-menu:focus-within .dropdown {
   display: block;
 }
 

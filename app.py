@@ -1,4 +1,4 @@
-from datetime import datetime, time, timezone
+from datetime import datetime, time
 from functools import wraps
 
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 
 def get_utc_now():
-    return datetime.now(timezone.utc)
+    return datetime.utcnow()
 
 
 class User(db.Model):
@@ -106,7 +106,7 @@ def index():
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
     overdue_only = request.args.get("overdue", "0") == "1"
-    now = datetime.now(timezone.utc)
+    now = get_utc_now()
 
     query = Ticket.query.join(User)
 
