@@ -52,7 +52,7 @@
         </div>
         <p>{{ ticket.content }}</p>
         <small>
-          Auteur: {{ ticket.author.username }} · Créé le {{ ticket.created_at.strftime('%d/%m/%Y %H:%M') }}
+          Auteur: <a href="{{ url_for('user_profile', user_id=ticket.author.id) }}">{{ ticket.author.username }}</a> · Créé le {{ ticket.created_at.strftime('%d/%m/%Y %H:%M') }}
         </small>
 
         {% if ticket.deadline %}

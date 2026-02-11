@@ -100,12 +100,12 @@ def test_profile_and_password_update(client):
     register(client)
     login(client)
 
-    response = client.get("/profile")
-    assert b"Mon profil" in response.data
+    response = client.get("/profile", follow_redirects=True)
+    assert b"Profil de alice" in response.data
     assert b"Nombre de tickets" in response.data
 
     response = client.post(
-        "/profile",
+        "/users/1",
         data={"current_password": "secret", "new_password": "new-secret"},
         follow_redirects=True,
     )
@@ -118,6 +118,41 @@ def test_profile_and_password_update(client):
         follow_redirects=True,
     )
     assert b"Connexion r" in response.data
+
+
+def test_user_profile_shows_user_tickets_and_author_link(client):
+    register(client)
+    login(client)
+
+    client.post("/tickets/new", data={"title": "Ticket A", "content": "Alpha"}, follow_redirects=True)
+    client.post("/tickets/new", data={"title": "Ticket B", "content": "Beta"}, follow_redirects=True)
+
+    with app.app_context():
+        alice = User.query.filter_by(email="alice@example.com").first()
+
+    response = client.get("/")
+    assert f'/users/{alice.id}'.encode() in response.data
+
+    response = client.get(f"/users/{alice.id}")
+    assert b"Ticket A" in response.data
+    assert b"Ticket B" in response.data
+
+
+def test_cannot_change_password_on_other_profile(client):
+    register(client)
+    login(client)
+    register(client, username="bob", email="bob@example.com", password="secret")
+
+    with app.app_context():
+        bob = User.query.filter_by(email="bob@example.com").first()
+
+    response = client.post(
+        f"/users/{bob.id}",
+        data={"current_password": "secret", "new_password": "new-secret"},
+        follow_redirects=True,
+    )
+
+    assert b"ne pouvez modifier le mot de passe" in response.data
 
 
 def test_admin_can_update_ticket(client):
