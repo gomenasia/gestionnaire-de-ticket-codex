@@ -12,6 +12,8 @@ __pycache__/
 
 # MyPy cache
 .mypy_cache/
+__pycache__/
+*.pyc
 .dmypy.json
 dmypy.json
 
