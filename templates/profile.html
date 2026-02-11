@@ -1,27 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
   <section class="card">
-    <h2>Mon profil</h2>
+    <h2>Profil de {{ profile_user.username }}</h2>
     <ul class="profile-list">
-      <li><strong>Nom:</strong> {{ g.user.username }}</li>
-      <li><strong>Email:</strong> {{ g.user.email }}</li>
-      {% if g.user and g.user.is_admin %}
+      <li><strong>Nom:</strong> {{ profile_user.username }}</li>
+      <li><strong>Email:</strong> {{ profile_user.email }}</li>
+      {% if profile_user.is_admin %}
         <li><strong>Rôle admin:</strong> Oui (peut modifier les tickets)</li>
-      {%endif %}
+      {% endif %}
       <li><strong>Nombre de tickets:</strong> {{ ticket_count }}</li>
     </ul>
   </section>
 
-  <section class="card">
-    <h2>Modifier mon mot de passe</h2>
-    <form method="post">
-      <label for="current_password">Mot de passe actuel</label>
-      <input id="current_password" name="current_password" type="password" required />
+  {% if is_own_profile %}
+    <section class="card">
+      <h2>Modifier mon mot de passe</h2>
+      <form method="post">
+        <label for="current_password">Mot de passe actuel</label>
+        <input id="current_password" name="current_password" type="password" required />
 
-      <label for="new_password">Nouveau mot de passe</label>
-      <input id="new_password" name="new_password" type="password" required />
+        <label for="new_password">Nouveau mot de passe</label>
+        <input id="new_password" name="new_password" type="password" required />
 
-      <button type="submit">Mettre à jour</button>
-    </form>
+        <button type="submit">Mettre à jour</button>
+      </form>
+    </section>
+  {% endif %}
+
+  <section class="ticket-list">
+    <h2>Tickets de {{ profile_user.username }}</h2>
+    {% for ticket in user_tickets %}
+      <article class="ticket">
+        <div class="ticket-head">
+          <h3>{{ ticket.title }}</h3>
+          <span class="status {{ ticket.status }}">{{ ticket.status.replace('_', ' ').title() }}</span>
+        </div>
+        <p>{{ ticket.content }}</p>
+        <small>Créé le {{ ticket.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+      </article>
+    {% else %}
+      <p>Cet utilisateur n'a pas encore créé de ticket.</p>
+    {% endfor %}
   </section>
 {% endblock %}

@@ -194,28 +194,52 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile")
 @login_required
 def profile():
+    return redirect(url_for("user_profile", user_id=g.user.id))
+
+
+@app.route("/users/<int:user_id>", methods=["GET", "POST"])
+@login_required
+def user_profile(user_id: int):
+    profile_user = db.session.get(User, user_id)
+    if profile_user is None:
+        flash("Utilisateur introuvable.", "danger")
+        return redirect(url_for("index"))
+
+    is_own_profile = g.user.id == profile_user.id
+
     if request.method == "POST":
+        if not is_own_profile:
+            flash("Vous ne pouvez modifier le mot de passe que sur votre propre profil.", "danger")
+            return redirect(url_for("user_profile", user_id=user_id))
+
         current_password = request.form.get("current_password", "")
         new_password = request.form.get("new_password", "")
 
         if not current_password or not new_password:
             flash("Veuillez renseigner l'ancien et le nouveau mot de passe.", "danger")
-            return redirect(url_for("profile"))
+            return redirect(url_for("user_profile", user_id=user_id))
 
         if not g.user.check_password(current_password):
             flash("Mot de passe actuel invalide.", "danger")
-            return redirect(url_for("profile"))
+            return redirect(url_for("user_profile", user_id=user_id))
 
         g.user.set_password(new_password)
         db.session.commit()
         flash("Mot de passe mis à jour.", "success")
-        return redirect(url_for("profile"))
+        return redirect(url_for("user_profile", user_id=user_id))
 
-    ticket_count = Ticket.query.filter_by(author_id=g.user.id).count()
-    return render_template("profile.html", ticket_count=ticket_count)
+    user_tickets = Ticket.query.filter_by(author_id=profile_user.id).order_by(Ticket.created_at.desc()).all()
+    ticket_count = len(user_tickets)
+    return render_template(
+        "profile.html",
+        profile_user=profile_user,
+        ticket_count=ticket_count,
+        user_tickets=user_tickets,
+        is_own_profile=is_own_profile,
+    )
 
 
 @app.route("/tickets/new", methods=["GET", "POST"])
