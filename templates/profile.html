@@ -5,7 +5,9 @@
     <ul class="profile-list">
       <li><strong>Nom:</strong> {{ g.user.username }}</li>
       <li><strong>Email:</strong> {{ g.user.email }}</li>
-      <li><strong>Rôle admin:</strong> {{ 'Oui (peut modifier les tickets)' if g.user.is_admin else 'Non' }}</li>
+      {% if g.user and g.user.is_admin %}
+        <li><strong>Rôle admin:</strong> Oui (peut modifier les tickets)</li>
+      {%endif %}
       <li><strong>Nombre de tickets:</strong> {{ ticket_count }}</li>
     </ul>
   </section>
