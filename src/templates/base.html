@@ -4,25 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gestionnaire de tickets</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
   <body>
     <header>
       <h1>Gestionnaire de tickets</h1>
       <nav>
         <a href="{{ url_for('index') }}">Accueil</a>
+        <a href="{{ url_for('ticket.manage_ticket') }}">ticket</a>
         {% if g.user %}
-          <a href="{{ url_for('create_ticket') }}">Nouveau ticket</a>
+          <a href="{{ url_for('ticket.create_ticket') }}">Nouveau ticket</a>
           <div class="account-menu">
             <button type="button" class="pill account-button">{{ g.user.username }}{% if g.user.is_admin %} (admin){% endif %}</button>
             <div class="dropdown">
-              <a href="{{ url_for('profile') }}">Profil</a>
-              <a href="{{ url_for('logout') }}">Déconnexion</a>
+              <a href="{{ url_for('auth.profile') }}">Profil</a>
+              <a href="{{ url_for('auth.logout') }}">Déconnexion</a>
             </div>
           </div>
         {% else %}
-          <a href="{{ url_for('login') }}">Connexion</a>
-          <a href="{{ url_for('register') }}">Inscription</a>
+          <a href="{{ url_for('auth.login') }}">Connexion</a>
+          <a href="{{ url_for('auth.register') }}">Inscription</a>
         {% endif %}
       </nav>
     </header>

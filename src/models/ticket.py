@@ -26,6 +26,11 @@ class Ticket(db.Model):
 
     def __repr__(self) -> str:
         return f"<Ticket {self.title} (status: {self.status})>"
+
+    @classmethod
+    def find_by_id(cls, ticket_id: int) -> "Ticket | None":
+        """Retourne un ticket par son id ou None s'il n'existe pas."""
+        return cast("Ticket | None", cls.query.get(ticket_id))
     
     @classmethod
     def find_all(cls) -> list["Ticket"]:
@@ -44,3 +49,21 @@ class Ticket(db.Model):
             "updated_at": self.updated_at.isoformat(),
             "author_id": self.author_id,
         }
+    
+    @classmethod
+    def create(cls, **kwargs) -> "Ticket":
+        ticket = cls(**kwargs)
+        db.session.add(ticket)
+        db.session.commit()
+        return ticket 
+
+    def update(self, **kwargs) -> None:
+        for key, value in kwargs.items():
+            if hasattr(self, key) and key != "id":
+                setattr(self, key, value)
+        self.updated_at = get_utc_now()
+        self.save()
+
+    def save(self) -> None:
+        db.session.add(self)
+        db.session.commit()

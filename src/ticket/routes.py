@@ -1,9 +1,8 @@
 from flask import flash, g, redirect, render_template, request, url_for
 
-from src.models import Ticket
+from src.models import Ticket, User
 from src.ticket.services import parse_deadline
-from src.models.database import db
-from src.services.services import admin_required, login_required
+from src.utils import admin_required, login_required, get_utc_now
 
 from . import ticket_bp
 
@@ -11,7 +10,7 @@ from . import ticket_bp
 @ticket_bp.route("/<int:ticket_id>/admin", methods=["POST"])
 @admin_required
 def admin_update_ticket(ticket_id: int):
-    ticket = db.session.get(Ticket, ticket_id)
+    ticket = Ticket.find_by_id(ticket_id)
     if ticket is None:
         flash("Ticket introuvable.", "danger")
         return redirect(url_for("ticket.index"))
@@ -24,9 +23,8 @@ def admin_update_ticket(ticket_id: int):
         flash("Statut invalide.", "danger")
         return redirect(url_for("index"))
 
-    ticket.status = status
-    ticket.admin_response = admin_response or None
-    db.session.commit()
+
+    ticket.update(status=status, admin_response=admin_response or None)
 
     flash("Ticket mis à jour.", "success")
     return redirect(url_for("ticket.index"))
@@ -49,9 +47,8 @@ def create_ticket():
             flash("Format de date limite invalide.", "danger")
             return redirect(url_for("create_ticket"))
 
-        ticket = Ticket(title=title, content=content, deadline=deadline, author=g.user)
-        db.session.add(ticket)
-        db.session.commit()
+        ticket = Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
+
 
         flash("Ticket créé avec succès.", "success")
         return redirect(url_for("index"))
@@ -86,3 +83,44 @@ def edit_ticket(ticket_id: int):
         return redirect(url_for("index"))
 
     return render_template("edit_ticket.html", ticket=ticket)
+
+@ticket_bp.route("/manage_tickets")
+def manage_ticket():
+    """Affiche la liste des tickets avec filtres et recherche."""
+
+    status = request.args.get("status", "all")
+    sort = request.args.get("sort", "recent")
+    q = request.args.get("q", "").strip()
+    author = request.args.get("author", "").strip()
+    overdue_only = request.args.get("overdue", "0") == "1"
+    now = get_utc_now()
+
+    query = Ticket.query.join(User)
+
+    if status != "all":
+        query = query.filter(Ticket.status == status)
+
+    if q:
+        query = query.filter((Ticket.title.ilike(f"%{q}%")) | (Ticket.content.ilike(f"%{q}%")))
+
+    if author:
+        query = query.filter(User.username.ilike(f"%{author}%"))
+
+    if overdue_only:
+        query = query.filter(Ticket.deadline.isnot(None), Ticket.deadline < now, Ticket.status != "resolu")
+
+    if sort == "oldest":
+        query = query.order_by(Ticket.created_at.asc())
+    else:
+        query = query.order_by(Ticket.created_at.desc())
+
+    tickets = query.all()
+
+    return render_template(
+        "manage_tickets.html",
+        tickets=tickets,
+        status=status,
+        sort=sort, q=q,
+        author=author,
+        overdue_only=overdue_only
+        )

@@ -1,7 +1,8 @@
 """Modèle User pour les utilisateurs du site (admin, gérant, client)."""
 
+from werkzeug.security import check_password_hash, generate_password_hash
 from typing import Any, cast
-
+from src.utils import get_utc_now
 from src.models.database import db
 
 
@@ -49,3 +50,10 @@ class User(db.Model):
         """Retourne la liste de tous les utilisateurs."""
         return cast(list[User], cls.query.all())
     
+    @classmethod
+    def set_password(cls, password: str) -> None:
+        cls.password_hash = generate_password_hash(password)
+
+    @classmethod
+    def check_password(cls, password: str) -> bool:
+        return check_password_hash(cls.password_hash, password)

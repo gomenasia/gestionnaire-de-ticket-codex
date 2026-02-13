@@ -1,17 +1,8 @@
-from werkzeug.security import check_password_hash, generate_password_hash
 from flask import flash, g, redirect, render_template, request, session, url_for
 
 from src.models import User
-
+from src.utils import login_required
 from . import auth_bp
-
-
-def set_password(self, password: str) -> None:
-    self.password_hash = generate_password_hash(password)
-
-
-def check_password(self, password: str) -> bool:
-    return check_password_hash(self.password_hash, password)
 
 
 @auth_bp.route("/register", methods=["GET", "POST"])
@@ -45,8 +36,9 @@ def login():
     if request.method == "POST":
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
+        retour = request.referrer
 
-        user = User.query.filter_by(email=email).first()
+        user = User.find_by_email(email)
         if user is None or not user.check_password(password):
             flash("Identifiants invalides.", "danger")
             return redirect(url_for("login"))
