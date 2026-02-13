@@ -13,6 +13,7 @@ def set_password(self, password: str) -> None:
 def check_password(self, password: str) -> bool:
     return check_password_hash(self.password_hash, password)
 
+
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -74,7 +75,7 @@ def profile():
 @auth_bp.route("/users/<int:user_id>", methods=["GET", "POST"])
 @login_required
 def user_profile(user_id: int):
-    profile_user = db.session.get(User, user_id)
+    profile_user = User.find_by_id(user_id)
     if profile_user is None:
         flash("Utilisateur introuvable.", "danger")
         return redirect(url_for("index"))

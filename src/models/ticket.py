@@ -1,6 +1,8 @@
 """Modèle Ticket pour les tickets du système de gestion."""
 
 from src.models.database import db
+from src.utils import get_utc_now
+from typing import cast
 
 
 class Ticket(db.Model):

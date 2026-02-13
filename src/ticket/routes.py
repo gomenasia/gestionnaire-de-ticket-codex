@@ -1,9 +1,9 @@
 from flask import flash, g, redirect, render_template, request, url_for
 
-from src.models import User, Ticket
-from src.ticket.services import parse_deadline, format_countdown
-fr
+from src.models import Ticket
+from src.ticket.services import parse_deadline
 from src.models.database import db
+from src.services.services import admin_required, login_required
 
 from . import ticket_bp
 
