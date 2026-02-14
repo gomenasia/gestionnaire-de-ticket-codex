@@ -12,10 +12,10 @@
       <nav>
         <a href="{{ url_for('index') }}">Accueil</a>
         <a href="{{ url_for('ticket.manage_ticket') }}">ticket</a>
-        {% if g.user %}
+        {% if session.get('user_id') %}
           <a href="{{ url_for('ticket.create_ticket') }}">Nouveau ticket</a>
           <div class="account-menu">
-            <button type="button" class="pill account-button">{{ g.user.username }}{% if g.user.is_admin %} (admin){% endif %}</button>
+            <button type="button" class="pill account-button">{{ session.username }}{% if session.is_admin %} (admin){% endif %}</button>
             <div class="dropdown">
               <a href="{{ url_for('auth.profile') }}">Profil</a>
               <a href="{{ url_for('auth.logout') }}">Déconnexion</a>

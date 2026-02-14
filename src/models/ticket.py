@@ -36,6 +36,11 @@ class Ticket(db.Model):
     def find_all(cls) -> list["Ticket"]:
         """Retourne la liste de tous les tickets."""
         return cast(list[Ticket], cls.query.all())
+
+    @classmethod
+    def find_all_by_user(cls, user_id: int) -> list["Ticket"]:
+        """Retourne la liste de tous les tickets."""
+        return cast(list[Ticket], cls.query.filter_by(author_id=user_id).order_by(Ticket.created_at.desc()).all())
     
     def to_dict(self) -> dict:
         return {

@@ -1,8 +1,8 @@
 import tempfile
-from datetime import datetime, timedelta, timezone
 
 import pytest
 
+from datetime import datetime, timedelta, timezone
 from app import Ticket, User, app, db
 
 
@@ -161,7 +161,7 @@ def test_admin_can_update_ticket(client):
     client.post("/tickets/new", data={"title": "A", "content": "B"}, follow_redirects=True)
 
     with app.app_context():
-        admin = User(username="admin", email="admin@example.com", is_admin=True)
+        admin = User(username="admin", email="admin@example.com", role = "admin")
         admin.set_password("secret")
         db.session.add(admin)
         db.session.commit()

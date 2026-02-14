@@ -2,7 +2,6 @@
 
 from werkzeug.security import check_password_hash, generate_password_hash
 from typing import Any, cast
-from src.utils import get_utc_now
 from src.models.database import db
 
 
@@ -11,9 +10,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False, nullable=False)
     role = db.Column(db.String(20), nullable=False, default="user")
-    created_at = db.Column(db.DateTime, default=get_utc_now, nullable=False)
 
     tickets = db.relationship("Ticket", back_populates="author", lazy=True)
 
@@ -25,7 +22,6 @@ class User(db.Model):
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "is_admin": self.is_admin,
             "role": self.role,
             "created_at": self.created_at.isoformat(),
         }
@@ -50,10 +46,22 @@ class User(db.Model):
         """Retourne la liste de tous les utilisateurs."""
         return cast(list[User], cls.query.all())
     
-    @classmethod
-    def set_password(cls, password: str) -> None:
-        cls.password_hash = generate_password_hash(password)
+
+    def set_password(self, password: str) -> None:
+        self.password_hash = generate_password_hash(password)
+
+
+    def check_password(self, password: str) -> bool:
+        return check_password_hash(self.password_hash, password)
 
     @classmethod
-    def check_password(cls, password: str) -> bool:
-        return check_password_hash(cls.password_hash, password)
+    def is_admin_user(cls) -> bool:
+        return cls.role == "admin"
+
+    @classmethod
+    def create_user(cls, username: str, email: str, password: str, role: str = "user") -> "User":
+        """Crée un nouvel utilisateur et le retourne."""
+        user = cls(username=username, email=email, password_hash = generate_password_hash(password) , role=role)
+        db.session.add(user)
+        db.session.commit()
+        return user

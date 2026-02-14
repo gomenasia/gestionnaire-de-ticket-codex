@@ -74,7 +74,7 @@
           </div>
         {% endif %}
 
-        {% if g.user and g.user.is_admin %}
+        {% if g.user and g.user.is_admin_user() %}
           <form method="post" action="{{ url_for('admin_update_ticket', ticket_id=ticket.id) }}" class="admin-form">
             <select name="status">
               <option value="en_attente" {% if ticket.status == 'en_attente' %}selected{% endif %}>En attente</option>

@@ -61,6 +61,6 @@ Puis :
 ```python
 from app import db, User
 u = User.query.filter_by(email="admin@example.com").first()
-u.is_admin = True
+u.role = "admin"
 db.session.commit()
 ```
