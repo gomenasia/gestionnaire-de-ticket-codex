@@ -13,7 +13,7 @@ def admin_update_ticket(ticket_id: int):
     ticket = Ticket.find_by_id(ticket_id)
     if ticket is None:
         flash("Ticket introuvable.", "danger")
-        return redirect(url_for("ticket.index"))
+        return redirect(url_for("index"))
 
     status = request.form.get("status", ticket.status)
     admin_response = request.form.get("admin_response", "").strip()
@@ -27,7 +27,7 @@ def admin_update_ticket(ticket_id: int):
     ticket.update(status=status, admin_response=admin_response or None)
 
     flash("Ticket mis à jour.", "success")
-    return redirect(url_for("ticket.index"))
+    return redirect(url_for("index"))
 
 
 @ticket_bp.route("/new", methods=["GET", "POST"])
@@ -41,11 +41,11 @@ def create_ticket():
 
         if not title or not content:
             flash("Le titre et le contenu sont obligatoires.", "danger")
-            return redirect(url_for("create_ticket"))
+            return redirect(url_for("ticket.create_ticket"))
 
         if deadline_input and deadline is None:
             flash("Format de date limite invalide.", "danger")
-            return redirect(url_for("create_ticket"))
+            return redirect(url_for("ticket.create_ticket"))
 
         ticket = Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
 
@@ -74,7 +74,7 @@ def edit_ticket(ticket_id: int):
 
         if not title or not content:
             flash("Le titre et le contenu sont obligatoires.", "danger")
-            return redirect(url_for("edit_ticket", ticket_id=ticket_id))
+            return redirect(url_for("ticket.edit_ticket", ticket_id=ticket_id))
 
         ticket.title = title
         ticket.content = content

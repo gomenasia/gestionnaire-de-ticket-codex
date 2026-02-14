@@ -14,11 +14,11 @@ def register():
 
         if not username or not email or not password:
             flash("Tous les champs sont obligatoires.", "danger")
-            return redirect(url_for("register"))
+            return redirect(url_for("auth.register"))
 
         if User.query.filter((User.username == username) | (User.email == email)).first():
             flash("Nom d'utilisateur ou email déjà utilisé.", "danger")
-            return redirect(url_for("register"))
+            return redirect(url_for("auth.register"))
 
         user = User(username=username, email=email)
         user.set_password(password)
@@ -26,7 +26,7 @@ def register():
         db.session.commit()
 
         flash("Compte créé avec succès. Connectez-vous.", "success")
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
     return render_template("register.html")
 
@@ -41,7 +41,7 @@ def login():
         user = User.find_by_email(email)
         if user is None or not user.check_password(password):
             flash("Identifiants invalides.", "danger")
-            return redirect(url_for("login"))
+            return redirect(url_for("auth.login"))
 
         session.clear()
         session["user_id"] = user.id
@@ -61,7 +61,7 @@ def logout():
 @auth_bp.route("/profile")
 @login_required
 def profile():
-    return redirect(url_for("user_profile", user_id=g.user.id))
+    return redirect(url_for("auth.user_profile", user_id=g.user.id))
 
 
 @auth_bp.route("/users/<int:user_id>", methods=["GET", "POST"])
@@ -77,23 +77,23 @@ def user_profile(user_id: int):
     if request.method == "POST":
         if not is_own_profile:
             flash("Vous ne pouvez modifier le mot de passe que sur votre propre profil.", "danger")
-            return redirect(url_for("user_profile", user_id=user_id))
+            return redirect(url_for("auth.user_profile", user_id=user_id))
 
         current_password = request.form.get("current_password", "")
         new_password = request.form.get("new_password", "")
 
         if not current_password or not new_password:
             flash("Veuillez renseigner l'ancien et le nouveau mot de passe.", "danger")
-            return redirect(url_for("user_profile", user_id=user_id))
+            return redirect(url_for("auth.user_profile", user_id=user_id))
 
         if not g.user.check_password(current_password):
             flash("Mot de passe actuel invalide.", "danger")
-            return redirect(url_for("user_profile", user_id=user_id))
+            return redirect(url_for("auth.user_profile", user_id=user_id))
 
         g.user.set_password(new_password)
         db.session.commit()
         flash("Mot de passe mis à jour.", "success")
-        return redirect(url_for("user_profile", user_id=user_id))
+        return redirect(url_for("auth.user_profile", user_id=user_id))
 
     user_tickets = Ticket.query.filter_by(author_id=profile_user.id).order_by(Ticket.created_at.desc()).all()
     ticket_count = len(user_tickets)

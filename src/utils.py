@@ -12,7 +12,7 @@ def login_required(view):
     def wrapped_view(*args, **kwargs):
         if g.user is None:
             flash("Vous devez être connecté pour accéder à cette page.", "warning")
-            return redirect(url_for("login"))
+            return redirect(url_for("auth.login"))
         return view(*args, **kwargs)
 
     return wrapped_view
