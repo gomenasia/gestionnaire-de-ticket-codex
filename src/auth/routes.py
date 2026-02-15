@@ -1,11 +1,10 @@
 import re
 
-from flask import flash, redirect, render_template, request, session, url_for
+from flask import flash, g, redirect, render_template, request, session, url_for
 from typing import Optional
 
 from src.models import User, Ticket
 from src.utils import login_required
-from src.auth.utils import get_current_user
 from . import auth_bp
 
 
@@ -105,20 +104,23 @@ def logout():
 @auth_bp.route("/profile")
 @login_required
 def profile():
-    current_user = get_current_user()
-    return redirect(url_for("auth.user_profile", user_id= current_user.id))
+    if not hasattr(g, "user") or g.user is None:
+        flash("Utilisateur introuvable.", "danger")
+        return redirect(url_for("index"))
+
+    return redirect(url_for("auth.user_profile", user_id=g.user.id))
 
 
 @auth_bp.route("/users/<int:user_id>", methods=["POST"])
 @login_required
 def update_profile(user_id: int):
 
-    profile_user = get_current_user()
-    if profile_user is None:
+    profile_user = User.find_by_id(user_id)
+    if profile_user is None or not hasattr(g, "user") or g.user is None:
         flash("Utilisateur introuvable.", "danger")
         return redirect(url_for("index"))
 
-    is_own_profile = get_current_user().id == profile_user.id
+    is_own_profile = g.user.id == profile_user.id
 
     if request.method == "POST":
         if not is_own_profile:
@@ -144,12 +146,12 @@ def update_profile(user_id: int):
 @auth_bp.route("/users/<int:user_id>", methods=["GET"])
 @login_required
 def user_profile(user_id: int):
-    profile_user = get_current_user()
-    if profile_user is None:
+    profile_user = User.find_by_id(user_id)
+    if profile_user is None or not hasattr(g, "user") or g.user is None:
         flash("Utilisateur introuvable.", "danger")
         return redirect(url_for("index"))
 
-    is_own_profile = get_current_user().id == profile_user.id
+    is_own_profile = g.user.id == profile_user.id
 
     user_tickets = Ticket.find_all_by_user(profile_user.id)
     ticket_count = len(user_tickets)

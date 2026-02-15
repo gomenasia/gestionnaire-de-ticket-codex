@@ -1,6 +1,7 @@
 from flask import flash, g, redirect, render_template, request, url_for
 
 from src.models import Ticket, User
+from src.models.database import db
 from src.ticket.services import parse_deadline
 from src.utils import admin_required, login_required, get_utc_now
 
@@ -47,6 +48,10 @@ def create_ticket():
             flash("Format de date limite invalide.", "danger")
             return redirect(url_for("ticket.create_ticket"))
 
+        if not hasattr(g, "user") or g.user is None:
+            flash("Utilisateur introuvable.", "danger")
+            return redirect(url_for("auth.login"))
+
         ticket = Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
 
 
@@ -63,6 +68,10 @@ def edit_ticket(ticket_id: int):
     if ticket is None:
         flash("Ticket introuvable.", "danger")
         return redirect(url_for("index"))
+
+    if not hasattr(g, "user") or g.user is None:
+        flash("Utilisateur introuvable.", "danger")
+        return redirect(url_for("auth.login"))
 
     if ticket.author_id != g.user.id:
         flash("Vous ne pouvez modifier que vos propres tickets.", "danger")
