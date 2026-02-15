@@ -54,9 +54,12 @@ class User(db.Model):
     def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
-    @classmethod
-    def is_admin_user(cls) -> bool:
-        return cls.role == "admin"
+    def save(self) -> None:
+        db.session.add(self)
+        db.session.commit()
+
+    def is_admin_user(self) -> bool:
+        return self.role == "admin"
 
     @classmethod
     def create_user(cls, username: str, email: str, password: str, role: str = "user") -> "User":
