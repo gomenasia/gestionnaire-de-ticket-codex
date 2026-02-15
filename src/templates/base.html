@@ -15,7 +15,7 @@
         {% if session.get('user_id') %}
           <a href="{{ url_for('ticket.create_ticket') }}">Nouveau ticket</a>
           <div class="account-menu">
-            <button type="button" class="pill account-button">{{ session.username }}{% if session.is_admin %} (admin){% endif %}</button>
+            <button type="button" class="pill account-button">{{ session.username }}{% if session.role == "admin" %} (admin){% endif %}</button>
             <div class="dropdown">
               <a href="{{ url_for('auth.profile') }}">Profil</a>
               <a href="{{ url_for('auth.logout') }}">Déconnexion</a>

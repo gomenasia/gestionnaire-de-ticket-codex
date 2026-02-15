@@ -87,7 +87,6 @@ def login():
 
         session.clear()
         session["user_id"] = user.id
-        session["is_admin"] = user.is_admin_user()
         session["role"] = user.role
         session["username"] = user.username
         flash("Connexion réussie.", "success")

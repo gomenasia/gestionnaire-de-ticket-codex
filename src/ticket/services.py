@@ -1,9 +1,6 @@
 from datetime import datetime, time
 
 
-
-
-
 def parse_deadline(value: str):
     if not value:
         return None
