@@ -33,3 +33,11 @@ statistics = true
 [tool.isort] profile = “black” line_length = 110
 
 [tool.mypy] python_version = “3.10” ignore_missing_imports = true
+
+[tool.djlint]
+profile = "jinja"
+indent = 2
+max_line_length = 100
+format_css = true
+format_js = true
+ignore = "H006,H030,H031"

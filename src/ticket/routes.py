@@ -132,4 +132,5 @@ def manage_ticket():
         sort=sort, q=q,
         author=author,
         overdue_only=overdue_only
+        now = get_utc_now()
         )
