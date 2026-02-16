@@ -24,7 +24,6 @@ def admin_update_ticket(ticket_id: int):
         flash("Statut invalide.", "danger")
         return redirect(url_for("index"))
 
-
     ticket.update(status=status, admin_response=admin_response or None)
 
     flash("Ticket mis à jour.", "success")
@@ -91,6 +90,7 @@ def edit_ticket(ticket_id: int):
         return redirect(url_for("ticket.manage_ticket"))
 
     return render_template("edit_ticket.html", ticket=ticket)
+
 
 @ticket_bp.route("/manage_tickets")
 def manage_ticket():

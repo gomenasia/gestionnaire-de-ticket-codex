@@ -13,6 +13,7 @@
       <h1>saperlipopette</h1>
       <nav>
         <a href="{{ url_for('index') }}">Accueil</a>
+        <a href="{{ url_for('planning.see_planning') }}">Planning</a>
         <a href="{{ url_for('ticket.manage_ticket') }}">ticket</a>
         {% if g.user %}
           <a href="{{ url_for('ticket.create_ticket') }}">Nouveau ticket</a>

@@ -11,13 +11,15 @@ from src.ticket import ticket_bp
 from src.models import User
 from src.models.database import db
 from src.api import api_bp
+from src.planning import plan_bp
 
 
 def create_app() -> Flask:
     """Factory Flask pour créer l'application avec la config appropriée."""
     # Déterminer l'environnement
     config_name: str = os.environ.get("FLASK_CONFIG", "development")
-    app: Flask = Flask(__name__, template_folder="src/templates")  # pylint: disable=redefined-outer-name
+    # pylint: disable=redefined-outer-name
+    app: Flask = Flask(__name__, template_folder="src/templates")
     # Configurer l'application avec la config choisie en fonction de l'environnement
     app.config.from_object(config[config_name])
     # Configurer Jinja2 pour un rendu plus propre, sinon erreurs HTML générées
@@ -28,11 +30,10 @@ def create_app() -> Flask:
     # ⚠️ Ne crée PAS les tables automatiquement
     # Pour créer et peupler les tables, exécutez : python3 -m datafixtures.import_all
     db.init_app(app)
-
     app.register_blueprint(ticket_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(api_bp)
-
+    app.register_blueprint(plan_bp)
 
     return app
 
@@ -46,7 +47,7 @@ for rule in app.url_map.iter_rules():
 
 
 @app.route("/")
-def index():    
+def index():
     """Affiche la page d'accueil avec la liste des tickets."""
     return render_template("index.html")
 
