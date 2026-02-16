@@ -3,19 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestionnaire de tickets</title>
+    <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    {% block scripts %}{% endblock scripts %}
   </head>
   <body>
     <header>
-      <h1>Gestionnaire de tickets</h1>
+      <h1>{% block title %}{% endblock title %}</h1>
       <nav>
         <a href="{{ url_for('index') }}">Accueil</a>
         <a href="{{ url_for('ticket.manage_ticket') }}">ticket</a>
-        {% if session.get('user_id') %}
+        {% if g.user %}
           <a href="{{ url_for('ticket.create_ticket') }}">Nouveau ticket</a>
           <div class="account-menu">
-            <button type="button" class="pill account-button">{{ session.username }}{% if session.role == "admin" %} (admin){% endif %}</button>
+            <button type="button" class="pill account-button">{{ g.user.username }}{% if g.user.role == "admin" %} (admin){% endif %}</button>
             <div class="dropdown">
               <a href="{{ url_for('auth.profile') }}">Profil</a>
               <a href="{{ url_for('auth.logout') }}">Déconnexion</a>
@@ -38,6 +39,6 @@
       {% endif %}
     {% endwith %}
 
-    <main>{% block content %}{% endblock %}</main>
+    <main>{% block content %}{% endblock content %}</main>
   </body>
 </html>

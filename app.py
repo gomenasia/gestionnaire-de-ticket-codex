@@ -3,17 +3,13 @@ Configure l'application, initialise la base de données, et définit les routes 
 
 import os
 
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template
 
 from config import config
 from src.auth import auth_bp
 from src.ticket import ticket_bp
-from src.models import Ticket
+from src.models import User
 from src.models.database import db
-
-
-def getTickets() -> list[Ticket]:
-    return Ticket.find_all()
 
 
 def create_app() -> Flask:
@@ -49,8 +45,7 @@ for rule in app.url_map.iter_rules():
 @app.route("/")
 def index():    
     """Affiche la page d'accueil avec la liste des tickets."""
-    tickets = getTickets()
-    return render_template("index.html", tickets=tickets)
+    return render_template("index.html")
 
 
 @app.cli.command("init-db")

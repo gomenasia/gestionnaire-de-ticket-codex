@@ -1,9 +1,13 @@
-[build-system] requires = [“setuptools>=65.5.0”, “wheel”] build-backend
-= “setuptools.build_meta”
+[build-system] 
+requires = ["setuptools>=65.5.0", "wheel"] 
+build-backend = "setuptools.build_meta"
 
-[project] name = “gestionnaire-de-ticket” version = “0.1.0” description
-= “Ticket management system” readme = “README.md” requires-python =
-“>=3.10”
+[project] 
+name = "gestionnaire-de-ticket" 
+version = "0.1.0"
+description = "Ticket management system" 
+readme = "README.md"
+requires-python = ">=3.10"
 
 [tool.flake8]
 max-line-length = 110
@@ -26,13 +30,27 @@ max-complexity = 10
 count = true
 statistics = true
 
+[tool.black] 
+line-length = 110 
+target-version = ["py310"]
+include = ".pyi?$"
+exclude = '''
+/(
+    .git
+  | .venv
+  | venv
+  | build
+  | dist
+)/
+'''
 
-[tool.black] line-length = 110 target-version = [“py310”] include =
-“.pyi?$” exclude = ’’’ /( .git | .venv | venv | build | dist )/ ’’’
+[tool.isort] 
+profile = "black" 
+line_length = 110
 
-[tool.isort] profile = “black” line_length = 110
-
-[tool.mypy] python_version = “3.10” ignore_missing_imports = true
+[tool.mypy] 
+python_version = "3.10" 
+ignore_missing_imports = true
 
 [tool.djlint]
 profile = "jinja"

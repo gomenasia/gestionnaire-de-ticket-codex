@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 def _get_database_uri() -> str:
     """Récupère l'URI de la base de données et convertit les chemins SQLite relatifs en absolus."""
-    db_url = os.environ.get("DATABASE_URL") or "sqlite:///app.db"
+    db_url = os.environ.get("DATABASE_URL") or "sqlite:///instance/app.db"
 
     # Si c'est une URI SQLite avec un chemin relatif (3 slashes), la convertir en absolu
     if db_url.startswith("sqlite:///") and not db_url.startswith("sqlite:////"):

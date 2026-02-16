@@ -42,6 +42,8 @@ def register():
             # Connecter l'utilisateur
             session.clear()
             session["user_id"] = user.id
+            session["role"] = user.role
+            session["username"] = user.username
             
             flash("Compte créé avec succès. Connectez-vous.", "success")
             return redirect(url_for("index"))

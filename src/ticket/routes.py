@@ -2,7 +2,7 @@ from flask import flash, g, redirect, render_template, request, url_for
 
 from src.models import Ticket, User
 from src.models.database import db
-from src.ticket.services import parse_deadline
+from src.ticket.utils import parse_deadline, format_countdown
 from src.utils import admin_required, login_required, get_utc_now
 
 from . import ticket_bp
@@ -52,11 +52,10 @@ def create_ticket():
             flash("Utilisateur introuvable.", "danger")
             return redirect(url_for("auth.login"))
 
-        ticket = Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
-
+        Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
 
         flash("Ticket créé avec succès.", "success")
-        return redirect(url_for("index"))
+        return redirect(url_for("ticket.manage_ticket"))
 
     return render_template("create_ticket.html")
 
@@ -89,48 +88,18 @@ def edit_ticket(ticket_id: int):
         ticket.content = content
         db.session.commit()
         flash("Ticket modifié avec succès.", "success")
-        return redirect(url_for("index"))
+        return redirect(url_for("ticket.manage_ticket"))
 
     return render_template("edit_ticket.html", ticket=ticket)
 
 @ticket_bp.route("/manage_tickets")
 def manage_ticket():
     """Affiche la liste des tickets avec filtres et recherche."""
-
-    status = request.args.get("status", "all")
-    sort = request.args.get("sort", "recent")
-    q = request.args.get("q", "").strip()
-    author = request.args.get("author", "").strip()
-    overdue_only = request.args.get("overdue", "0") == "1"
-    now = get_utc_now()
-
-    query = Ticket.query.join(User)
-
-    if status != "all":
-        query = query.filter(Ticket.status == status)
-
-    if q:
-        query = query.filter((Ticket.title.ilike(f"%{q}%")) | (Ticket.content.ilike(f"%{q}%")))
-
-    if author:
-        query = query.filter(User.username.ilike(f"%{author}%"))
-
-    if overdue_only:
-        query = query.filter(Ticket.deadline.isnot(None), Ticket.deadline < now, Ticket.status != "resolu")
-
-    if sort == "oldest":
-        query = query.order_by(Ticket.created_at.asc())
-    else:
-        query = query.order_by(Ticket.created_at.desc())
-
-    tickets = query.all()
-
+    
+    # On peut récupérer les tickets initiaux ou laisser JavaScript le faire
+    # Pour l'instant, on charge juste le template
     return render_template(
         "manage_tickets.html",
-        tickets=tickets,
-        status=status,
-        sort=sort, q=q,
-        author=author,
-        overdue_only=overdue_only
-        now = get_utc_now()
-        )
+        now=get_utc_now(),
+        format_countdown=format_countdown,
+    )
