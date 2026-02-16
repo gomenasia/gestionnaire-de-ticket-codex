@@ -94,12 +94,49 @@ def edit_ticket(ticket_id: int):
 
 @ticket_bp.route("/manage_tickets")
 def manage_ticket():
-    """Affiche la liste des tickets avec filtres et recherche."""
-    
-    # On peut récupérer les tickets initiaux ou laisser JavaScript le faire
-    # Pour l'instant, on charge juste le template
+    """Affiche la liste des tickets avec filtres, recherche et tri."""
+    status = request.args.get("status", "all")
+    sort = request.args.get("sort", "recent")
+    q = request.args.get("q", "").strip()
+    author = request.args.get("author", "").strip()
+    overdue_only = request.args.get("overdue", "0") == "1"
+    now = get_utc_now()
+
+    query = Ticket.query.join(User)
+
+    if status != "all":
+        query = query.filter(Ticket.status == status)
+
+    if q:
+        query = query.filter(
+            (Ticket.title.ilike(f"%{q}%")) | (Ticket.content.ilike(f"%{q}%"))
+        )
+
+    if author:
+        query = query.filter(User.username.ilike(f"%{author}%"))
+
+    if overdue_only:
+        query = query.filter(
+            Ticket.deadline.isnot(None),
+            Ticket.deadline < now,
+            Ticket.status != "resolu",
+        )
+
+    if sort == "oldest":
+        query = query.order_by(Ticket.created_at.asc())
+    else:
+        query = query.order_by(Ticket.created_at.desc())
+
+    tickets = query.all()
+
     return render_template(
         "manage_tickets.html",
-        now=get_utc_now(),
+        tickets=tickets,
+        now=now,
+        current_status=status,
+        current_sort=sort,
+        current_q=q,
+        current_author=author,
+        current_overdue=overdue_only,
         format_countdown=format_countdown,
     )
