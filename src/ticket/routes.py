@@ -60,7 +60,7 @@ def create_ticket():
     return render_template("create_ticket.html")
 
 
-@ticket_bp.route("/tickets/<int:ticket_id>/edit", methods=["GET", "POST"])
+@ticket_bp.route("/<int:ticket_id>/edit", methods=["GET", "POST"])
 @login_required
 def edit_ticket(ticket_id: int):
     ticket = db.session.get(Ticket, ticket_id)

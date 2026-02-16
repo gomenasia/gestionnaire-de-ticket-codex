@@ -59,3 +59,6 @@ max_line_length = 100
 format_css = true
 format_js = true
 ignore = "H006,H030,H031"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
