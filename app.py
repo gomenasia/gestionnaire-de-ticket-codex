@@ -30,6 +30,8 @@ def create_app() -> Flask:
 
     app.register_blueprint(ticket_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(api_bp)
+
 
     return app
 

@@ -99,14 +99,5 @@
 {% endblock content %}
 
 {% block scripts %}
-<!-- Injecter les infos utilisateur pour JavaScript -->
-<script>
-  {% if g.user %}
-    document.body.dataset.userId = "{{ g.user.id }}";
-    document.body.dataset.isAdmin = "{{ 'true' if g.user.is_admin_user() else 'false' }}";
-  {% endif %}
-</script>
-
-<!-- Script de gestion dynamique des tickets -->
 <script src="{{ url_for('static', filename='js/ticket_manager.js') }}"></script>
 {% endblock scripts %}
