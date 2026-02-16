@@ -2,6 +2,12 @@ class TicketManager {
     constructor() {
         this.form = document.querySelector('.filters form');
         this.ticketsContainer = document.querySelector('.ticket-list');
+        this.apiUrl = this.ticketsContainer?.dataset.apiUrl || '/api/tickets';
+        this.userProfilePath = this.ticketsContainer?.dataset.userProfilePath || '/users';
+        this.ticketEditPath = this.ticketsContainer?.dataset.ticketEditPath || '/ticket/tickets';
+        this.ticketAdminPath = this.ticketsContainer?.dataset.ticketAdminPath || '/ticket';
+        this.abortController = null;
+        this.requestCounter = 0;
         
         // Éléments de filtrage
         this.statusSelect = document.getElementById('status');
@@ -94,11 +100,24 @@ class TicketManager {
     }
 
     async loadTickets() {
+        const currentRequestId = ++this.requestCounter;
+
         try {
+            if (this.abortController) {
+                this.abortController.abort();
+            }
+            this.abortController = new AbortController();
+
             this.showLoading();
             
             const params = this.getFilterParams();
-            const response = await fetch(`/api/tickets?${params.toString()}`);
+            const response = await fetch(`${this.apiUrl}?${params.toString()}`, {
+                signal: this.abortController.signal
+            });
+
+            if (currentRequestId !== this.requestCounter) {
+                return;
+            }
             
             if (!response.ok) {
                 throw new Error('Erreur lors du chargement des tickets');
@@ -111,10 +130,16 @@ class TicketManager {
             this.updateURL(params);
             
         } catch (error) {
+            if (error.name === 'AbortError') {
+                return;
+            }
+
             console.error('Erreur:', error);
             this.showError('Impossible de charger les tickets');
         } finally {
-            this.hideLoading();
+            if (currentRequestId === this.requestCounter) {
+                this.hideLoading();
+            }
         }
     }
 
@@ -148,7 +173,7 @@ class TicketManager {
                 </div>
                 <p>${this.escapeHtml(ticket.content)}</p>
                 <small>
-                    Auteur: <a href="/user/${ticket.author.id}">${this.escapeHtml(ticket.author.username)}</a> · 
+                    Auteur: <a href="${this.userProfilePath}/${ticket.author.id}">${this.escapeHtml(ticket.author.username)}</a> · 
                     Créé le ${createdDate}
                 </small>
                 
@@ -187,7 +212,7 @@ class TicketManager {
         
         return `
             <div class="author-actions">
-                <a class="link-button" href="/ticket/${ticket.id}/edit">Modifier mon ticket</a>
+                <a class="link-button" href="${this.ticketEditPath}/${ticket.id}/edit">Modifier mon ticket</a>
             </div>
         `;
     }
@@ -210,7 +235,7 @@ class TicketManager {
         if (!isAdmin) return '';
         
         return `
-            <form method="post" action="/ticket/${ticket.id}/admin_update" class="admin-form" data-ticket-id="${ticket.id}">
+            <form method="post" action="${this.ticketAdminPath}/${ticket.id}/admin" class="admin-form" data-ticket-id="${ticket.id}">
                 <select name="status">
                     <option value="en_attente" ${ticket.status === 'en_attente' ? 'selected' : ''}>En attente</option>
                     <option value="en_cours" ${ticket.status === 'en_cours' ? 'selected' : ''}>En cours</option>

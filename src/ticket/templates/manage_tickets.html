@@ -43,7 +43,13 @@
     </form>
   </section>
 
-  <section class="ticket-list">
+  <section
+    class="ticket-list"
+    data-api-url="{{ url_for('api.api_tickets') }}"
+    data-user-profile-path="{{ url_for('auth.user_profile', user_id=0)[:-1] }}"
+    data-ticket-edit-path="{{ url_for('ticket.edit_ticket', ticket_id=0).replace('/0/edit', '') }}"
+    data-ticket-admin-path="{{ url_for('ticket.admin_update_ticket', ticket_id=0).replace('/0/admin', '') }}"
+  >
     {% for ticket in tickets %}
       <article class="ticket">
         <div class="ticket-head">
