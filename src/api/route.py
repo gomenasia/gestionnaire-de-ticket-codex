@@ -3,7 +3,7 @@
 from flask import jsonify, request
 from src.models import Ticket, User
 from src.utils import get_utc_now
-from . import api_bp 
+from . import api_bp
 
 @api_bp.route("/tickets")
 def api_tickets():
