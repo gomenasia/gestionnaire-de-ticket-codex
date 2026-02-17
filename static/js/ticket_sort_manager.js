@@ -20,7 +20,7 @@
 
         const submitWithDebounce = () => {
             window.clearTimeout(debounceTimer);
-            debounceTimer = window.setTimeout(submitFilters, 250);
+            debounceTimer = window.setTimeout(submitFilters, 750);
         };
 
         [statusSelect, sortSelect].forEach((element) => {
@@ -34,7 +34,7 @@
             element.addEventListener('search', submitFilters);
         });
     };
-    
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initTicketSortManager);
     } else {
