@@ -1,4 +1,5 @@
 (() => {
+    console.log('Initializing ticket sort manager ===========================================================');
     const form = document.querySelector('.filters form');
     if (!form) return;
 
