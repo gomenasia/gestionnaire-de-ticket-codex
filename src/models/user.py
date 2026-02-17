@@ -13,6 +13,7 @@ class User(db.Model):
     role = db.Column(db.String(20), nullable=False, default="user")
 
     tickets = db.relationship("Ticket", back_populates="author", lazy=True)
+    task = db.relationship("Task", back_populates="author")
 
     def __repr__(self) -> str:
         return f"<User {self.username} ({self.role})>"
