@@ -56,8 +56,7 @@
         </small>
 
         {% if ticket.deadline %}
-          print('ticket deadline:', ticket.deadline, 'now:', now);
-          <div class="deadline {% if ticket.deadline < now and ticket.status != 'resolu' %}late{% endif %}">
+          <div class="deadline {% if is_deadline_late(ticket.deadline, now) and ticket.status != 'resolu' %}late{% endif %}">
             <strong>Échéance:</strong> {{ ticket.deadline.strftime('%d/%m/%Y') }} · {{ format_countdown(ticket.deadline, now) }}
           </div>
         {% endif %}

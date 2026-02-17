@@ -4,6 +4,7 @@ import pytest
 
 from datetime import datetime, timedelta, timezone
 from app import Ticket, User, app, db
+from src.ticket.utils import format_countdown, is_deadline_late
 
 
 @pytest.fixture
@@ -158,3 +159,11 @@ def test_admin_can_update_ticket(client):
 
     assert b"Ticket mis" in response.data
     assert b"Corrig" in response.data
+
+
+def test_deadline_helpers_handle_mixed_timezone_datetimes():
+    deadline_aware = datetime(2030, 1, 2, 0, 0, tzinfo=timezone.utc)
+    reference_naive = datetime(2030, 1, 1, 23, 0)
+
+    assert format_countdown(deadline_aware, reference_naive) == "0j 1h restantes"
+    assert is_deadline_late(reference_naive, deadline_aware) is True

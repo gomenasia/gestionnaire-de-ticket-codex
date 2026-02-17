@@ -13,8 +13,18 @@ def parse_deadline(value: str):
     return datetime.combine(parsed_date, time.max, tzinfo=timezone.utc)
 
 
+def to_utc_aware(value: datetime) -> datetime:
+    if value.tzinfo is None:
+        return value.replace(tzinfo=timezone.utc)
+    return value.astimezone(timezone.utc)
+
+
+def is_deadline_late(deadline: datetime, reference: datetime) -> bool:
+    return to_utc_aware(deadline) < to_utc_aware(reference)
+
+
 def format_countdown(deadline: datetime, reference: datetime) -> str:
-    seconds_left = int((deadline - reference).total_seconds())
+    seconds_left = int((to_utc_aware(deadline) - to_utc_aware(reference)).total_seconds())
     days = abs(seconds_left) // 86400
     hours = (abs(seconds_left) % 86400) // 3600
 
