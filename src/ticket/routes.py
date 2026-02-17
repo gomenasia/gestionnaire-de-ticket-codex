@@ -1,9 +1,11 @@
+from datetime import timezone
+
 from flask import flash, g, redirect, render_template, request, url_for
 
 from src.models import Ticket, User
 from src.models.database import db
-from src.ticket.utils import parse_deadline, format_countdown
-from src.utils import admin_required, login_required
+from src.ticket.utils import format_countdown, is_deadline_late, parse_deadline
+from src.utils import admin_required, get_utc_now, login_required
 
 from . import ticket_bp
 
@@ -120,6 +122,8 @@ def manage_ticket():
 
     tickets = query.all()
 
+    now = get_utc_now().astimezone(timezone.utc)
+
     return render_template(
         "manage_tickets.html",
         tickets=tickets,
@@ -127,5 +131,7 @@ def manage_ticket():
         current_sort=sort,
         current_q=q,
         current_author=author,
+        now=now,
         format_countdown=format_countdown,
+        is_deadline_late=is_deadline_late,
     )
