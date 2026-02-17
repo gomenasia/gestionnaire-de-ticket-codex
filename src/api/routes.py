@@ -2,7 +2,6 @@
 
 from flask import jsonify, request
 from src.models import Ticket, User
-from src.utils import get_utc_now
 from . import api_bp
 
 @api_bp.route("/tickets")
@@ -13,7 +12,6 @@ def api_tickets():
     sort = request.args.get("sort", "recent")
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
-    now = get_utc_now()
 
     query = Ticket.query.join(User)
 

@@ -1,4 +1,4 @@
-from datetime import datetime, time
+from datetime import datetime, time, timezone
 
 
 def parse_deadline(value: str):
@@ -10,7 +10,7 @@ def parse_deadline(value: str):
     except ValueError:
         return None
 
-    return datetime.combine(parsed_date, time.max)
+    return datetime.combine(parsed_date, time.max, tzinfo=timezone.utc)
 
 
 def format_countdown(deadline: datetime, reference: datetime) -> str:

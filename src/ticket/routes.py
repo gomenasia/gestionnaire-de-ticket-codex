@@ -3,7 +3,7 @@ from flask import flash, g, redirect, render_template, request, url_for
 from src.models import Ticket, User
 from src.models.database import db
 from src.ticket.utils import parse_deadline, format_countdown
-from src.utils import admin_required, login_required, get_utc_now
+from src.utils import admin_required, login_required
 
 from . import ticket_bp
 
@@ -99,7 +99,6 @@ def manage_ticket():
     sort = request.args.get("sort", "recent")
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
-    now = get_utc_now()
 
     query = Ticket.query.join(User)
 
@@ -124,7 +123,6 @@ def manage_ticket():
     return render_template(
         "manage_tickets.html",
         tickets=tickets,
-        now=now,
         current_status=status,
         current_sort=sort,
         current_q=q,

@@ -11,6 +11,7 @@ from src.ticket import ticket_bp
 from src.models.database import db
 from src.api import api_bp
 from src.planning import plan_bp
+from src.utils import get_utc_now
 
 
 def create_app() -> Flask:
@@ -44,6 +45,9 @@ for rule in app.url_map.iter_rules():
         f"Endpoint: {rule.endpoint}, Methods: {','.join(rule.methods)}, URL: {rule.rule}"
     ) """
 
+@app.context_processor
+def inject_now():
+    return {"now": get_utc_now()}
 
 @app.route("/")
 def index():
