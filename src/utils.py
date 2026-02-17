@@ -1,10 +1,10 @@
 from functools import wraps
-from datetime import datetime
+from datetime import datetime, timezone
 from flask import flash, g, redirect, url_for
 
 
 def get_utc_now():
-    return datetime.utcnow()
+    return datetime.now(timezone.utc)
 
 def login_required(view):
     @wraps(view)

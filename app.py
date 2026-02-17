@@ -8,7 +8,6 @@ from flask import Flask, render_template
 from config import config
 from src.auth import auth_bp
 from src.ticket import ticket_bp
-from src.models import User
 from src.models.database import db
 from src.api import api_bp
 from src.planning import plan_bp

@@ -12,6 +12,7 @@
           <option value="en_attente" {% if current_status == 'en_attente' %}selected{% endif %}>En attente</option>
           <option value="en_cours" {% if current_status == 'en_cours' %}selected{% endif %}>En cours</option>
           <option value="resolu" {% if current_status == 'resolu' %}selected{% endif %}>Résolu</option>
+          <option value="en_retard" {% if current_status == 'en_retard' %}selected{% endif %}>En retard</option>
         </select>
       </div>
 
@@ -31,13 +32,6 @@
       <div class="filter-item grow">
         <label for="author">Auteur</label>
         <input type="search" id="author" name="author" placeholder="nom d'utilisateur" value="{{ current_author }}" />
-      </div>
-
-      <div class="filter-item checkbox-item">
-        <label class="inline-check" for="overdue">
-          <input type="checkbox" id="overdue" name="overdue" value="1" {% if current_overdue %}checked{% endif %} />
-          Voir seulement les tickets en retard
-        </label>
       </div>
 
     </form>
@@ -62,6 +56,7 @@
         </small>
 
         {% if ticket.deadline %}
+          print('ticket deadline:', ticket.deadline, 'now:', now);
           <div class="deadline {% if ticket.deadline < now and ticket.status != 'resolu' %}late{% endif %}">
             <strong>Échéance:</strong> {{ ticket.deadline.strftime('%d/%m/%Y') }} · {{ format_countdown(ticket.deadline, now) }}
           </div>

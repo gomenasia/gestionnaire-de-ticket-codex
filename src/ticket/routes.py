@@ -92,14 +92,13 @@ def edit_ticket(ticket_id: int):
     return render_template("edit_ticket.html", ticket=ticket)
 
 
-@ticket_bp.route("/manage_tickets")
+@ticket_bp.route("/")
 def manage_ticket():
     """Affiche la liste des tickets avec filtres, recherche et tri."""
     status = request.args.get("status", "all")
     sort = request.args.get("sort", "recent")
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
-    overdue_only = request.args.get("overdue", "0") == "1"
     now = get_utc_now()
 
     query = Ticket.query.join(User)
@@ -114,13 +113,6 @@ def manage_ticket():
 
     if author:
         query = query.filter(User.username.ilike(f"%{author}%"))
-
-    if overdue_only:
-        query = query.filter(
-            Ticket.deadline.isnot(None),
-            Ticket.deadline < now,
-            Ticket.status != "resolu",
-        )
 
     if sort == "oldest":
         query = query.order_by(Ticket.created_at.asc())
@@ -137,6 +129,5 @@ def manage_ticket():
         current_sort=sort,
         current_q=q,
         current_author=author,
-        current_overdue=overdue_only,
         format_countdown=format_countdown,
     )

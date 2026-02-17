@@ -13,7 +13,6 @@ def api_tickets():
     sort = request.args.get("sort", "recent")
     q = request.args.get("q", "").strip()
     author = request.args.get("author", "").strip()
-    overdue_only = request.args.get("overdue", "0") == "1"
     now = get_utc_now()
 
     query = Ticket.query.join(User)
@@ -26,9 +25,6 @@ def api_tickets():
 
     if author:
         query = query.filter(User.username.ilike(f"%{author}%"))
-
-    if overdue_only:
-        query = query.filter(Ticket.deadline.isnot(None), Ticket.deadline < now, Ticket.status != "resolu")
 
     if sort == "oldest":
         query = query.order_by(Ticket.created_at.asc())

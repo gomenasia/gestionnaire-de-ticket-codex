@@ -59,25 +59,6 @@ def test_register_login_and_create_ticket_with_deadline(client):
     assert b"\xc3\x89ch\xc3\xa9ance" in response.data
 
 
-def test_overdue_filter_only_shows_late_tickets(client):
-    register(client)
-    login(client)
-
-    client.post(
-        "/tickets/new",
-        data={"title": "Ticket futur", "content": "ok", "deadline": "2099-01-01"},
-        follow_redirects=True,
-    )
-
-    with app.app_context():
-        ticket = Ticket.query.filter_by(title="Ticket futur").first()
-        ticket.deadline = datetime.now(timezone.utc) - timedelta(days=2)
-        db.session.commit()
-
-    response = client.get("/?overdue=1")
-    assert b"Ticket futur" in response.data
-
-
 def test_author_can_edit_own_ticket(client):
     register(client)
     login(client)

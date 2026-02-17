@@ -1,13 +1,9 @@
-// Synchronise les filtres de la page de gestion des tickets
-// et applique le tri/filtrage instantanément.
-
 (() => {
     const form = document.querySelector('.filters form');
     if (!form) return;
 
     const statusSelect = form.querySelector('#status');
     const sortSelect = form.querySelector('#sort');
-    const overdueCheckbox = form.querySelector('#overdue');
     const searchInput = form.querySelector('#q');
     const authorInput = form.querySelector('#author');
 
@@ -22,18 +18,16 @@
     };
 
     const submitWithDebounce = () => {
+        print('input changed, debounce submit');
         window.clearTimeout(debounceTimer);
         debounceTimer = window.setTimeout(submitFilters, 250);
     };
 
     [statusSelect, sortSelect].forEach((element) => {
+        print('adding change listener to', element);
         if (!element) return;
         element.addEventListener('change', submitFilters);
     });
-
-    if (overdueCheckbox) {
-        overdueCheckbox.addEventListener('change', submitFilters);
-    }
 
     [searchInput, authorInput].forEach((element) => {
         if (!element) return;

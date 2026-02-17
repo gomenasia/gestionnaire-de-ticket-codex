@@ -17,9 +17,9 @@ class Ticket(db.Model):
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), default="en_attente", nullable=False)
     admin_response = db.Column(db.Text, nullable=True)
-    deadline = db.Column(db.DateTime, nullable=True)
-    created_at = db.Column(db.DateTime, default=get_utc_now, nullable=False)
-    updated_at = db.Column(db.DateTime, default=get_utc_now, onupdate=get_utc_now, nullable=False)
+    deadline = db.Column(db.DateTime(timezone=True), nullable=True)
+    created_at = db.Column(db.DateTime(timezone=True), default=lambda: get_utc_now(), nullable=False)
+    updated_at = db.Column(db.DateTime(timezone=True), default=lambda: get_utc_now(), onupdate=lambda: get_utc_now(), nullable=False)
 
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     author = db.relationship("User", back_populates="tickets")
