@@ -1,4 +1,7 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}Profil de {{ profile_user.username }}{% endblock title %}
+
 {% block content %}
   <section class="card">
     <h2>Profil de {{ profile_user.username }}</h2>
@@ -42,4 +45,8 @@
       <p>Cet utilisateur n'a pas encore créé de ticket.</p>
     {% endfor %}
   </section>
-{% endblock %}
+{% endblock content %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Auth.css') }}" />
+{% endblock styles %}

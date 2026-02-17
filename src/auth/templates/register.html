@@ -1,4 +1,7 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}Inscription{% endblock title %}
+
 {% block content %}
   <section class="card">
     <h2>Inscription</h2>
@@ -7,6 +10,7 @@
       <input id="username" name="username" type="text" required />
 
       <label for="email">Email</label>
+      <i class="fa fa-envelope"></i>
       <input id="email" name="email" type="email" required />
 
       <label for="password">Mot de passe</label>
@@ -14,5 +18,16 @@
 
       <button type="submit">Créer le compte</button>
     </form>
+    <div class="form-control-other">
+      <a href="{{ url_for('auth.login') }}" id="login">Se connecter</a>
+    </div>
   </section>
-{% endblock %}
+{% endblock content %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/checkout_login_register.js') }}"></script>
+{% endblock scripts %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Auth.css') }}" />
+{% endblock styles %}
