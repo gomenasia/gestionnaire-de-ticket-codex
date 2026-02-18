@@ -1,15 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="planning">
-    <details class="semaine">
-        <summary>Semaine 1</summary>
-        <ul>
-            <li class="taches">
-                <details class="tache">
-                    <summary>yfefrfufhrfur<input type="checkbox"></summary>
-                </details>
-            </li>
-        </ul>
-    </details>
+    {% for semaine in planning %}
+        <details class="semaine">
+            <summary>{{ semaine.title }}</summary>
+            <p>{{ semaine.content }}</p>
+            <ul class="taches">
+                {% for tache in semaine.children %}
+                    <li>
+                        <details class="tache">
+                            <summary>{{ tache.title }}<input type="checkbox" disabled></summary>
+                            <p>{{ tache.content }}</p>
+                            <li class="soustaches">
+                                {% for subtache in tache.children %}
+                                    <li class="soustache">
+                                        <details>
+                                        <summary>{{ subtache.title }}<input type="checkbox"></summary>
+                                        <p>{{ subtache.content }}</p>
+                                        </details>
+                                    </li>
+                                {% endfor %}
+                            </li>
+                        </details>
+                    </li>
+                {% endfor %}
+            </ul>
+        </details>
+    {% endfor %}
 </section>
 {% endblock content %}
