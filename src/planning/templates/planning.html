@@ -1,31 +1,19 @@
 {% extends "base.html" %}
+{% macro render_item(item, depth=0) %}
+<details style="margin-left: {{ depth * 20 }}px">
+    <summary>{{ item.title }}</summary>
+    <p>{{ item.content }}</p>
+    {% if item.children %}
+        {% for child in item.children %}
+            {{ render_item(child, depth + 1) }}
+        {% endfor %}
+    {% endif %}
+</details>
+{% endmacro %}
 {% block content %}
 <section class="planning">
     {% for semaine in planning %}
-        <details class="semaine">
-            <summary>{{ semaine.title }}</summary>
-            <p>{{ semaine.content }}</p>
-            <ul class="taches">
-                {% for tache in semaine.children %}
-                    <li>
-                        <details class="tache">
-                            <summary>{{ tache.title }}<input type="checkbox" disabled></summary>
-                            <p>{{ tache.content }}</p>
-                            <li class="soustaches">
-                                {% for subtache in tache.children %}
-                                    <li class="soustache">
-                                        <details>
-                                        <summary>{{ subtache.title }}<input type="checkbox"></summary>
-                                        <p>{{ subtache.content }}</p>
-                                        </details>
-                                    </li>
-                                {% endfor %}
-                            </li>
-                        </details>
-                    </li>
-                {% endfor %}
-            </ul>
-        </details>
+        {{ render_item(semaine) }}
     {% endfor %}
 </section>
 {% endblock content %}
