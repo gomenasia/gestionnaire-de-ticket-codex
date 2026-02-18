@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEN — Travaux Pratiques L2 Informatique</title>
+  <link rel="stylesheet" href="ressource.css" />
+</head>
+<body>
+
+<header>
+  <h1>GEN — Travaux Pratiques</h1>
+  <p>L2 Informatique · ISTIC · Janvier 2025</p>
+</header>
+
+<nav>
+  <a href="#tp1">TP 1</a>
+  <a href="#tp2">TP 2</a>
+  <a href="#tp3">TP 3–4</a>
+  <a href="#tp5">TP 5–6</a>
+  <a href="#tp7">TP 7–8</a>
+  <a href="#tp9">TP 9–10</a>
+</nav>
+
+<div class="container">
+
+  <!-- TP 1 -->
+  <section id="tp1">
+    <h2>TP 1 — Sujet à réaliser en binôme</h2>
+
+    <div class="objective">
+      <p><strong>Objectif :</strong> Réaliser dans VS Code un programme Java qui manipule des formes géométriques. Chaque binôme se concentre sur une forme particulière (Cercle, Ligne, Polygone, Rectangle ou Triangle) implémentant l'interface <code>IForme</code> dans le package <code>fr.univrennes.istic.l2gen.geometrie</code>.</p>
+    </div>
+
+    <div class="alert">
+      <strong>Nota Bene :</strong> Il est impératif de respecter le nommage de tous les éléments d'interface : cela sera testé automatiquement et toute erreur entraînera un 0. Les sujets sont volontairement sous-spécifiés — c'est à vous de combler les trous.
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 1</div>
+      <p>Créer un nouveau projet Java dans VS Code (<em>No build tools</em>) nommé <code>L2Gen</code>. Créer le package <code>fr.univrennes.istic.l2gen.geometrie</code> et y ajouter les classes <code>Point</code> et la forme assignée implémentant <code>IForme</code>.</p>
+      <p>La méthode <code>String description(int indentation)</code> retourne une description textuelle préfixée par l'indentation (2 espaces par cran). Exemples :</p>
+      <div class="code-label">Sortie attendue — Cercle</div>
+      <div class="output"> Cercle centre=256,256 r=128.0</div>
+      <div class="code-label">Sortie attendue — Rectangle</div>
+      <div class="output"> Rectangle Centre=256,256 L=256.0 H=128.0</div>
+      <div class="code-label">Sortie attendue — Triangle</div>
+      <div class="output"> Triangle 192,128 256,128 256,256</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 2</div>
+      <p>Créer une classe <code>Groupe</code> implémentant <code>IForme</code>, avec le constructeur <code>Groupe(IForme ... formes)</code>. Ajouter dans <code>IForme</code>, la forme et <code>Groupe</code> les méthodes :</p>
+      <ul>
+        <li><code>deplacer(double dx, double dy)</code></li>
+        <li><code>dupliquer()</code></li>
+        <li><code>redimensionner(double px, double py)</code></li>
+      </ul>
+      <p>Construire et vérifier l'arbre suivant :</p>
+<pre><code>Groupe arbre(IForme figure) {
+    Groupe groupe = new Groupe(figure);
+    IForme mini = figure.dupliquer();
+    mini.redimensionner(0.5, 0.5);
+    groupe.ajouter(mini);
+    IForme minigroupe = groupe.dupliquer();
+    minigroupe.redimensionner(0.25, 0.25);
+    groupe.ajouter(minigroupe);
+    return groupe;
+}</code></pre>
+      <div class="code-label">Sortie attendue — Cercle</div>
+      <div class="output">Groupe
+  Cercle centre=256,256 r=128.0
+  Cercle centre=256,256 r=64.0
+  Groupe
+    Cercle centre=256,256 r=32.0
+    Cercle centre=256,256 r=16.0</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 3</div>
+      <p>Ajouter dans <code>IForme</code> la méthode <code>String enSVG()</code> et l'implémenter pour la forme et <code>Groupe</code>. Sauvegarder le résultat dans un fichier <code>.svg</code> entouré des balises <code>&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;</code> et <code>&lt;/svg&gt;</code>.</p>
+      <div class="code-label">Exemple — Cercle</div>
+      <div class="output">&lt;circle cx="256.0" cy="256.0" r="128.0" fill="white" stroke="black"/&gt;</div>
+      <div class="code-label">Exemple — Rectangle</div>
+      <div class="output">&lt;rect x="128.0" y="192.0" width="256.0" height="128.0" fill="white" stroke="black"/&gt;</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 4 <span class="badge">Parcours Défi</span></div>
+      <p>Écrire une méthode récursive <code>IForme fractale(IForme base, int profondeur)</code> qui duplique la forme de base 4 fois à une échelle 1/2, jusqu'à un certain niveau de profondeur.</p>
+    </div>
+  </section>
+
+  <!-- TP 2 -->
+  <section id="tp2">
+    <h2>TP 2 — Intégration de code et évolutions</h2>
+
+    <div class="objective">
+      <p><strong>Objectif :</strong> Mettre en commun le travail du TP1, puis faire évoluer le logiciel en équipe. Le groupe est divisé en deux équipes : <strong>Alpha</strong> et <strong>Bravo</strong>.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 1</div>
+      <p>Partager le code du package <code>fr.univrennes.istic.l2gen.geometrie</code> avec toute l'équipe. Chacun doit disposer de toutes les classes : <code>Cercle</code>, <code>Ligne</code>, <code>Polygone</code>, <code>Rectangle</code>, <code>Triangle</code>, <code>Groupe</code>.</p>
+      <p>Le programme suivant doit fonctionner :</p>
+<pre><code>Groupe tableau = new Groupe();
+tableau.ajouter(new Cercle(256, 256, 128));
+tableau.ajouter(new Ligne(128, 128, 128, 256, 256, 128, 256, 256));
+tableau.ajouter(new Polygone(128, 128, 128, 256, 256, 128, 256, 256));
+tableau.ajouter(new Rectangle(256, 256, 256, 128));
+tableau.ajouter(new Triangle(192, 128, 256, 128, 256, 256));
+System.out.println(tableau.enSVG());</code></pre>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 2</div>
+      <p>Ajouter les fonctionnalités suivantes :</p>
+      <ol>
+        <li>Classe <code>Texte</code> implémentant <code>IForme</code>, dont <code>enSVG()</code> produit une balise <code>&lt;text&gt;</code>.</li>
+        <li>Méthode <code>colorier(String ... couleurs)</code> dans <code>IForme</code> et toutes ses sous-classes. Dans <code>Groupe</code>, les couleurs sont appliquées de façon cyclique à chaque élément.</li>
+        <li>Refaire le programme de Q1 avec des couleurs et visualiser le SVG.</li>
+        <li>Composer un tableau de style art moderne.</li>
+      </ol>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 3</div>
+      <p>Réorganiser la base de code avec l'héritage pour factoriser le code commun, en respectant le principe de substituabilité de Liskov. Dessiner le diagramme UML correspondant, puis modifier le code en conséquence.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 4 <span class="badge">Parcours Défi</span></div>
+      <p>Passer à une <strong>API fluente</strong> : modifier <code>IForme</code> pour que chaque méthode retourne <code>IForme</code> au lieu de <code>void</code>, permettant les chaînes d'appels :</p>
+<pre><code>IForme r = new Rectangle(50, 50, 100, 100).colorier("blue").deplacer(20, 20);</code></pre>
+    </div>
+  </section>
+
+  <!-- TP 3-4 -->
+  <section id="tp3">
+    <h2>TP 3–4 — Système de Gestion de Versions — Git</h2>
+
+    <div class="objective">
+      <p><strong>Objectif :</strong> Utiliser Git pour versionner des projets : création de dépôt, récupération, synchronisation à plusieurs, résolution de conflits, et application au projet geometrie.</p>
+      <p>Se connecter sur le GitLab de l'ISTIC : <code>https://gitlab2.istic.univ-rennes1.fr/</code></p>
+    </div>
+
+    <h3>TP 3 — Initiation à Git</h3>
+
+    <div class="question">
+      <div class="question-label">3.1 — Création d'un projet et import initial</div>
+      <ol>
+        <li>Sur GitLab : créer un nouveau projet (<em>Create blank project</em>)</li>
+        <li>Ajouter des participants : Manage &gt; Members</li>
+        <li>Dans un terminal : <code>git clone &lt;URL&gt;</code></li>
+        <li>Ajouter un dossier <code>doc/</code> avec un fichier <code>README.txt</code></li>
+        <li>Versionner : <code>git add</code>, <code>git commit</code>, <code>git push</code></li>
+        <li>Vérifier sur GitLab que le dépôt est bien mis à jour</li>
+      </ol>
+    </div>
+
+    <div class="question">
+      <div class="question-label">3.5 — Résolution des conflits</div>
+      <ol>
+        <li>Avec votre voisin, modifier la même ligne de deux façons différentes</li>
+        <li>Propager : <code>git add</code>, <code>git commit</code>, <code>git push</code></li>
+        <li>Récupérer : <code>git pull</code> — l'un des deux verra un conflit</li>
+        <li>Résoudre le conflit puis re-pousser</li>
+        <li>Répéter pour que le second binôme observe aussi un conflit</li>
+      </ol>
+    </div>
+
+    <h3>TP 4 — Application au projet geometrie</h3>
+
+    <div class="question">
+      <div class="question-label">4.1 — Création du dépôt du projet</div>
+      <p>Un seul membre initialise le projet sur GitLab :</p>
+      <ul>
+        <li>Nom du projet : <code>L2GEN&lt;numéro groupe&gt;&lt;nom équipe&gt;</code></li>
+        <li>Ajouter tous les membres + l'encadrant avec le rôle <strong>Maintainer</strong></li>
+        <li>Copier le dossier <code>src/</code> du TP2 et le versionner</li>
+      </ul>
+    </div>
+
+    <div class="question">
+      <div class="question-label">4.4 — Éviter les conflits de mise en forme</div>
+      <p>Activer dans VS Code : <strong>File &gt; Preferences &gt; Editor &gt; Format on save</strong> pour que tous les développeurs utilisent la même mise en forme.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">4.5 — Fichier .gitignore</div>
+<pre><code># bloop, metals and vscode
+.bloop
+.vscode
+.bsp
+.metals
+bin</code></pre>
+    </div>
+
+    <div class="question">
+      <div class="question-label">4.6 — Convention pour les messages de commit</div>
+      <ul>
+        <li><code>fix:</code> ce commit corrige un bug (préciser lequel)</li>
+        <li><code>feat:</code> ce commit introduit une nouvelle fonctionnalité (préciser laquelle)</li>
+      </ul>
+      <p>Plus de détails sur <code>https://www.conventionalcommits.org</code></p>
+    </div>
+  </section>
+
+  <!-- TP 5-6 -->
+  <section id="tp5">
+    <h2>TP 5–6 — Test avec JUnit</h2>
+
+    <div class="objective">
+      <p><strong>Objectif :</strong> Tester le package <code>fr.univrennes.istic.l2gen.geometrie</code> à l'aide de JUnit. Vérifier que JUnit est correctement installé dans VS Code.</p>
+    </div>
+
+    <h3>TP 5 — Mise en place de JUnit</h3>
+
+    <div class="question">
+      <div class="question-label">5.3 — Création du dossier de test (un seul membre)</div>
+      <p>À la racine du projet, créer un dossier <code>test/fr/univrennes/istic/l2gen/geometrie/</code>. La hiérarchie de tests doit être parallèle à <code>src/</code>.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">5.5 — Écriture des tests unitaires</div>
+      <p>Pour chaque classe du package, créer une classe de test JUnit. Exemple pour <code>Cercle</code> :</p>
+<pre><code>package fr.univrennes.istic.l2gen.geometrie;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+public class CercleTest {
+    Cercle c;
+
+    @Before
+    public void setUp() {
+        c = new Cercle(100, 100, 50);
+    }
+
+    @Test
+    public void testDescription() { /* ... */ }
+
+    @Test
+    public void testDupliquer() { /* ... */ }
+
+    @Test
+    public void testEnSVG() { /* ... */ }
+}</code></pre>
+      <div class="alert">
+        <strong>Important :</strong> On ne supprime jamais un test qui passe. Les tests servent de tests de non-régression : ils vérifient que les nouvelles fonctionnalités ne cassent pas l'existant.
+      </div>
+    </div>
+
+    <h3>TP 6 — Séparation codage et test</h3>
+
+    <div class="objective">
+      <p>Développer en parallèle le code et les tests de la classe <code>Secteur</code>. Séparer l'équipe en deux sous-équipes : <strong>codeurs</strong> et <strong>testeurs</strong>.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 2 — description()</div>
+<pre><code>IForme f = new Secteur(256, 256, 128, 0, 60);
+System.out.println(f.description(1));</code></pre>
+      <div class="code-label">Sortie attendue</div>
+      <div class="output"> Secteur centre=256,256 r=128.0 Angle=0.0 Arc=60.0</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 4 — enSVG()</div>
+<pre><code>IForme f = new Secteur(256, 256, 128, 0, 60);
+System.out.println(f.enSVG());</code></pre>
+      <div class="code-label">Sortie attendue</div>
+      <div class="output">&lt;path d="M256 256 l0,-128 A 128.0 128.0 0 0 1 367,192 Z"
+    fill="white" stroke="black"/&gt;</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 5 <span class="badge">Parcours Défi</span></div>
+      <p>Implémenter et tester la classe <code>Pentagone</code> (régulier), caractérisé par un centre et une hauteur.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 6 <span class="badge">Parcours Défi</span></div>
+      <p>Généraliser à tout polygone régulier (Hexagone, Octogone...).</p>
+    </div>
+  </section>
+
+  <!-- TP 7-8 -->
+  <section id="tp7">
+    <h2>TP 7–8 — Test Driven Development</h2>
+
+    <div class="objective">
+      <p><strong>Rappel de la méthode TDD :</strong></p>
+      <ol>
+        <li>Écrire le(s) test(s) montrant que la fonctionnalité X fonctionne</li>
+        <li>Lancer JUnit et <strong>vérifier que le test échoue</strong> (X n'existe pas encore)</li>
+        <li>Écrire le code nécessaire pour passer le test (<strong>et pas plus</strong>)</li>
+        <li>Vérifier que le test passe, sinon retourner en 3</li>
+        <li>Remanier si nécessaire (principe KISS)</li>
+      </ol>
+    </div>
+
+    <h3>TP 7 — TDD de méthodes</h3>
+
+    <div class="question">
+      <div class="question-label">Question 1 — tourner(int angle)</div>
+      <p>Ajouter dans <code>IForme</code> et toutes ses sous-classes la méthode <code>tourner(int angle)</code>. Concrètement, <code>description()</code> affiche un champ <code>angle=xxx</code> et <code>enSVG()</code> ajoute <code>transform="rotate(angle)"</code> si l'angle est non nul. Dans <code>Groupe</code>, déléguer aux éléments du groupe.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 2 — aligner(Alignement, double cible)</div>
+      <p>Ajouter dans <code>IForme</code> une méthode <code>default IForme aligner(Alignement alignement, double cible)</code> qui aligne le HAUT, BAS, DROITE ou GAUCHE de la forme sur l'axe cible. Créer l'enum :</p>
+<pre><code>public enum Alignement {
+    HAUT, BAS, DROITE, GAUCHE
+}</code></pre>
+    </div>
+
+    <h3>TP 8 — TDD de nouvelles classes</h3>
+
+    <div class="objective">
+      <p><strong>Objectif :</strong> Démarrer le package <code>fr.univrennes.istic.l2gen.visustats</code> pour représenter graphiquement des données statistiques.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 3 — Classe Camembert</div>
+      <p>Créer la classe <code>Camembert</code> implémentant <code>IForme</code>. Le code suivant doit produire un camembert SVG :</p>
+<pre><code>Camembert c = new Camembert(110, 110, 100);
+c.ajouterSecteur("red", 0.15);
+c.ajouterSecteur("blue", 0.2);
+c.ajouterSecteur("green", 0.65);</code></pre>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 4 — Méthodes dans Groupe</div>
+      <p>Ajouter en mode TDD dans la classe <code>Groupe</code> :</p>
+<pre><code>public IForme vider()
+
+public IForme alignerElements(Alignement alignement, double cible)
+
+public IForme empilerElements(Alignement alignement,
+    double cible, double separation)</code></pre>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Question 5 — Classe Faisceau</div>
+      <p>Créer dans <code>visustats</code> une classe <code>Faisceau</code> qui organise un groupe de barres (Rectangles de même largeur) côte à côte ou empilées :</p>
+<pre><code>public void agencer(double axeX, double axeY, double largeur,
+                    double echelle, boolean verticalement)</code></pre>
+      <div class="code-label">Exemple</div>
+<pre><code>Faisceau fh = new Faisceau("Faisceau horizontal", 100, 200, 500);
+fh.colorier("blue", "red", "green");
+fh.agencer(20, 250, 100, 0.2, false);</code></pre>
+    </div>
+  </section>
+
+  <!-- TP 9-10 -->
+  <section id="tp9">
+    <h2>TP 9–10 — Conception par Contrat du package visustats</h2>
+
+    <div class="objective">
+      <p><strong>Objectif :</strong> Utiliser l'approche de Conception par Contrat (DbC) pour continuer le développement du package <code>fr.univrennes.istic.l2gen.visustats</code> — diagrammes en colonne, en barres, camemberts. Ce package utilise exclusivement le package <code>geometrie</code>.</p>
+    </div>
+
+    <div class="alert">
+      <strong>Évaluation :</strong> Évaluation individuelle de votre contribution. Démonstration scénarisée par équipe à la fin du TP10. La qualité du code et des tests sera évaluée (Contrôle Continu).
+    </div>
+
+    <h3>Renforcement du package geometrie</h3>
+
+    <div class="question">
+      <div class="question-label">Implantation des contrats des IFormes</div>
+      <p>Spécifier les préconditions et postconditions des méthodes de <code>IForme</code> dans les commentaires Javadoc, puis implémenter leur vérification dans chaque classe. Mettre à jour les tests aux limites — ex : <code>redimentionner(0, 0)</code> doit lever <code>IllegalArgumentException</code>.</p>
+    </div>
+
+    <h3>Application au package visustats</h3>
+
+    <div class="question">
+      <div class="question-label">Architecture</div>
+      <p>Réaliser les trois classes de visualisation, toutes implémentant <code>IDataVisualiseur</code> (qui étend <code>IForme</code>) : <code>DiagColonnes</code>, <code>DiagBarres</code>, <code>DiagCamemberts</code>.</p>
+      <div class="code-label">Exemple d'utilisation — DiagColonnes</div>
+<pre><code>DiagColonnes visualiseur = new DiagColonnes("Emissions de CO2 (en Mt)");
+visualiseur.legender("Afrique", "Amerique", "Asie", "Europe", "Oceanie");
+visualiseur.ajouterDonnees("2010", 1600, 6800, 16000, 4300, 300);
+visualiseur.ajouterDonnees("2015", 1900, 6600, 17500, 3800, 330);
+visualiseur.ajouterDonnees("2020", 2100, 6200, 17800, 3600, 340);
+visualiseur.colorier("Blue", "Green", "Red", "Yellow", "Maroon");
+visualiseur.agencer().enSVG();</code></pre>
+      <p>L'implémentation utilise les classes <code>Camembert</code> et <code>Faisceau</code> du TP8.</p>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Format CSV attendu</div>
+<pre><code>"Emissions de CO2 (en Mt)","Afrique","Amerique","Asie","Europe","Oceanie"
+"2010",1600,6800,16000,4300,300
+"2015",1900,6600,17500,3800,330
+"2020",2100,6200,17800,3600,340</code></pre>
+    </div>
+
+    <div class="question">
+      <div class="question-label">Démonstration (max 10 minutes)</div>
+      <ul>
+        <li>1 slide de présentation de l'équipe (nom équipe, membres)</li>
+        <li>1 slide pour présenter le produit</li>
+        <li>1 slide résumant les possibilités (types de diagrammes supportés)</li>
+        <li>Une démonstration en live</li>
+      </ul>
+      <div class="alert">
+        Si vous n'avez pas le temps d'implémenter tous les diagrammes, concentrez-vous sur l'un d'entre eux afin d'avoir quelque chose à démontrer.
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  L2 Informatique · GEN · ISTIC Université de Rennes · Janvier 2025
+</footer>
+
+</body>
+</html>
