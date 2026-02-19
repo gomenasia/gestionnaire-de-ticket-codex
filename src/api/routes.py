@@ -1,8 +1,10 @@
 """API pour l'application."""
 
-from flask import jsonify, request
-from src.models import Ticket, User
+from flask import jsonify, request, g
+from src.models import Ticket, User, Task
+from src.utils import login_required
 from . import api_bp
+
 
 @api_bp.route("/tickets")
 def api_tickets():
@@ -54,3 +56,27 @@ def api_tickets():
         "tickets": tickets_data,
         "count": len(tickets_data)
     })
+
+@api_bp.routes("/addTask", methods =["POST"])
+@login_required
+def addTask(parent_id : int):
+    """Pour Ajouter une tache"""
+    title = request.form.get("title", "")
+    content = request.form.get("content", "recent")
+
+    try:
+        task = Task.create_Task(
+            title=title,
+            content=content,
+            deadline =None,
+            user_id =  g.user.id
+            parent_id=parent_id
+        )
+        return jsonify({
+        "id": task.id,
+        "title": task.title,
+        "content": task.content,
+        "status": task.status,
+        }), 201
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
