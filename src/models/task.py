@@ -39,7 +39,7 @@ class Task(db.Model):
         }
 
     @classmethod
-    def create_Task(cls, title: str, content: str, deadline: date, user_id: int, parent_id:int=None) -> "Task":
+    def create_Task(cls, title: str, content: str, deadline: date, user_id: int, parent_id : int=None) -> "Task":
         task = cls(title=title, content=content, status=False, 
                 deadline=deadline, author_id=user_id, parent_id=parent_id)
         db.session.add(task)

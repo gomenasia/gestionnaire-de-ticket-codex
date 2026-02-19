@@ -1,12 +1,25 @@
 {% extends "base.html" %}
-{% macro render_item(item, depth=0) %}
+{% macro render_item(item, depth=0, max_depth=3) %}
 <details style="margin-left: {{ depth * 20 }}px">
     <summary>{{ item.title }}</summary>
     <p>{{ item.content }}</p>
     {% if item.children %}
         {% for child in item.children %}
-            {{ render_item(child, depth + 1) }}
+            {{ render_item(child, depth + 1,max_depth) }}
         {% endfor %}
+    {% endif %}
+    {% if depth< max_depth %}
+        <div id="view-mode">
+            <button type="button" id="edit-btn--{{ item.id }}" >Ajouter une tache</button>
+        </div>
+        <form action="{{ url_for('api.add_task', parent_id=item.id) }}" method="post" id="edit-mode">
+            <label for="title-{{ item.id }}">Titre:</label>
+            <input type="text" name="title-{{ item.id }}" id="title" required>
+            <label for="content-{{ item.id }}">Description:</label>
+            <input type="text" name="content" id="content-{{ item.id }}" rows="2" required>
+            <button type="submit" id="submit-btn" >Enregistrer les modifications</button>
+            <button type="button" id="cancel-btn-{{ item.id }}" >Annuler</button>
+        </form>
     {% endif %}
 </details>
 {% endmacro %}
