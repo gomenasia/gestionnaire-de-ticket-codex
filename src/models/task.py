@@ -1,12 +1,13 @@
-"""Modèle Task pour les taches du planning."""
+﻿"""ModÃ¨le Task pour les taches du planning."""
 
 from datetime import date
-from src.models.database import db
 from typing import Any, cast
+
+from src.models.database import db
 
 
 class Task(db.Model):
-    "Modèle Task représnetant les tahce d'un Plannning"
+    "ModÃ¨le Task reprÃ©snetant les tahce d'un Plannning"
 
     __tablename__ = "Task"
 
@@ -15,12 +16,13 @@ class Task(db.Model):
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.Boolean, default=False, nullable=False)
     deadline = db.Column(db.DateTime(timezone=True), nullable=True)
+
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    author = db.relationship("User", back_populates="task")
 
     # Relation parent-enfant
-    parent_id = db.Column(db.Integer, db.ForeignKey('Tasks.id'), nullable=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('Task.id'), nullable=True)
     parent = db.relationship('Task', remote_side=[id], backref='subtasks')
+    author = db.relationship("User", back_populates="task")
 
     def __repr__(self) -> str:
         return f"<Task {self.title} (status:{self.status})>"
@@ -59,15 +61,16 @@ class Task(db.Model):
 
     @classmethod
     def find_by_author(cls, user_id: int) -> list["Task"] | None:
-        """Retourne les tache crée par un user"""
+        """Retourne les tache crÃ©e par un user"""
         return cast(list["Task"] | None, cls.query.filter_by(author_id= user_id).all())
 
     @classmethod
     def find_by_title(cls, title: str) -> "Task | None":
-        """Retourne une tâche par son titre."""
+        """Retourne une tÃ¢che par son titre."""
         return cast("Task | None", cls.query.filter_by(title=title).first())
     
     @classmethod
     def find_subtasks_by_parent_id(cls, parent_id: int) -> list["Task"]:
-        """Retourne toutes les sous-tâches d'une tâche par son ID."""
+        """Retourne toutes les sous-tÃ¢ches d'une tÃ¢che par son ID."""
         return cast(list["Task"], cls.query.filter_by(parent_id=parent_id).all())
+
