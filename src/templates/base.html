@@ -10,8 +10,82 @@
   </head>
   <body>
     <header>
-      <h1>saperlipopette</h1>
-      <nav>
+      <nav class="navBar">
+        <div class="logo">
+          <a href="{{ url_for('index') }}"><img class="logo-img" src="{{ url_for('static', filename='image/isard') }}" alt="logo du site isard"></a>
+        </div>
+
+        <div class="nav-content">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+
+          &nbsp;
+
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+          </svg>
+
+        </div>
+
+        <div class="notifications">
+          <ul id="notification">
+            <li>Item 1 - Test Notification</li>
+            <li>Item 2 - Test Notification</li>
+            <li>Item 3 - Test Notification</li>
+          </ul>
+        </div>
+
+        <div class="menu-footer">
+          <div class="footer-content">
+            <i class="fa fa-user-circle-o fa-lg"></i>
+            <div>
+              <span>Sharathchandar K</span>
+              <small>Full Stack Developer</small>
+            </div>
+            <i class="fa fa-angle-double-left sidebarOpen"></i>
+          </div>
+        </div>
+      </nav>
+
+      <nav class="sideBar">
+        <div class="menu-bar">
+          <ul class="menu-items">
+            <li class="withSub">
+              <div class="nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                  <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd" />
+                </svg>
+                <span>Home</span>
+                <i class="fa fa-angle-right"></i>
+              </div>
+              <ul class="menu-items sub-menu">
+                <li class="sub-link">
+                  <i class="fa fa-bell"></i> <span>Notification</span>
+                </li>
+                <li class="sub-link">
+                  <i class="fa fa-envelope"></i> <span>Message</span>
+                </li>
+                <li class="sub-link">
+                  <i class="fa fa-bookmark"></i> <span>Bookmarks</span>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-link">
+              <i class="fa fa-user"></i> <span>Profile</span>
+            </li>
+            <li class="nav-link">
+              <i class="fa fa-cog"></i> <span>Settings</span>
+            </li>
+            <li class="nav-link">
+              <i class="fa fa-th"></i> <span>Feature</span>
+            </li>
+            <li class="nav-link">
+              <i class="fa fa-sign-out"></i> <span>Logout</span>
+            </li>
+          </ul>
+        </div>
+
         <a href="{{ url_for('index') }}">Accueil</a>
         <a href="{{ url_for('planning.see_planning') }}">Planning</a>
         <a href="{{ url_for('ticket.manage_ticket') }}">ticket</a>
