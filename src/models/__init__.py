@@ -1,4 +1,5 @@
+﻿from src.models.task import Task
 from src.models.ticket import Ticket
 from src.models.user import User
 
-__all__ = ["User", "Ticket"]
+__all__ = ["User", "Ticket", "Task"]
