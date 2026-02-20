@@ -13,67 +13,69 @@
     <header>
       <nav class="navBar">
         <div class="logo">
-          <a href="{{ url_for('index') }}"><img class="logo" src="{{ url_for('static', filename='image/isard.png') }}" alt="logo du site isard"></a>
+          <img class="logo" src="{{ url_for('static', filename='image/isard.png') }}" alt="logo du site isard">
         </div>
 
         <!-- ======================================== mode nuit ======================================== -->
-        <div class="cursor_pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-          </svg>
-        </div>
+        <div class="space_between">
+          <div class="cursor_pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+            </svg>
+          </div>
 
-        <!-- ======================================== notifications ======================================== -->
-        <div class="cursor_pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-          </svg>
-        </div>
+          <!-- ======================================== notifications ======================================== -->
+          <div class="cursor_pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+            </svg>
+          </div>
 
-        <div class="notifications">
-          <ul id="notification">
-            <li>Item 1 - Test Notification</li>
-            <li>Item 2 - Test Notification</li>
-            <li>Item 3 - Test Notification</li>
-          </ul>
-        </div>
+          <div class="notifications">
+            <ul id="notification">
+              <li>Item 1 - Test Notification</li>
+              <li>Item 2 - Test Notification</li>
+              <li>Item 3 - Test Notification</li>
+            </ul>
+          </div>
 
-        <!-- ======================================== menu utilisateur ======================================== -->
-        <div class="cursor_pointer">
-          {% if g.user %}
-            <div class="account_panel">
-              <span>{{ g.user.username }}{% if g.user.role == "admin" %} (admin){% endif %}</span>
-              <div class="dropdown">
+          <!-- ======================================== menu utilisateur ======================================== -->
+          <div class="cursor_pointer">
+            {% if g.user %}
+              <div class="account_panel">
+                <span>{{ g.user.username }}{% if g.user.role == "admin" %} (admin){% endif %}</span>
+                <div class="dropdown">
 
-                <!-- $$$$$$$$$$$$ profile $$$$$$$$$$$$ -->
-                <a href="{{ url_for('auth.profile') }}"><div>
+                  <!-- $$$$$$$$$$$$ profile $$$$$$$$$$$$ -->
+                  <a href="{{ url_for('auth.profile') }}"><div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Profil</span>
+                  </div></a>
+
+                  <!-- $$$$$$$$$$$$ deconnexion $$$$$$$$$$$$ -->
+                  <a href="{{ url_for('auth.logout') }}"><div>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
+                      <path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clip-rule="evenodd" />
+                      <path fill-rule="evenodd" d="M19 10a.75.75 0 0 0-.75-.75H8.704l1.048-.943a.75.75 0 1 0-1.004-1.114l-2.5 2.25a.75.75 0 0 0 0 1.114l2.5 2.25a.75.75 0 1 0 1.004-1.114l-1.048-.943h9.546A.75.75 0 0 0 19 10Z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Déconnexion</span>
+                  </div></a>
+                </div>
+              </div>
+
+            {% else %}
+              <a href="{{ url_for('auth.login') }}">
+                <div class="user_connexion">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" />
                   </svg>
-                  <span>Profil</span>
-                </div></a>
-
-                <!-- $$$$$$$$$$$$ deconnexion $$$$$$$$$$$$ -->
-                <a href="{{ url_for('auth.logout') }}"><div>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
-                    <path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M19 10a.75.75 0 0 0-.75-.75H8.704l1.048-.943a.75.75 0 1 0-1.004-1.114l-2.5 2.25a.75.75 0 0 0 0 1.114l2.5 2.25a.75.75 0 1 0 1.004-1.114l-1.048-.943h9.546A.75.75 0 0 0 19 10Z" clip-rule="evenodd" />
-                  </svg>
-                  <span>Déconnexion</span>
-                </div></a>
-              </div>
-            </div>
-
-          {% else %}
-            <a href="{{ url_for('auth.login') }}">
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
-                  <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" />
-                </svg>
-                <span>Connexion</span>
-              </div>
-            </a>
-          {% endif %}
+                  <span>Connexion</span>
+                </div>
+              </a>
+            {% endif %}
+          </div>
         </div>
       </nav>
 
@@ -146,7 +148,7 @@
             </li></a>
 
             <!-- ======================================== ressources ======================================== -->
-            <a href="{{ url_for('ressources.index') }}"><li class="nav-link">
+            <a href="{{ url_for('ressources.ressource_hub') }}"><li class="nav-link">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="icon">
                 <path d="M10.75 16.82A7.462 7.462 0 0 1 15 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0 0 18 15.06v-11a.75.75 0 0 0-.546-.721A9.006 9.006 0 0 0 15 3a8.963 8.963 0 0 0-4.25 1.065V16.82ZM9.25 4.065A8.963 8.963 0 0 0 5 3c-.85 0-1.673.118-2.454.339A.75.75 0 0 0 2 4.06v11a.75.75 0 0 0 .954.721A7.506 7.506 0 0 1 5 15.5c1.579 0 3.042.487 4.25 1.32V4.065Z" />
               </svg>
