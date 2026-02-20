@@ -57,7 +57,7 @@ def api_tickets():
         "count": len(tickets_data)
     })
 
-@api_bp.routes("/addTask", methods =["POST"])
+@api_bp.route("/addTask", methods =["POST"])
 @login_required
 def addTask(parent_id : int):
     """Pour Ajouter une tache"""
@@ -68,8 +68,7 @@ def addTask(parent_id : int):
         task = Task.create_Task(
             title=title,
             content=content,
-            deadline =None,
-            user_id =  g.user.id
+            user_id=g.user.id,
             parent_id=parent_id
         )
         return jsonify({

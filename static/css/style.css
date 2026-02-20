@@ -147,16 +147,20 @@ button {
   border: none;
 }
 
-.pill {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  padding: 0.2rem 0.7rem;
-}
-
-.account-menu {
+.account_panel {
   position: relative;
   display: inline-block;
+  padding: 0.2rem 0.7rem;
   padding-bottom: 0.4rem;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  background: var(--sideBar-color);
+  padding: 10px 0;
+  transition: all 0.5s ease;
 }
 
 .account-button {
@@ -186,11 +190,11 @@ button {
   background: #eff6ff;
 }
 
-.account-menu:hover .dropdown {
+.account_panel:hover .dropdown {
   display: block;
 }
 
-.account-menu:focus-within .dropdown {
+.account_panel:focus-within .dropdown {
   display: block;
 }
 
@@ -364,26 +368,8 @@ body {
   right: 20px;
 }
 
-.nav-content i {
+.cursor_pointer {
   cursor: pointer;
-}
-
-.menu-footer {
-  position: fixed;
-  bottom: 0px;
-  left: 0;
-  width: 250px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.footer-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--sideBar-color);
-  padding: 10px 0;
-  transition: all 0.5s ease;
 }
 
 .home {
@@ -428,21 +414,13 @@ body {
 }
 
 .sideBar.close .nav-link span,
-.sideBar.close .fa-angle-right,
-.sideBar.close .footer-content .fa-user-circle-o,
-.sideBar.close .footer-content div {
+.sideBar.close .fa-angle-right{
   display: none;
   transition: all 0.5s ease;
 }
 
 .sideBar.close .fa-angle-double-left {
   transform: rotate(180deg);
-}
-
-.sideBar.close .menu-footer {
-  width: 50px;
-  left: 15px;
-  transition: all 0.5s ease;
 }
 
 .sideBar.close~.home {
@@ -452,10 +430,6 @@ body {
 
 @media screen and (max-width: 768px) {
   .sideBar.close {
-    left: -100%;
-  }
-
-  .sideBar.close .menu-footer {
     left: -100%;
   }
 
