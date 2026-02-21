@@ -57,9 +57,10 @@ def api_tickets():
         "count": len(tickets_data)
     })
 
-@api_bp.route("/addTask", methods =["POST"])
+
+@api_bp.route("/<int:parent_id>/addTask", methods=["POST"])
 @login_required
-def addTask(parent_id : int):
+def addTask(parent_id: int):
     """Pour Ajouter une tache"""
     title = request.form.get("title", "")
     content = request.form.get("content", "recent")
@@ -69,13 +70,12 @@ def addTask(parent_id : int):
             title=title,
             content=content,
             user_id=g.user.id,
-            parent_id=parent_id
-        )
+            parent_id=parent_id)
         return jsonify({
-        "id": task.id,
-        "title": task.title,
-        "content": task.content,
-        "status": task.status,
+            "id": task.id,
+            "title": task.title,
+            "content": task.content,
+            "status": task.status,
         }), 201
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
