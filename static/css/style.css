@@ -1,40 +1,76 @@
-:root {
+
+* {
+  margin: 0px;
+  padding: 0px;
   font-family: Arial, sans-serif;
   color-scheme: light;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  --body-color: #F9F6EE;
+  --navBar-color: #FDF2F4;
+  --sideBar-color: #FDF2F4;
+  --text-color: #181818;
+}
+
+body.dark {
+  --body-color: #000;
+  --navBar-color: #242526;
+  --sideBar-color: #242526;
+  --text-color: #fff;
 }
 
 body {
-  margin: 0;
-  background: #f4f6fb;
-  color: #1f2937;
+  background-color: var(--body-color);
+  color: var(--text-color);
 }
 
 header {
-  background: #1d4ed8;
-  color: white;
+  padding: 0;
+}
+
+.navBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  left: 0;
+  background-color: var(--navBar-color);
   padding: 1rem 2rem;
+  gap: 1rem;
+  z-index: 100;
+  box-shadow: 0 0 2px #004a79;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-nav {
+.space_between {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 a {
-  color: inherit;
+  color: inherit; /* TODO */
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
 }
 
 main {
   max-width: 1080px;
   margin: 1.5rem auto;
   padding: 0 1rem;
+  padding-top: 70px; /* compense la hauteur de la navbar fixe */
 }
 
+  /* ========================== filtre ticket ========================== */
 .filters form,
 .card form,
 .admin-form {
@@ -72,6 +108,7 @@ main {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+/* ========================== tickets ========================== */
 .card {
   margin-bottom: 1rem;
 }
@@ -95,6 +132,7 @@ main {
   font-size: 0.8rem;
 }
 
+/* ========================== status ========================== */
 .status.en_attente {
   background: #fef9c3;
 }
@@ -107,6 +145,7 @@ main {
   background: #dcfce7;
 }
 
+ /* ========================== messages ========================== */
 .message {
   margin: 0.5rem auto;
   max-width: 1080px;
@@ -147,16 +186,20 @@ button {
   border: none;
 }
 
-.pill {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  padding: 0.2rem 0.7rem;
-}
-
-.account-menu {
+ /* ============================ account panel ============================ */
+.account_panel {
   position: relative;
   display: inline-block;
+  padding: 0.2rem 0.7rem;
   padding-bottom: 0.4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  background: var(--sideBar-color);
+  padding: 10px 0;
+  transition: all 0.5s ease;
 }
 
 .account-button {
@@ -186,14 +229,16 @@ button {
   background: #eff6ff;
 }
 
-.account-menu:hover .dropdown {
+.account_panel:hover .dropdown {
   display: block;
 }
 
-.account-menu:focus-within .dropdown {
+.account_panel:focus-within .dropdown {
   display: block;
 }
 
+
+ /* ============================ admin response ============================ */
 .admin-response {
   margin-top: 0.7rem;
   padding: 0.5rem;
@@ -221,16 +266,7 @@ button {
   gap: 0.5rem;
 }
 
-.checkbox-item {
-  min-width: 260px;
-}
-
-.inline-check {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
+ /* ============================ deadline ============================ */
 .deadline {
   margin-top: 0.6rem;
   padding: 0.45rem 0.6rem;
@@ -245,51 +281,26 @@ button {
 
 /* =============================================== nav =============================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-
-* {
-  margin: 0px;
-  padding: 0px;
-  font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
-}
-
-:root {
-  --body-color: #e7f2fd;
-  --navBar-color: #fff;
-  --sideBar-color: #fff;
-  --text-color: #000;
-}
-
-body.dark {
-  --body-color: #000;
-  --navBar-color: #242526;
-  --sideBar-color: #242526;
-  --text-color: #fff;
-}
-
-body {
-  background-color: var(--body-color);
-  color: var(--text-color);
-}
-
-.navBar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  left: 0;
-  background-color: var(--navBar-color);
-  padding: 20px 30px;
-  z-index: 100;
-  box-shadow: 0 0 2px gray;
+.user_connexion{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  width: 100%;
+  padding: 5px 15px;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  box-shadow: 0 2px #004a79;
+  gap: 0.5rem;  
+}
+
+.user_connexion:hover{
+  background-color: #00792e; 
+  color: #f1f1f1;
+  cursor: pointer;
 }
 
 .logo {
-  font-size: 22px;
-  font-weight: 500;
+  width: 64px;
+  height: 32px;
   cursor: pointer;
 }
 
@@ -314,6 +325,14 @@ body {
   padding: 0;
 }
 
+.menu-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .sideBar .nav-link,
 .sub-link {
   display: flex;
@@ -325,6 +344,7 @@ body {
   white-space: nowrap;
   user-select: none;
   margin-top: 10px;
+  
 }
 
 .nav-link:hover,
@@ -364,26 +384,8 @@ body {
   right: 20px;
 }
 
-.nav-content i {
+.cursor_pointer {
   cursor: pointer;
-}
-
-.menu-footer {
-  position: fixed;
-  bottom: 0px;
-  left: 0;
-  width: 250px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.footer-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--sideBar-color);
-  padding: 10px 0;
-  transition: all 0.5s ease;
 }
 
 .home {
@@ -418,6 +420,12 @@ body {
   display: block;
 }
 
+.icon {
+    width: 18px;
+    height: 18px;
+    color: #aaa;
+}
+
 .sideBar .withSub {
   display: block !important;
 }
@@ -428,21 +436,13 @@ body {
 }
 
 .sideBar.close .nav-link span,
-.sideBar.close .fa-angle-right,
-.sideBar.close .footer-content .fa-user-circle-o,
-.sideBar.close .footer-content div {
+.sideBar.close .fa-angle-right{
   display: none;
   transition: all 0.5s ease;
 }
 
 .sideBar.close .fa-angle-double-left {
   transform: rotate(180deg);
-}
-
-.sideBar.close .menu-footer {
-  width: 50px;
-  left: 15px;
-  transition: all 0.5s ease;
 }
 
 .sideBar.close~.home {
@@ -452,10 +452,6 @@ body {
 
 @media screen and (max-width: 768px) {
   .sideBar.close {
-    left: -100%;
-  }
-
-  .sideBar.close .menu-footer {
     left: -100%;
   }
 

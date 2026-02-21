@@ -2,7 +2,7 @@
 
 from datetime import date
 from typing import Any, cast
-
+from typing import Optional, cast
 from src.models.database import db
 
 
@@ -41,7 +41,7 @@ class Task(db.Model):
         }
 
     @classmethod
-    def create_Task(cls, title: str, content: str, deadline: date, user_id: int, parent_id : int=None) -> "Task":
+    def create_Task(cls, title: str, content: str, user_id: int, deadline: date=None, parent_id : int=None) -> "Task":
         task = cls(title=title, content=content, status=False, 
                 deadline=deadline, author_id=user_id, parent_id=parent_id)
         db.session.add(task)
@@ -60,14 +60,14 @@ class Task(db.Model):
         return cast(list["Task"], cls.query.all())
 
     @classmethod
-    def find_by_author(cls, user_id: int) -> list["Task"] | None:
-        """Retourne les tache crÃ©e par un user"""
-        return cast(list["Task"] | None, cls.query.filter_by(author_id= user_id).all())
+    def find_by_author(cls, user_id: int) -> Optional[list["Task"]]:
+        """Retourne les tâches créées par un user"""
+        return cast(Optional[list["Task"]], cls.query.filter_by(author_id=user_id).all())
 
     @classmethod
-    def find_by_title(cls, title: str) -> "Task | None":
-        """Retourne une tÃ¢che par son titre."""
-        return cast("Task | None", cls.query.filter_by(title=title).first())
+    def find_by_title(cls, title: str) -> Optional["Task"]:
+        """Retourne une tâche par son titre."""
+        return cast(Optional["Task"], cls.query.filter_by(title=title).first())
     
     @classmethod
     def find_subtasks_by_parent_id(cls, parent_id: int) -> list["Task"]:

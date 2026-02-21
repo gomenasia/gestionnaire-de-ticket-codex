@@ -4,14 +4,15 @@ Configure l'application, initialise la base de données, et définit les routes 
 import os
 
 from flask import Flask, render_template
+from src.utils import get_utc_now
 
 from config import config
+from src.api import api_bp
 from src.auth import auth_bp
 from src.ticket import ticket_bp
-from src.models.database import db
-from src.api import api_bp
+from src.ressources import ressources_bp
 from src.planning import plan_bp
-from src.utils import get_utc_now
+from src.models.database import db
 
 
 def create_app() -> Flask:
@@ -34,6 +35,7 @@ def create_app() -> Flask:
     app.register_blueprint(auth_bp)
     app.register_blueprint(api_bp)
     app.register_blueprint(plan_bp)
+    app.register_blueprint(ressources_bp)
 
     return app
 
