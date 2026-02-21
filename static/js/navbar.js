@@ -25,7 +25,7 @@ logo.onclick = () => {
 
 darkLight.addEventListener("click", () => {
   body.classList.toggle("dark");
-  if (darkLight.classList.contains("fa-moon-o")) {
+  if (darkLight.classList.contains("fa-moon-o")) { /*TODO*/
     darkLight.classList.replace("fa-moon-o", "fa-sun-o");
   } else {
     darkLight.classList.replace("fa-sun-o", "fa-moon-o");

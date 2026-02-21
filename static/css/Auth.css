@@ -27,3 +27,14 @@
 .input-wrapper input:focus {
     border-color: #999;
 }
+
+.show-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #aaa;
+    cursor: pointer;
+}
