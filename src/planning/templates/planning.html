@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% macro render_item(item, depth=0, max_depth=3) %}
 <details style="margin-left: {{ depth * 20 }}px !important">
-    <summary>{{ item.title }}</summary>
+    <summary>{{ item.title }}<input type="checkbox" ></summary>
     <p>{{ item.content }}</p>
     {% if item.subtasks %}
         {% for child in item.subtasks %}
@@ -26,7 +26,7 @@
 {% block content %}
 <section class="planning">
     {% for semaine in planning %}
-        {{ render_item(semaine, 1) }}
+        {{ render_item(semaine) }}
     {% endfor %}
 </section>
 {% endblock content %}
