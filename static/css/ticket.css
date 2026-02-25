@@ -1,0 +1,114 @@
+  /* ========================== filtre ticket ========================== */
+.filters form,
+.card form,
+.admin-form {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.filters.horizontal form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.8rem;
+}
+
+.filter-item {
+    display: grid;
+    gap: 0.3rem;
+}
+
+.filter-item.grow {
+    flex: 1;
+    min-width: 220px;
+}
+
+.filter-item.align-end {
+    align-self: end;
+}
+
+.filters,
+.card,
+.ticket {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================== tickets ========================== */
+.card {
+    margin-bottom: 1rem;
+}
+
+.ticket-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.ticket-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status {
+    border-radius: 12px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+/* ========================== status ========================== */
+.status.en_attente {
+    background: #fef9c3;
+}
+
+.status.en_cours {
+    background: #dbeafe;
+}
+
+.status.resolu {
+    background: #dcfce7;
+}
+
+ /* ============================ admin response ============================ */
+.admin-response {
+    margin-top: 0.7rem;
+    padding: 0.5rem;
+    background: #eff6ff;
+    border-radius: 8px;
+}
+
+.author-actions {
+    margin-top: 0.5rem;
+}
+
+.link-button {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    border-radius: 8px;
+    padding: 0.35rem 0.6rem;
+}
+
+.profile-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+}
+
+ /* ============================ deadline ============================ */
+.deadline {
+    margin-top: 0.6rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    background: #eef2ff;
+}
+
+.deadline.late {
+    background: #fee2e2;
+}

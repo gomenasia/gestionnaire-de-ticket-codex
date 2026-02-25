@@ -2,6 +2,10 @@
 
 {% block title %}Gestion des tickets{% endblock title %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ticket.css') }}" />
+{% endblock styles %}
+
 {% block content %}
   <section class="filters horizontal">
     <form method="get">
