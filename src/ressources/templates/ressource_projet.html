@@ -1,11 +1,264 @@
 {% extends "base.html" %}
 
-{% block style %}
+{% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ressource.css') }}" />
-{% endblock style %}
+{% endblock styles %}
 
 {% block title %}Ressource Projet{% endblock title %}
 
 {% block content %}
 
+    <h1>GEN — Projet Agile (TP 11–20)</h1>
+
+    <nav class="selection_page">
+        <a href="#introduction">Introduction</a>
+        <a href="#fonctionnalites">Fonctionnalités</a>
+        <a href="#contraintes">Contraintes techniques</a>
+        <a href="#livrables">Livrables</a>
+        <a href="#equipe">Équipe &amp; Rôles</a>
+        <a href="#planning">Planning</a>
+        <a href="#validation">Validation</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- Introduction -->
+        <section id="introduction">
+        <h2>Introduction</h2>
+
+        <div class="objective">
+            <p><strong>Objectif :</strong> Développer une application permettant d'analyser et de présenter des statistiques sur les <strong>Demandes de valeurs foncières en France</strong>, en utilisant des données en Open Data.</p>
+            <p>L'application doit offrir aux utilisateurs la possibilité de sélectionner différentes granularités (ensemble de villes, départements ou régions) ainsi que des types spécifiques de critères pour obtenir des statistiques pertinentes.</p>
+        </div>
+        </section>
+
+        <!-- Fonctionnalités -->
+        <section id="fonctionnalites">
+        <h2>Fonctionnalités</h2>
+
+        <div class="question">
+            <div class="question-label">Sélection de Granularité</div>
+            <p>L'utilisateur doit pouvoir choisir entre <strong>3 granularités principales</strong> :</p>
+            <ul>
+            <li><strong>Villes</strong> — sélectionner un ensemble de villes</li>
+            <li><strong>Départements</strong> — sélectionner un ou plusieurs départements</li>
+            <li><strong>Régions</strong> — sélectionner une ou plusieurs régions</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Sélection de Critères</div>
+            <p>L'utilisateur doit pouvoir sélectionner un ou plusieurs critères parmi ceux disponibles dans les données, par exemple :</p>
+            <ul>
+            <li>Valeur foncière</li>
+            <li>Type de local</li>
+            <li>Surface réelle</li>
+            <li>Surface loi Carrez</li>
+            <li>Surface terrain</li>
+            <li>Nombre de pièces principales</li>
+            <li>etc.</li>
+            </ul>
+            <p>Source des données : <a href="https://www.data.gouv.fr/api/1/datasets/r/d573456c-76eb-4276-b91c-e6b9c89d6656">https://www.data.gouv.fr/api/1/datasets/r/d573456c-76eb-4276-b91c-e6b9c89d6656</a></p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Sélection de Statistiques</div>
+            <p>L'application doit permettre à l'utilisateur de choisir un ou plusieurs types de statistiques parmi les suivantes :</p>
+            <ul>
+            <li>Prix moyens et/ou médians au m² par villes/départements/régions choisis répondant aux critères sélectionnés</li>
+            <li>Distribution des valeurs foncières selon la granularité choisie et les critères sélectionnés</li>
+            <li>Statistiques sur le nombre de pièces principales</li>
+            <li>Statistiques sur la répartition dans l'année des dates de mutation</li>
+            </ul>
+            <p>Pour chaque statistique sélectionnée, l'utilisateur doit pouvoir choisir le type de diagramme souhaité parmi ceux disponibles (Camemberts, diagrammes barre, diagrammes colonnes, etc.).</p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Génération de Rapports</div>
+            <p>L'application doit générer des rapports sous forme de <strong>pages web</strong> contenant les informations et résultats des statistiques sélectionnées. Les rapports doivent être clairs, informatifs et facilement compréhensibles.</p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Autres fonctionnalités <span class="badge">Bonus</span></div>
+            <p>Afin de vous démarquer des équipes concurrentes, vous êtes libres d'ajouter de nouvelles fonctionnalités originales à cette application.</p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Interface Utilisateur (UI)</div>
+            <p>L'interface utilisateur doit être <strong>conviviale et intuitive</strong>. Les options de sélection de granularité, de types de critères et de statistiques doivent être présentées de manière claire. L'utilisateur doit pouvoir naviguer facilement à travers l'application.</p>
+        </div>
+        </section>
+
+        <!-- Contraintes techniques -->
+        <section id="contraintes">
+        <h2>Contraintes Techniques</h2>
+
+        <div class="objective">
+            <p>L'application doit respecter les contraintes suivantes :</p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Langage &amp; Bibliothèques</div>
+            <ul>
+            <li>Développement en <strong>Java</strong> obligatoire</li>
+            <li>Utilisation <strong>impérative</strong> de la bibliothèque <code>visustats</code> développée aux TP précédents pour toutes les visualisations diagrammatiques (Camemberts, diagrammes barre, diagrammes colonnes, etc.)</li>
+            <li>Interface Utilisateur programmée en Java avec le framework <a href="https://gayerie.dev/epsi-poei-201804/langage_java/swing_interfaces_graphiques.html"><strong>Swing</strong></a></li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Source de Données</div>
+            <p>Dans un premier temps, utiliser le fichier de l'année 2024 :</p>
+            <pre><code><a href="https://www.data.gouv.fr/api/1/datasets/r/af812b0e-a898-4226-8cc8-5a570b257326">https://www.data.gouv.fr/api/1/datasets/r/af812b0e-a898-4226-8cc8-5a570b257326</a></code></pre>
+            <ul>
+            <li>Format : fichier texte <strong>CSV</strong> avec le séparateur de champs <code>|</code></li>
+            <li>Ne télécharger ce fichier <strong>qu'une seule fois</strong></li>
+            <li>Tous les tests seront effectués avec un sous-ensemble judicieusement choisi de cette source</li>
+            <li>En production, permettre de sélectionner n'importe quelle année parmi celles disponibles</li>
+            </ul>
+        </div>
+
+        <div class="alert">
+            <strong>Note :</strong> L'équipe de développement est encouragée à utiliser des outils comme ChatGPT ou Copilot pour accélérer le développement. La contrainte reste que vous devez <strong>parfaitement comprendre</strong> le code obtenu par ce biais — cela sera évalué en fin de projet.
+        </div>
+        </section>
+
+        <!-- Livrables -->
+        <section id="livrables">
+        <h2>Livrables Attendus</h2>
+
+        <div class="livrables">
+            <div class="livrable-card">
+            <h4>Code Source &amp; Tests</h4>
+            <p>Code source de l'application et de ses tests dans le GitLab de l'ISTIC.</p>
+            </div>
+            <div class="livrable-card">
+            <h4>Fichier .jar</h4>
+            <p>Fichier <code>.jar</code> exécutable contenant toute l'application.</p>
+            </div>
+            <div class="livrable-card">
+            <h4>Documentation Technique</h4>
+            <p>Documentation détaillée expliquant l'architecture à l'aide de diagrammes UML (ex : <a href="https://dotuml.com/index.html">dotuml.com</a>), les choix de conception et les dépendances vis-à-vis de librairies externes.</p>
+            </div>
+            <div class="livrable-card">
+            <h4>Manuel Utilisateur</h4>
+            <p>Bref manuel utilisateur expliquant comment installer et utiliser l'application.</p>
+            </div>
+        </div>
+        </section>
+
+        <!-- Équipe & Rôles -->
+        <section id="equipe">
+        <h2>Mode de Développement &amp; Équipe</h2>
+
+        <div class="objective">
+            <p>Le projet sera réalisé en utilisant une <strong>approche agile avec la méthodologie SCRUM</strong>. Les itérations seront planifiées, et les retours réguliers seront pris en compte pour améliorer le produit.</p>
+        </div>
+
+        <div class="role">
+            <div class="role-label">Client</div>
+            <p>L'encadrant de TP joue le rôle de <strong>client</strong> de cette application.</p>
+        </div>
+
+        <div class="role">
+            <div class="role-label">Product Owner</div>
+            <p>L'un(e) des étudiant(e)s de l'équipe joue le rôle de <strong>Product Owner</strong>, responsable de :</p>
+            <ul>
+            <li>Définir la vision du produit (en lien avec le client)</li>
+            <li>Prioriser le backlog du produit (liste des fonctionnalités à développer)</li>
+            <li>Prendre des décisions sur les fonctionnalités à implémenter</li>
+            </ul>
+        </div>
+
+        <div class="role">
+            <div class="role-label">Scrum Master</div>
+            <p>Un autre membre de l'équipe joue le rôle de <strong>Scrum Master</strong>, responsable de :</p>
+            <ul>
+            <li>S'assurer que l'équipe suit les principes et pratiques SCRUM</li>
+            <li>Éliminer les obstacles</li>
+            <li>Faciliter les réunions SCRUM</li>
+            <li>Aider l'équipe à atteindre ses objectifs</li>
+            <li>Contribuer activement au développement</li>
+            </ul>
+        </div>
+
+        <div class="role">
+            <div class="role-label">Équipe de Développement</div>
+            <p>L'ensemble de l'équipe est responsable de la réalisation des fonctionnalités définies dans le backlog. Elle est <strong>auto-organisée</strong> et se fixe des objectifs pour chaque sprint. La qualité du logiciel doit être une priorité dès le début, avec une architecture de tests mise en place dès la première itération.</p>
+        </div>
+        </section>
+
+        <!-- Planning -->
+        <section id="planning">
+        <h2>Planning — Sprints</h2>
+
+        <div class="sprint">
+            <div class="sprint-label">Sprint 1 <span class="sprint-weeks">Semaines 11–13</span></div>
+            <p><strong>Établir les Fondations</strong></p>
+            <ul>
+            <li>Mettre en place l'environnement de développement et de test</li>
+            <li>Rédiger les user stories</li>
+            <li>Élaborer l'architecture de base de l'application</li>
+            <li>Implémenter le chargement initial d'un sous-ensemble simplifié des données</li>
+            <li>Mettre en place une interface utilisateur (UI) de base : sélection de granularité et sélection des critères</li>
+            <li>Produire une des statistiques demandées avec un seul type de diagramme possible</li>
+            <li>Rétrospective de l'équipe pour évaluer le processus SCRUM</li>
+            </ul>
+        </div>
+
+        <div class="sprint">
+            <div class="sprint-label">Sprint 2 <span class="sprint-weeks">Semaines 14–16</span></div>
+            <p><strong>Implémentation des fonctionnalités</strong></p>
+            <ul>
+            <li>Ajouter à l'UI les fonctionnalités pour configurer les statistiques de base</li>
+            <li>Consolider le package <code>visustats</code> en implémentant les éventuels diagrammes manquants</li>
+            <li>Intégrer la génération de rapports en HTML</li>
+            <li>Rétrospective de l'équipe pour évaluer le processus SCRUM</li>
+            </ul>
+        </div>
+
+        <div class="sprint">
+            <div class="sprint-label">Sprint 3 <span class="sprint-weeks">Semaines 18–20</span></div>
+            <p><strong>Finalisation et Livraison</strong></p>
+            <ul>
+            <li>Implémenter le choix du fichier de données</li>
+            <li>Intégration de fonctionnalités additionnelles</li>
+            <li>Terminer l'UI</li>
+            <li>Effectuer des tests finaux et résoudre les problèmes</li>
+            <li>Préparation de la démonstration finale du produit au client</li>
+            <li>Rétrospective de l'équipe pour évaluer le processus SCRUM</li>
+            </ul>
+        </div>
+
+        <div class="alert">
+            <strong>Remarques générales :</strong>
+            <ul>
+            <li>Certaines fonctionnalités plus avancées peuvent être simplifiées ou reportées pour les itérations suivantes.</li>
+            <li>La communication et la collaboration rapides entre les membres seront cruciales pour respecter ce calendrier.</li>
+            <li>La flexibilité est essentielle pour s'adapter aux changements et aux retours d'expérience.</li>
+            <li><strong>4 séances de TP se feront en autonomie</strong> (sans encadrement) — c'est un test du sérieux et de la motivation de l'équipe.</li>
+            </ul>
+        </div>
+        </section>
+
+        <!-- Validation -->
+        <section id="validation">
+        <h2>Validation et Acceptation</h2>
+
+        <div class="question">
+            <div class="question-label">Validation Interne</div>
+            <p>L'application sera soumise à une phase de <strong>validation interne</strong> par l'équipe de développement avant la présentation au client.</p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Acceptation Client</div>
+            <p>Phase d'<strong>acceptation par le client</strong> lors d'une démonstration formelle à la fin du projet.</p>
+        </div>
+
+        <div class="question">
+            <div class="question-label">Évaluation Individuelle</div>
+            <p>Une <strong>évaluation individuelle de performance</strong> sera réalisée par l'encadrant de TP la dernière semaine du projet. Il est donc essentiel que chaque membre puisse expliquer et justifier toutes les parties du code, y compris celles obtenues avec l'aide d'outils IA.</p>
+        </div>
+        </section>
+    </div>
 {% endblock content %}

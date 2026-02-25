@@ -1,11 +1,277 @@
 {% extends "base.html" %}
 
-{% block style %}
+{% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ressource.css') }}" />
-{% endblock style %}
+{% endblock styles %}
 
 {% block title %}Ressource CM{% endblock title %}
 
 {% block content %}
+
+<h1>GEN — Cours Magistraux</h1>
+
+<nav class="selection_page">
+    <a href="#importance">1 · Importance</a>
+    <a href="#definition">2 · Définition</a>
+    <a href="#objectifs">3 · Objectifs</a>
+    <a href="#oo">4 · POO</a>
+    <a href="#modularite">5 · Modularité</a>
+    <a href="#relations">6 · Relations</a>
+    <a href="#heritage">7 · Héritage</a>
+    <a href="#polymorphisme">8 · Polymorphisme</a>
+    <a href="#typage">9–10 · Typage</a>
+    <a href="#cles">11 · Clés</a>
+</nav>
+
+<div class="container">
+
+    <!-- 1 -->
+    <section id="importance">
+        <h2><span class="section-num">01</span> Importance du logiciel</h2>
+        <div class="objective">
+            <p>Le logiciel est devenu <strong>central dans la société et l'économie</strong> — "software is eating the world" (Marc Andreessen, 2011). Les systèmes sont de plus en plus massifs et critiques.</p>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">📐</div>
+                <div class="card-title">Complexité croissante</div>
+                <p>Des millions à milliards de lignes de code dans les systèmes modernes (Linux, Android, Boeing…).</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏥</div>
+                <div class="card-title">Systèmes critiques</div>
+                <p>Santé, finance, transport : une défaillance logicielle peut avoir des conséquences graves et coûteuses.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔧</div>
+                <div class="card-title">Nécessité du GL</div>
+                <p>Le génie logiciel fournit méthodes et outils pour <strong>maîtriser</strong> cette complexité.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2 -->
+    <section id="definition">
+        <h2><span class="section-num">02</span> Qu'est-ce que le génie logiciel ?</h2>
+        <div class="objective">
+            <p>Ensemble de <strong>méthodes, outils et principes</strong> pour produire des logiciels de qualité, dans les coûts et délais impartis.</p>
+        </div>
+        <div class="pillars">
+            <div class="pillar">Fiables</div>
+            <div class="pillar">Maintenables</div>
+            <div class="pillar">Performants</div>
+            <div class="pillar">Dans les délais</div>
+        </div>
+        <div class="alert">
+            <strong>Pour tous les développeurs</strong> — Le GL est indispensable dès que l'on travaille en équipe ou sur des projets à longue durée de vie.
+        </div>
+    </section>
+
+    <!-- 3 -->
+    <section id="objectifs">
+        <h2><span class="section-num">03</span> Objectifs du module GEN</h2>
+        <div class="objective">
+            <p>Ce module n'est <strong>pas un cours de Java</strong>, mais un cours d'<strong>architecture et de méthodes de développement</strong>.</p>
+        </div>
+        <div class="question">
+            <div class="question-label">Compétences visées</div>
+            <ul>
+                <li>Travailler efficacement en <strong>équipe</strong></li>
+                <li>Concevoir une <strong>architecture logicielle</strong> cohérente</li>
+                <li>Maîtriser <strong>Git, JUnit, Javadoc, VS Code</strong></li>
+                <li>Comprendre la <strong>maintenance et l'évolution</strong> du code</li>
+                <li>Utiliser l'IA (Copilot, ChatGPT) de manière <strong>critique et éclairée</strong></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 4 -->
+    <section id="oo">
+        <h2><span class="section-num">04</span> Concepts fondamentaux de la POO</h2>
+
+        <h3>Objets &amp; Classes</h3>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <div class="card-title">Objet</div>
+                <p>Entité avec un <strong>état</strong> (attributs) et des <strong>opérations</strong> (méthodes). Combine mémoire et comportements.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏗️</div>
+                <div class="card-title">Classe</div>
+                <p>Modèle décrivant un type d'objet. Un objet est une <strong>instance</strong> d'une classe.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">UML</div>
+                <p>Diagrammes de classes et d'objets pour <strong>modéliser, documenter et communiquer</strong> l'architecture.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5 -->
+    <section id="modularite">
+        <h2><span class="section-num">05</span> Modularité, encapsulation &amp; API</h2>
+        <div class="three-cols">
+            <div class="concept-block">
+                <div class="concept-title">Encapsulation</div>
+                <p>Cacher les détails internes d'un objet. Seule l'interface publique est exposée → facilite la <strong>maintenance</strong>.</p>
+            </div>
+            <div class="concept-block">
+                <div class="concept-title">Modularité</div>
+                <p>Décomposer un système complexe en modules indépendants et réutilisables.</p>
+            </div>
+            <div class="concept-block">
+                <div class="concept-title">API</div>
+                <p>Interface publique d'un composant — ce que les autres modules peuvent utiliser sans connaître l'implémentation.</p>
+            </div>
+        </div>
+        <div class="alert">
+            <strong>Bug de l'an 2000 (Y2K) :</strong> une mauvaise encapsulation de la représentation des dates a coûté des centaines de milliards de dollars de corrections dans le monde entier.
+        </div>
+    </section>
+
+    <!-- 6 -->
+    <section id="relations">
+        <h2><span class="section-num">06</span> Relations entre objets</h2>
+        <div class="three-cols">
+            <div class="question">
+                <div class="question-label">Association</div>
+                <p>Relie des classes entre elles. Exprime une dépendance sémantique.</p>
+                <p>Cardinalités : <code>0..1</code>, <code>1..*</code>, <code>*</code>…</p>
+                <p>Ex : un <em>Client</em> possède un ou plusieurs <em>Comptes</em>.</p>
+            </div>
+            <div class="question">
+                <div class="question-label">Composition</div>
+                <p>Relation forte <strong>"partie-de"</strong>. Les parties n'existent pas sans le tout.</p>
+                <p>Ex : une <em>Voiture</em> est composée de <em>Roues</em> — détruire la voiture détruit les roues.</p>
+            </div>
+            <div class="question">
+                <div class="question-label">Copie &amp; Aliasing</div>
+                <p>Trois niveaux : <strong>affectation</strong> (alias), <strong>copie simple</strong> (shallow), <strong>copie profonde</strong> (deep).</p>
+                <p>L'aliasing non intentionnel est une source fréquente de bugs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7 -->
+    <section id="heritage">
+        <h2><span class="section-num">07</span> Héritage &amp; classification</h2>
+        <div class="objective">
+            <p>Une <strong>sous-classe hérite</strong> des attributs et méthodes d'une superclasse, et peut les spécialiser.</p>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🌲</div>
+                <div class="card-title">Classification (est-un)</div>
+                <p>Un <em>Chien</em> est un <em>Animal</em>. L'héritage modélise une hiérarchie de types.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">♻️</div>
+                <div class="card-title">Réutilisation</div>
+                <p>Factoriser le code commun dans la superclasse pour éviter la duplication.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📜</div>
+                <div class="card-title">LSP</div>
+                <p>Principe de Liskov : une sous-classe doit pouvoir <strong>remplacer</strong> sa superclasse sans casser le programme.</p>
+            </div>
+        </div>
+        <div class="alert">
+            <strong>Attention :</strong> héritage ≠ sous-typage. L'exemple classique : <code>Carré extends Rectangle</code> viole le LSP si <code>setLargeur()</code> et <code>setHauteur()</code> existent indépendamment.
+        </div>
+        <div class="question">
+            <div class="question-label">Outils Java</div>
+            <p>Classes abstraites (<code>abstract class</code>), interfaces (<code>interface</code>), et mot-clé <code>extends</code> / <code>implements</code>.</p>
+        </div>
+    </section>
+
+    <!-- 8 -->
+    <section id="polymorphisme">
+        <h2><span class="section-num">08</span> Polymorphisme &amp; liaison dynamique</h2>
+        <div class="objective">
+            <p>Une même référence peut désigner des objets de types différents. Le comportement réel est choisi <strong>à l'exécution</strong> (late binding).</p>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🔌</div>
+                <div class="card-title">Polymorphisme d'inclusion</div>
+                <p>Via l'héritage : <code>IForme f = new Cercle(…)</code> → <code>f.enSVG()</code> appelle la méthode de <code>Cercle</code>.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔗</div>
+                <div class="card-title">Liaison dynamique</div>
+                <p>La JVM détermine quelle méthode appeler en fonction du type <em>réel</em> de l'objet, pas du type déclaré.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <div class="card-title">Extensibilité</div>
+                <p>Ajouter de nouvelles formes sans modifier le code existant — respecte le principe <strong>Open/Closed</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9-10 -->
+    <section id="typage">
+        <h2><span class="section-num">09–10</span> Héritage multiple &amp; typage</h2>
+
+        <h3>Héritage multiple</h3>
+        <div class="three-cols">
+            <div class="concept-block">
+                <div class="concept-title">Python / C++ / Eiffel</div>
+                <p>Supportent l'héritage multiple direct. Puissant mais source d'ambiguïtés (<em>problème du diamant</em>).</p>
+            </div>
+            <div class="concept-block">
+                <div class="concept-title">Java</div>
+                <p>Héritage simple uniquement. L'héritage multiple est simulé via les <strong>interfaces</strong> (depuis Java 8 : méthodes <code>default</code>).</p>
+            </div>
+            <div class="concept-block">
+                <div class="concept-title">Ambiguïté</div>
+                <p>Si deux parents définissent la même méthode, lequel choisir ? Chaque langage a sa propre règle de résolution.</p>
+            </div>
+        </div>
+
+        <h3>Typage</h3>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🔒</div>
+                <div class="card-title">Statique (Java, C++)</div>
+                <p>Types vérifiés à la <strong>compilation</strong>. Erreurs détectées tôt, meilleures performances, IDE plus efficace.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌊</div>
+                <div class="card-title">Dynamique (Python, JS)</div>
+                <p>Types déterminés à l'<strong>exécution</strong>. Plus flexible, mais erreurs découvertes plus tard.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11 -->
+    <section id="cles">
+        <h2><span class="section-num">11</span> Messages clés</h2>
+        <div class="key-messages">
+            <div class="key-msg">
+                <span class="key-num">①</span>
+                <p>Le génie logiciel sert avant tout à <strong>gérer la complexité</strong> — pas seulement à écrire du code.</p>
+            </div>
+            <div class="key-msg">
+                <span class="key-num">②</span>
+                <p><strong>L'architecture et la collaboration</strong> sont aussi importantes que les compétences de codage.</p>
+            </div>
+            <div class="key-msg">
+                <span class="key-num">③</span>
+                <p>L'IA (Copilot, ChatGPT) est un outil utile mais <strong>dangereux sans compréhension</strong> — comprendre prime sur générer.</p>
+            </div>
+            <div class="key-msg">
+                <span class="key-num">④</span>
+                <p>Un bon logiciel est <strong>testable, documenté et maintenable</strong> — pas seulement fonctionnel.</p>
+            </div>
+        </div>
+        <div class="objective">
+            <p>👉 Ce cours introduit les <strong>bases du génie logiciel et de l'OO</strong> pour apprendre à concevoir, structurer, tester et maintenir des logiciels complexes en équipe.</p>
+        </div>
+    </section>
+
+</div>
 
 {% endblock content %}
