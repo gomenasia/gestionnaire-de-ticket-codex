@@ -1,7 +1,7 @@
 .planning {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     max-width: 860px;
     margin: 0 auto;
 }
@@ -27,7 +27,7 @@ details:not(.task0) > summary::before {
 }
 
 summary {
-    padding: 16px 20px;
+    padding: 1.2rem 1.5rem;
     cursor: pointer;
     font-weight: 700;
     font-size: 1rem;
@@ -36,6 +36,8 @@ summary {
     align-items: center;
     gap: 10px;
     user-select: none;
+    border-radius: 8px;
+    background-color: #f0d7dc;
 }
 
 summary::before {
@@ -58,6 +60,31 @@ summary::-webkit-details-marker { display: none; }
 
 p.contenu{
     padding-left: 10px;
+}
+
+.add-task-btn {
+    display: none;
+    align-items: center;         /* ← centre le SVG verticalement */
+    justify-content: center; 
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    background-color: aqua;
+    width: 16px;         /* taille fixe du svg */
+    height: 16px;
+    flex-shrink: 0;
+    color: #181818;
+    margin: 0;
+}
+
+.addtask{
+    width: 16px;         /* taille fixe du svg */
+    height: 16px;
+    position: relative;
+}
+
+summary:hover .add-task-btn{
+    display: inline-flex;
 }
 
 
