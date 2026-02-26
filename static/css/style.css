@@ -273,7 +273,7 @@ button {
   display: block;
 }
 
-.openSubMenu .fa-angle-right { //FIXME
+.openSubMenu .fa-angle-right {
   transform: rotate(90deg);
 }
 
@@ -281,7 +281,7 @@ button {
   padding: 5px 45px;
 }
 
-.nav-link .fa-angle-right { //FIXME
+.nav-link .fa-angle-right {
   position: absolute;
   right: 20px;
 }
@@ -339,12 +339,12 @@ button {
 }
 
 .sideBar.close .nav-link span,
-.sideBar.close .fa-angle-right{  //FIXME
+.sideBar.close .fa-angle-right{
   display: none;
   transition: all 0.5s ease;
 }
 
-.sideBar.close .fa-angle-double-left { //FIXME
+.sideBar.close .fa-angle-double-left {
   transform: rotate(180deg);
 }
 
