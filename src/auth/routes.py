@@ -12,8 +12,8 @@ from . import auth_bp
 def register():
     if request.method == "POST":
         fields = {"username": request.form.get("username", "").strip(),
-                  "email": request.form.get("email", "").strip().lower(),
-                  "password": request.form.get("password", "")}
+                "email": request.form.get("email", "").strip().lower(),
+                "password": request.form.get("password", "")}
 
         if not all(fields.values()):
             flash("Tous les champs sont obligatoires.", "danger")
