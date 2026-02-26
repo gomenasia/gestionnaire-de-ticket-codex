@@ -225,3 +225,41 @@ dialog .modal-actions {
     gap: 10px;
     margin-top: 20px;
 }
+/*Progress bar*/
+[role="progressbar"]{
+    --size: 42px;
+    --bar-width: 10px;
+
+    width: var(--size);
+    aspect-ratio: 1/1;
+    background: #BF3F59;
+    border-radius: 50%;
+
+    position: relative;
+    display: grid;
+    place-items: center;
+
+    &::after{
+        content: attr(aria-valuenow) "%";
+        font-size: 10px;
+        position: absolute;
+        background:#f0d7dc;
+        border-radius: inherit;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - var(--bar-width));
+        aspect-ratio: 1/1;
+
+        display: grid;
+        place-items: center;
+
+    }
+    span{
+        display: none;
+    }
+}
+
+.progressbar:not([role="progressbar"]){
+    color:#BF3F59;
+}

@@ -59,8 +59,8 @@ const enableProgressbar = () => {
     })
 }
 
-document.addEventListener('DOMContentLoaded', upDateCheckboxes);
-document.addEventListener('DOMContentLoaded', upDateDetails);
-
+upDateCheckboxes()
+upDateDetails()
+enableProgressbar()
 
 
