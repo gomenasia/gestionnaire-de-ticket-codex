@@ -5,7 +5,7 @@ const upDateCheckboxes = () =>{
         checkboxe.addEventListener("click", async (e) => {
             e.stopPropagation();
 
-            const taskId = checkboxe.dataset.taskId;
+            const taskId = checkboxe.dataset.taskId; 
             
             fetch(`/api/task/${taskId}/status`,{
                 method: 'PATCH',
@@ -16,7 +16,9 @@ const upDateCheckboxes = () =>{
             .then((response) => response.json())
             .then((data)=>{
                 if(data.success) {
-                    location.reload();
+                    const progressBar = document.getElementById(data.parent_id);
+                    progressBar.setAttribute("aria-valuenow", data.progress)
+
                 }else{
                     checkbox.checked = !checkbox.checked;
                 }
@@ -59,8 +61,10 @@ const enableProgressbar = () => {
     })
 }
 
-upDateCheckboxes()
-upDateDetails()
-enableProgressbar()
+upDateCheckboxes();
+upDateDetails();
+enableProgressbar();
+
+
 
 
