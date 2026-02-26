@@ -7,6 +7,9 @@
         {{ item.title }}
         {% if depth<max_depth and item.subtasks %}
             <!--svg-->
+            <div class="progressbar">
+                <span>Il faut js</span>
+            </div>
         {% endif %}
         {% if depth< max_depth %}
         <button type="button"

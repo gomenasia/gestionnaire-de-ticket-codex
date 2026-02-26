@@ -1,23 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-    //garder les details ouvert
-    document.querySelectorAll('details').forEach(details => {
-    const btn = details.querySelector('.add-task-btn');
-    if (!btn) return;
-    const id = btn.dataset.itemId;
-
-    // Restaure
-    if (localStorage.getItem(`details-${id}`) === 'true') {
-        details.open = true;
-    }
-
-    // Sauvegarde
-    details.addEventListener('toggle', () => {
-        localStorage.setItem(`details-${id}`, details.open);
-        });
-    });
-
-    const inputElems = document.querySelectorAll('input[type="checkbox"]');
+const upDateCheckboxes = () =>{
     //change le status des taches
+    const inputElems = document.querySelectorAll('input[type="checkbox"]');
     inputElems.forEach(checkboxe => {
         checkboxe.addEventListener("click", async (e) => {
             e.stopPropagation();
@@ -44,4 +27,40 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
     });
-});
+}
+
+
+//garder les details ouvert
+const upDateDetails = ()=>{
+    document.querySelectorAll('details').forEach(details => {
+    const btn = details.querySelector('.add-task-btn');
+    if (!btn) return;
+    const id = btn.dataset.itemId;
+
+    // Restaure
+    if (localStorage.getItem(`details-${id}`) === 'true') {
+        details.open = true;
+    }
+
+    // Sauvegarde
+    details.addEventListener('toggle', () => {
+        localStorage.setItem(`details-${id}`, details.open);
+        });
+    });
+}
+
+//progressBar
+const enableProgressbar = () => {
+    const progressbars = document.querySelectorAll(".progressbar")
+    progressbars.forEach(bar =>{
+        bar.setAttribute("role", "progressbar")
+        bar.setAttribute("aria-valuenow", 0)
+        bar.setAttribute("aria-live", "polite")
+    })
+}
+
+document.addEventListener('DOMContentLoaded', upDateCheckboxes);
+document.addEventListener('DOMContentLoaded', upDateDetails);
+
+
+
