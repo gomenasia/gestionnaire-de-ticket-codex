@@ -92,11 +92,11 @@ p a:hover {
 
 main {
   position: absolute;
-  left: 250px;
+  left: 252px;
   top: 65px;
-  width: calc(100% - 250px);
+  width: calc(100% - 252px);
   margin: 1.5rem auto;
-  padding: 0 1rem 1rem 0;
+  padding: 0.5rem 1rem 1rem 0.5rem;
   transition: all 0.5s ease;
 }
 
@@ -224,7 +224,7 @@ button {
   top: 0;
   left: 0;
   height: 100%;
-  padding: 80px 20px;
+  padding: 80px 0.7rem;
   box-shadow: 0 0 2px var(--icon-color);
   overflow-y: scroll;
   background-color: var(--lighter-color);
@@ -253,7 +253,7 @@ button {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 5px 15px;
+  padding: 0.25rem 0.5rem;
   border-radius: 8px;
   text-decoration: none;
   white-space: nowrap;
@@ -265,7 +265,7 @@ button {
 .nav-link:hover,
 .sub-link:hover {
   color: #000;
-  background-color : var(--third-color);
+  background-color : color-mix(in srgb, var(--third-color) 40%, transparent); ;
   cursor: pointer;
 }
 
@@ -291,7 +291,7 @@ button {
 }
 
 .sub-menu .sub-link {
-  padding: 5px 45px;
+  padding: 0.3rem 1.5rem;
 }
 
 .nav-link .fa-angle-right {
@@ -301,16 +301,6 @@ button {
 
 .cursor_pointer {
   cursor: pointer;
-}
-
-.home {
-  position: absolute;
-  left: 250px;
-  top: 65px;
-  width: calc(100% - 250px);
-  background-color: var(--body-color);
-  padding: 25px;
-  transition: all 0.5s ease;
 }
 
 .notifications {
@@ -359,9 +349,9 @@ button {
   transform: rotate(180deg);
 }
 
-.sideBar.close~.home {
-  left: 78px;
-  width: calc(100% - 78px);
+.sideBar.close~main {
+  left: 80px;
+  width: calc(100% - 80px);
 }
 
 @media screen and (max-width: 768px) {
@@ -369,7 +359,7 @@ button {
     left: -100%;
   }
 
-  .sideBar.close~.home {
+  .sideBar.close~main {
     left: 0px;
   }
 }

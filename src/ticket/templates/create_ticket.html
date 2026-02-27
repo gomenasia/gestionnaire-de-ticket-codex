@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/ticket.css') }}">
+{% endblock styles %}
+
 {% block content %}
   <section class="card">
     <h2>Créer un ticket</h2>
