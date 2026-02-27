@@ -6,10 +6,14 @@ from flask import flash, g, redirect, url_for
 def get_utc_now():
     return datetime.now(timezone.utc)
 
+
 def login_required(view):
     @wraps(view)
     def wrapped_view(*args, **kwargs):
         if not hasattr(g, "user") or g.user is None:
+            # Pour les routes API, on retourne une erreur JSON
+            if request.is_json or request.path.startswith("/api/"):
+                return jsonify({"error": "Authentification requise", "message":"Vous devez être connecté pour faire cette action."}), 401
             flash("Vous devez être connecté pour accéder à cette page.", "warning")
             return redirect(url_for("auth.login"))
         return view(*args, **kwargs)

@@ -220,6 +220,7 @@ dialog .modal-actions {
     gap: 10px;
     margin-top: 20px;
 }
+
 /*Progress bar*/
 @property --progress{
     syntax: "<length-percentage>";

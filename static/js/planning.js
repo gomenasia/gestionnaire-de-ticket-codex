@@ -28,5 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
             dialog.close();
             location.reload();
         }
+        if (response.status === 401) {
+            const pop =document.getElementById('notConnected');
+            const errorMsg = document.getElementById('error-message')
+            const data = await response.json();
+            errorMsg.textContent= data.message;
+            pop.showModal();
+        }
     });
+    document.getElementById('not-connected-close-btn').addEventListener('click', () => {
+        document.getElementById('notConnected').close();
+    });
+    document.getElementById('notConnected').addEventListener('close', async (e) =>{
+        window.location.href = "/auth/login";
+    })
 });
