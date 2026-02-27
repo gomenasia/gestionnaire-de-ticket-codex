@@ -1,3 +1,70 @@
+const calcProgress = (detailsElement) => {
+    // Cherche uniquement les <details> enfants DIRECTS
+    const directChildDetails = [...detailsElement.children].filter(el => 
+        el.tagName === 'DETAILS'
+    );
+
+    if (directChildDetails.length === 0) return 0;
+
+    let total = 0;
+
+    directChildDetails.forEach(child => {
+        const checkbox = child.querySelector(':scope > summary > input[type="checkbox"]');
+        const progressBar = child.querySelector(':scope > summary > .progressbar');
+
+        if (checkbox) {
+            // Tâche feuille → 100 si cochée, 0 sinon
+            total += checkbox.checked ? 100 : 0;
+        } else if (progressBar) {
+            // Tâche avec enfants → calcul récursif
+            total += calcProgress(child);
+        }
+    });
+
+    return Math.round(total / directChildDetails.length);
+}
+
+const updateAllParents = (checkboxElement) => {
+    // Remonte de details en details
+    let current = checkboxElement.closest('details')?.parentElement?.closest('details');
+
+    while (current) {
+        const progressBar = current.querySelector(':scope > summary > .progressbar');
+        if (progressBar) {
+            const progress = calcProgress(current);
+            const id = progressBar.getAttribute('id');
+
+            if(progress == 100 && localStorage.getItem(`progress-${id}`) <100){
+                fetch(`/api/task/${id}/status`,{
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify({status: true})
+                })
+                .catch((error) => {
+                    console.error("Erreur:", error);
+                })
+            }
+            if(progress < 100 && localStorage.getItem(`progress-${id}`) ==100){
+                fetch(`/api/task/${id}/status`,{
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'},
+                body: JSON.stringify({status: false})
+                })
+                .catch((error) => {
+                    console.error("Erreur:", error);
+                })
+            }
+            progressBar.setAttribute("aria-valuenow", progress);
+            progressBar.style.setProperty('--progress', progress + "%");
+            localStorage.setItem(`progress-${id}`, progress);
+        }
+        current = current.parentElement?.closest('details');
+    }
+}
+
+
 const upDateCheckboxes = () =>{
     //change le status des taches
     const inputElems = document.querySelectorAll('input[type="checkbox"]');
@@ -14,21 +81,16 @@ const upDateCheckboxes = () =>{
                 body: JSON.stringify({status:checkboxe.checked})
             })
             .then((response) => response.json())
-            .then((data)=>{
-                console.log(data)
-                if(data.success) {
-                    const progressBar = document.getElementById(data.parent_id);
-                    progressBar.setAttribute("aria-valuenow", data.progress)
-                    progressBar.style.setProperty('--progress', data.progress + "%")
-                    localStorage.setItem(`progress-${data.parent_id}`,data.progress)
-
-                }else{
-                    checkbox.checked = !checkbox.checked;
+            .then((data) => {
+                if (data.success) {
+                    updateAllParents(checkboxe);
+                } else {
+                    checkboxe.checked = !checkboxe.checked;
                 }
             })
-            .catch((error) =>{
-                console.error("Erreur:",error)
-                checkbox.checked = !checkbox.checked;
+            .catch((error) => {
+                console.error("Erreur:", error);
+                checkboxe.checked = !checkboxe.checked;
             })
         })
     });

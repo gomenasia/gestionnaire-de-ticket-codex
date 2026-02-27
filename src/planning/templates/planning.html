@@ -3,7 +3,7 @@
 <details style="margin-left: {{ depth * 20 }}px !important" class="task{{ depth }}">
 
     <summary>
-        <input type="checkbox" onclick="event.stopPropagation()" data-task-id="{{ item.id }}" {% if item.status %} checked {% endif %}>
+        {% if not item.subtasks %}<input type="checkbox" onclick="event.stopPropagation()" data-task-id="{{ item.id }}" {% if item.status %} checked {% endif %}>{% endif %}
         {{ item.title }}
         {% if depth<max_depth and item.subtasks %}
             <div class="progressbar" id="{{ item.id }}">

@@ -90,9 +90,12 @@ def UpdateTaskStatus(task_id: int):
     data = request.get_json()
     task.update_status(data["status"])
     parent = Task.find_parent_by_parent_id(task.parent_id)
-    rate = parent.completion_rate
-    return jsonify({
-        "success": True,
-        "parent_id": parent.id,
-        "progress": round(rate, 1) if parent else task.completion_rate
-        }), 200
+    if parent is not None:
+        return jsonify({
+            "success": True,
+            "parent_id": parent.id
+            }), 200
+    else:
+        return jsonify({
+            "success": True
+            }), 200

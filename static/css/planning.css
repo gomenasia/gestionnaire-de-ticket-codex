@@ -76,19 +76,13 @@ p.contenu{
     padding: 2px;
     border-radius: 4px;
     
-    color: #181818;
     cursor: pointer;
-
-    border: none;
 }
 
-.addtask{
-    width: 100%;         /* taille fixe du svg */
-    height: 100%;
-}
-
-.add-task-btn svg{
+.add-task-btn i{
     color: #FDF2F4;
+    margin-right: 0;
+    line-height: normal;
 }
 
 summary:hover .add-task-btn{

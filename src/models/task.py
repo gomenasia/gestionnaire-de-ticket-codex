@@ -96,7 +96,10 @@ class Task(db.Model):
     def completion_rate(self) -> float:
         subtasks = self.find_subtasks_by_parent_id(self.id)
         if not subtasks:
-            return 100 if self.status else 0
+            if self.status == 1:
+                return 100.0
+            else:
+                return 0.0
         completed = sum(1 for s in subtasks if s.status)
         return ((completed / len(subtasks))*100)
 
