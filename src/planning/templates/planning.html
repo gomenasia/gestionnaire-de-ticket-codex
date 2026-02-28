@@ -20,7 +20,14 @@
         </button>
         {% endif %}
         {% if g.user and (g.user.id == item.author_id or g.user.is_admin_user()) %}
-            <button type ="button" class="option-btn"><i class="fa-solid fa-ellipsis"></i></button>
+            <div class="option-wrapper">
+                <button type ="button" class="option-btn"><i class="fa-solid fa-ellipsis"></i></button>
+                <!--Sous menu pour les options-->
+                <div class="menu-option">
+                    <button class="modif-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button class="suppr-btn"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
         {% endif %}
     </summary>
     <p style="margin-left: {{ (depth+1) * 20 }}px !important" class="contenu">{{ item.content }}</p>
@@ -61,7 +68,7 @@
 </dialog>
 {% endblock content %}
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/planning.js') }}"></script>
+<script src="{{ url_for('static', filename='js/planning.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/main_task_percent.js') }}" defer></script>
 {% endblock scripts %}
 {% block styles %}
