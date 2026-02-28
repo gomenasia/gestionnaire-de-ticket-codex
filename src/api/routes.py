@@ -1,7 +1,7 @@
 """API pour l'application."""
 
 from flask import jsonify, request, g
-from src.models import Ticket, User, Task
+from src.models import Ticket, User, Task, Message
 from src.utils import login_required
 from . import api_bp
 
@@ -99,3 +99,13 @@ def UpdateTaskStatus(task_id: int):
         return jsonify({
             "success": True
             }), 200
+
+@api_bp.route("/channel/<int:channel_id>/messages")
+@login_required
+def get_messages(channel_id):
+    since = request.args.get("since", 0)
+    messages = Message.query.filter(
+        Message.channel_id == channel_id,
+        Message.id > since
+    ).all()
+    return jsonify([m.to_dict() for m in messages])

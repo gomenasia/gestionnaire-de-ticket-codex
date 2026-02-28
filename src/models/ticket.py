@@ -16,7 +16,6 @@ class Ticket(db.Model):
     title = db.Column(db.String(150), nullable=False)
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), default="en_attente", nullable=False)
-    admin_response = db.Column(db.Text, nullable=True)
     deadline = db.Column(db.DateTime(timezone=True), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), default=lambda: get_utc_now(), nullable=False)
     updated_at = db.Column(db.DateTime(timezone=True), default=lambda: get_utc_now(), onupdate=lambda: get_utc_now(), nullable=False)
@@ -24,7 +23,9 @@ class Ticket(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     author = db.relationship("User", back_populates="tickets")
 
-    channels = db.relationship("Channel", back_populates="channel")
+    channel_id = db.Column(db.Integer, db.ForeignKey("channel.id"), nullable=True)
+
+    channel = db.relationship("Channel", back_populates="ticket")
 
     def __repr__(self) -> str:
         return f"<Ticket {self.title} (status: {self.status})>"
@@ -50,7 +51,6 @@ class Ticket(db.Model):
             "title": self.title,
             "content": self.content,
             "status": self.status,
-            "admin_response": self.admin_response,
             "deadline": self.deadline.isoformat() if self.deadline else None,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),

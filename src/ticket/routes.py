@@ -19,7 +19,7 @@ def admin_update_ticket(ticket_id: int):
         return redirect(url_for("index"))
 
     status = request.form.get("status", ticket.status)
-    admin_response = request.form.get("admin_response", "").strip()
+    admin_response = request.form.get("admin_response", "").strip()  # FIXME
 
     allowed_statuses = {"en_attente", "en_cours", "resolu"}
     if status not in allowed_statuses:
