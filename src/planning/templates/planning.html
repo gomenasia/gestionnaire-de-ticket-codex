@@ -18,7 +18,10 @@
                 data-action="{{ url_for('api.addTask', parent_id=item.id) }}">
                 <i class="fa-solid fa-circle-plus icon"></i>
         </button>
-    {% endif %}
+        {% endif %}
+        {% if g.user and (g.user.id == item.author_id or g.user.is_admin_user()) %}
+            <button type ="button" class="option-btn"><i class="fa-solid fa-ellipsis"></i></button>
+        {% endif %}
     </summary>
     <p style="margin-left: {{ (depth+1) * 20 }}px !important" class="contenu">{{ item.content }}</p>
     

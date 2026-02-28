@@ -286,3 +286,10 @@ dialog .modal-actions {
 .progressbar:not([role="progressbar"]){
     color:var(--darker-color);
 }
+
+/* Boutton d'option*/
+.option-btn {
+    margin-left: auto;
+    background-color: transparent;
+    color: var(--icon-color);
+}
