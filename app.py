@@ -4,6 +4,7 @@ Configure l'application, initialise la base de données, et définit les routes 
 import os
 
 from flask import Flask, render_template
+from flask_socketio import SocketIO
 from src.utils import get_utc_now
 
 from config import config
@@ -12,7 +13,11 @@ from src.auth import auth_bp
 from src.ticket import ticket_bp
 from src.ressources import ressources_bp
 from src.planning import plan_bp
+from src.chat import chat_bp
 from src.models.database import db
+
+
+socketio = SocketIO() # permet la connexion au canal de comunication
 
 
 def create_app() -> Flask:
@@ -36,8 +41,11 @@ def create_app() -> Flask:
     app.register_blueprint(api_bp)
     app.register_blueprint(plan_bp)
     app.register_blueprint(ressources_bp)
-
+    app.register_blueprint(chat_bp)
+    
+    socketio.init_app(app)               # ← ajouter
     return app
+
 
 
 app = create_app()
@@ -69,3 +77,6 @@ with app.app_context():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+if __name__ == "__main__":
+    socketio.run(app, debug=True)

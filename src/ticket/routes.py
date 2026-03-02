@@ -2,7 +2,7 @@ from datetime import timezone
 
 from flask import flash, g, redirect, render_template, request, url_for
 
-from src.models import Ticket, User
+from src.models import Ticket, User, Channel
 from src.models.database import db
 from src.ticket.utils import format_countdown, is_deadline_late, parse_deadline
 from src.utils import admin_required, get_utc_now, login_required
@@ -53,7 +53,12 @@ def create_ticket():
             flash("Utilisateur introuvable.", "danger")
             return redirect(url_for("auth.login"))
 
-        Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
+
+        ticket = Ticket.create(title=title, content=content, deadline=deadline, author=g.user)
+
+        channel = Channel.create(name=f"Discussion ticket #{ticket.id}")
+        
+        ticket.update(channel_id = channel.id)
 
         flash("Ticket créé avec succès.", "success")
         return redirect(url_for("ticket.manage_ticket"))

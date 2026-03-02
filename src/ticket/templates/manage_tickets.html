@@ -84,11 +84,23 @@
         {% endif %}  <!-- FIXME -->
 
         <div class="messagerie">
-          <i class="fa-solid fa-chevron-right"></i>
-          Repondre au ticket
-          <div class="dropdown">
-            {% for message in Message.get_by_channel_id(ticket.channel_id)}
-            <!--TODO-->
+          <button class="btn-repondre" data-channel-id="{{ ticket.channel_id }}">
+            <i class="fa-solid fa-chevron-right"></i> Répondre au ticket
+          </button>
+
+          <div id="discussion-{{ ticket.channel_id }}" class="discussion collapsed">
+            <!-- Messages chargés depuis Jinja -->
+            {% if ticket.channel %}
+              {% for msg in ticket.channel.messages %}
+                <p><strong>{{ msg.author.username }}</strong> : {{ msg.content }}</p>
+              {% endfor %}
+            {% endif %}
+
+            <!-- Formulaire (intercepté par JS, pas envoyé en HTTP) -->
+            <form class="form-message" data-channel-id="{{ ticket.channel_id }}">
+              <input type="text" name="content" placeholder="Répondre...">
+              <button type="submit">Envoyer</button>
+            </form>
           </div>
         </div>
 
@@ -111,4 +123,5 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/ticket_sort_manager.js') }}"></script>
+<script src="{{ url_for('static', filename='js/messagerie.js') }}"></script>
 {% endblock scripts %}
