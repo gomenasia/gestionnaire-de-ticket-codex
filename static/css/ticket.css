@@ -112,3 +112,11 @@
 .deadline.late {
     background: #fee2e2;
 }
+
+.discussion {
+    display: block;
+}
+
+.discussion.collapsed {
+    display: none;
+}

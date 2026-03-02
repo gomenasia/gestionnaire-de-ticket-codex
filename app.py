@@ -13,12 +13,11 @@ from src.auth import auth_bp
 from src.ticket import ticket_bp
 from src.ressources import ressources_bp
 from src.planning import plan_bp
-from src.chat import chat_bp
 from src.models.database import db
-
 
 socketio = SocketIO() # permet la connexion au canal de comunication
 
+from src.chat import chat_bp
 
 def create_app() -> Flask:
     """Factory Flask pour créer l'application avec la config appropriée."""

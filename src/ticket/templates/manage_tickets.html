@@ -111,7 +111,7 @@
               <option value="en_cours" {% if ticket.status == 'en_cours' %}selected{% endif %}>En cours</option>
               <option value="resolu" {% if ticket.status == 'resolu' %}selected{% endif %}>Résolu</option>
             </select>
-            <!-- TODO passer la vallidation avec js-->>
+            <!-- TODO passer la vallidation avec js-->
           </form>
         {% endif %}
       </article>
@@ -122,6 +122,7 @@
 {% endblock content %}
 
 {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
 <script src="{{ url_for('static', filename='js/ticket_sort_manager.js') }}"></script>
 <script src="{{ url_for('static', filename='js/messagerie.js') }}"></script>
 {% endblock scripts %}
