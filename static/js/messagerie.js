@@ -55,11 +55,13 @@
                 channel_id: Number(channelId)
             })
             input.value = ""
+
         })
     })
 
     socket.on("new_message", (msg) => {
-        const panel = document.getElementById(`#discussion-${msg.channel_id}`)
+        
+        const panel = document.getElementById(`message_display-${msg.channel_id}`)
         if (!panel) {
             return
         }
