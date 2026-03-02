@@ -10,8 +10,14 @@
         transports: ["websocket", "polling"]
     })
 
-    // Ouvrir/fermer les discussions
-    document.querySelectorAll(".btn-repondre").forEach(btn => {
+    const socket = typeof window.io === "function"
+        ? window.io({ transports: ["websocket", "polling"] })
+        : null
+
+    const joinedChannels = new Set()
+
+    // Ouvrir/fermer les discussions (doit fonctionner même sans Socket.IO)
+    document.querySelectorAll(".btn-repondre").forEach((btn) => {
         btn.addEventListener("click", () => {
             const channelId = btn.dataset.channelId
             const panel = document.querySelector(`#discussion-${channelId}`)
@@ -27,12 +33,26 @@
         })
     })
 
-    // Envoi d'un message
-    document.querySelectorAll(".form-message").forEach(form => {
+    if (!socket) {
+        // Pas de transport temps réel disponible: on garde le comportement UI (toggle) uniquement.
+        return
+    }
+
+    // Envoi d'un message (uniquement formulaires présents = utilisateurs connectés)
+    document.querySelectorAll(".form-message").forEach((form) => {
         form.addEventListener("submit", (e) => {
             e.preventDefault()
+
             const channelId = form.dataset.channelId
             const input = form.querySelector("input[name='content']")
+            if (!channelId || !input) {
+                return
+            }
+
+            const content = input.value.trim()
+            if (!content) {
+                return
+            }
 
             if (!input) {
                 return
@@ -51,7 +71,6 @@
         })
     })
 
-    // Réception d'un nouveau message
     socket.on("new_message", (msg) => {
         const panel = document.querySelector(`#discussion-${msg.channel_id}`)
         if (!panel) {
