@@ -4,6 +4,12 @@
         return
     }
 
+    const isAuthenticated = document.querySelector(".form-message") !== null
+
+    const socket = io({
+        transports: ["websocket", "polling"]
+    })
+
     const socket = typeof window.io === "function"
         ? window.io({ transports: ["websocket", "polling"] })
         : null
@@ -14,17 +20,15 @@
     document.querySelectorAll(".btn-repondre").forEach((btn) => {
         btn.addEventListener("click", () => {
             const channelId = btn.dataset.channelId
-            const panel = document.getElementById(`discussion-${channelId}`)
+            const panel = document.querySelector(`#discussion-${channelId}`)
             if (!panel) {
                 return
             }
 
             panel.classList.toggle("collapsed")
 
-            const isOpen = !panel.classList.contains("collapsed")
-            if (isOpen && socket && !joinedChannels.has(channelId)) {
+            if (!panel.classList.contains("collapsed")) {
                 socket.emit("join", { channel_id: Number(channelId) })
-                joinedChannels.add(channelId)
             }
         })
     })
@@ -50,6 +54,15 @@
                 return
             }
 
+            if (!input) {
+                return
+            }
+
+            const content = input.value.trim()
+            if (!content) {
+                return
+            }
+
             socket.emit("send_message", {
                 content,
                 channel_id: Number(channelId)
@@ -59,7 +72,7 @@
     })
 
     socket.on("new_message", (msg) => {
-        const panel = document.getElementById(`discussion-${msg.channel_id}`)
+        const panel = document.querySelector(`#discussion-${msg.channel_id}`)
         if (!panel) {
             return
         }
@@ -68,21 +81,22 @@
         p.innerHTML = `<strong>${msg.author}</strong> : ${msg.content}`
 
         const form = panel.querySelector("form")
-        const notice = panel.querySelector(".message.warning")
-
         if (form) {
             form.before(p)
-        } else if (notice) {
-            notice.before(p)
-        } else {
-            panel.appendChild(p)
-        }
-    })
-
-    socket.on("error_message", (payload) => {
-        if (!payload || !payload.message) {
             return
         }
-        console.warn(payload.message)
+
+        const notice = panel.querySelector(".message.warning")
+        if (notice) {
+            notice.before(p)
+            return
+        }
+
+        panel.appendChild(p)
     })
+
+    // Si non connecté, on n'envoie jamais de message, mais on laisse l'affichage en temps réel.
+    if (!isAuthenticated) {
+        return
+    }
 })()
