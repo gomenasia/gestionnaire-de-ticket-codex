@@ -48,6 +48,10 @@ class Task(db.Model):
         db.session.flush()
         db.session.commit()
         return task
+    
+    def delete_Task(self) -> None:
+        db.session.delete(self)
+        db.session.commit()
 
     def update_status(self, status_up: bool) -> None:
         if hasattr(self, "status"):

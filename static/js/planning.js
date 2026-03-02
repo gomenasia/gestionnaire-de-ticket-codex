@@ -72,6 +72,8 @@ document.addEventListener('click', () => {
 });
 
 //modal update de task 
+
+//pour modifier
 modifBtns.forEach((modif) =>{
     modif.addEventListener('click', ()=> {
         currentItemId= modif.dataset.itemId;
@@ -118,3 +120,29 @@ document.getElementById("modal-form_update").addEventListener('submit', (e) =>{
         console.error("Erreur:", error);
     })
 })
+
+//pour supprimer
+suprBtns.forEach((supr) => {
+    supr.addEventListener('click', () => {
+        const currentItemId = supr.dataset.itemId;
+        
+        fetch(`/api/task/${currentItemId}/delete`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            
+            if (data.success) {
+                location.reload();
+            } else {
+                console.log('success = false');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur catch:', error);
+        });
+    });
+});

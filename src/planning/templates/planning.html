@@ -25,7 +25,9 @@
                 <!--Sous menu pour les options-->
                 <div class="menu-option">
                     <button class="modif-btn" data-item-id="{{ item.id }}"><i class="fa-solid fa-pen-to-square"></i></button>
+                    {% if not item.subtasks %}
                     <button class="suppr-btn" data-item-id="{{ item.id }}"><i class="fa-solid fa-trash"></i></button>
+                    {% endif %}
                 </div>
             </div>
         {% endif %}

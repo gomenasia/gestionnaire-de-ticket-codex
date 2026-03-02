@@ -129,3 +129,17 @@ def update(task_id):
         task.update(title=title, content=content)
         return jsonify({
             "success": True}), 200
+
+
+@api_bp.route("/task/<int:task_id>/delete", methods=["DELETE"])
+def delete(task_id):
+    task = Task.find_by_id(task_id)
+    if task is None:
+        return jsonify({"success": False, "error": "Task non trouvée"}), 404
+    if g.user.id == task.author_id or g.user.is_admin_user():
+        task.delete_Task()
+        return jsonify({
+            "success": True}), 200
+    else:
+        return jsonify({"success": False, 
+                        "error": "Vous n'avez pas la permission de suppprimer cette task"}), 404
