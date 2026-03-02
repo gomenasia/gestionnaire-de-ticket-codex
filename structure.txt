@@ -32,6 +32,8 @@ C:.
 ª   ª   ª   builtins.meta.json
 ª   ª   ª   bz2.data.json
 ª   ª   ª   bz2.meta.json
+ª   ª   ª   chat.data.json
+ª   ª   ª   chat.meta.json
 ª   ª   ª   code.data.json
 ª   ª   ª   code.meta.json
 ª   ª   ª   codecs.data.json
@@ -320,6 +322,10 @@ C:.
 ª   ª   ª       base.meta.json
 ª   ª   ª       _utilities.data.json
 ª   ª   ª       _utilities.meta.json
+ª   ª   ª       __init__.data.json
+ª   ª   ª       __init__.meta.json
+ª   ª   ª       
+ª   ª   +---chat
 ª   ª   ª       __init__.data.json
 ª   ª   ª       __init__.meta.json
 ª   ª   ª       
@@ -956,6 +962,10 @@ C:.
 ª   ª   ª   ª       routes.meta.json
 ª   ª   ª   ª       utils.data.json
 ª   ª   ª   ª       utils.meta.json
+ª   ª   ª   ª       __init__.data.json
+ª   ª   ª   ª       __init__.meta.json
+ª   ª   ª   ª       
+ª   ª   ª   +---chat
 ª   ª   ª   ª       __init__.data.json
 ª   ª   ª   ª       __init__.meta.json
 ª   ª   ª   ª       
@@ -3498,6 +3508,43 @@ C:.
 ª   ª       ª   six.py
 ª   ª       ª   typing_extensions.py
 ª   ª       ª   
+ª   ª       +---bidict
+ª   ª       ª   ª   metadata.py
+ª   ª       ª   ª   py.typed
+ª   ª       ª   ª   _abc.py
+ª   ª       ª   ª   _base.py
+ª   ª       ª   ª   _bidict.py
+ª   ª       ª   ª   _dup.py
+ª   ª       ª   ª   _exc.py
+ª   ª       ª   ª   _frozen.py
+ª   ª       ª   ª   _iter.py
+ª   ª       ª   ª   _orderedbase.py
+ª   ª       ª   ª   _orderedbidict.py
+ª   ª       ª   ª   _typing.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---__pycache__
+ª   ª       ª           metadata.cpython-314.pyc
+ª   ª       ª           _abc.cpython-314.pyc
+ª   ª       ª           _base.cpython-314.pyc
+ª   ª       ª           _bidict.cpython-314.pyc
+ª   ª       ª           _dup.cpython-314.pyc
+ª   ª       ª           _exc.cpython-314.pyc
+ª   ª       ª           _frozen.cpython-314.pyc
+ª   ª       ª           _iter.cpython-314.pyc
+ª   ª       ª           _orderedbase.cpython-314.pyc
+ª   ª       ª           _orderedbidict.cpython-314.pyc
+ª   ª       ª           _typing.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---bidict-0.23.1.dist-info
+ª   ª       ª       INSTALLER
+ª   ª       ª       LICENSE
+ª   ª       ª       METADATA
+ª   ª       ª       RECORD
+ª   ª       ª       top_level.txt
+ª   ª       ª       WHEEL
+ª   ª       ª       
 ª   ª       +---blinker
 ª   ª       ª   ª   base.py
 ª   ª       ª   ª   py.typed
@@ -3712,6 +3759,342 @@ C:.
 ª   ª       ª   +---licenses
 ª   ª       ª           LICENSE
 ª   ª       ª           
+ª   ª       +---dns
+ª   ª       ª   ª   asyncbackend.py
+ª   ª       ª   ª   asyncquery.py
+ª   ª       ª   ª   asyncresolver.py
+ª   ª       ª   ª   btree.py
+ª   ª       ª   ª   btreezone.py
+ª   ª       ª   ª   dnssec.py
+ª   ª       ª   ª   dnssectypes.py
+ª   ª       ª   ª   e164.py
+ª   ª       ª   ª   edns.py
+ª   ª       ª   ª   entropy.py
+ª   ª       ª   ª   enum.py
+ª   ª       ª   ª   exception.py
+ª   ª       ª   ª   flags.py
+ª   ª       ª   ª   grange.py
+ª   ª       ª   ª   immutable.py
+ª   ª       ª   ª   inet.py
+ª   ª       ª   ª   ipv4.py
+ª   ª       ª   ª   ipv6.py
+ª   ª       ª   ª   message.py
+ª   ª       ª   ª   name.py
+ª   ª       ª   ª   namedict.py
+ª   ª       ª   ª   nameserver.py
+ª   ª       ª   ª   node.py
+ª   ª       ª   ª   opcode.py
+ª   ª       ª   ª   py.typed
+ª   ª       ª   ª   query.py
+ª   ª       ª   ª   rcode.py
+ª   ª       ª   ª   rdata.py
+ª   ª       ª   ª   rdataclass.py
+ª   ª       ª   ª   rdataset.py
+ª   ª       ª   ª   rdatatype.py
+ª   ª       ª   ª   renderer.py
+ª   ª       ª   ª   resolver.py
+ª   ª       ª   ª   reversename.py
+ª   ª       ª   ª   rrset.py
+ª   ª       ª   ª   serial.py
+ª   ª       ª   ª   set.py
+ª   ª       ª   ª   tokenizer.py
+ª   ª       ª   ª   transaction.py
+ª   ª       ª   ª   tsig.py
+ª   ª       ª   ª   tsigkeyring.py
+ª   ª       ª   ª   ttl.py
+ª   ª       ª   ª   update.py
+ª   ª       ª   ª   version.py
+ª   ª       ª   ª   versioned.py
+ª   ª       ª   ª   win32util.py
+ª   ª       ª   ª   wire.py
+ª   ª       ª   ª   xfr.py
+ª   ª       ª   ª   zone.py
+ª   ª       ª   ª   zonefile.py
+ª   ª       ª   ª   zonetypes.py
+ª   ª       ª   ª   _asyncbackend.py
+ª   ª       ª   ª   _asyncio_backend.py
+ª   ª       ª   ª   _ddr.py
+ª   ª       ª   ª   _features.py
+ª   ª       ª   ª   _immutable_ctx.py
+ª   ª       ª   ª   _no_ssl.py
+ª   ª       ª   ª   _tls_util.py
+ª   ª       ª   ª   _trio_backend.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---dnssecalgs
+ª   ª       ª   ª   ª   base.py
+ª   ª       ª   ª   ª   cryptography.py
+ª   ª       ª   ª   ª   dsa.py
+ª   ª       ª   ª   ª   ecdsa.py
+ª   ª       ª   ª   ª   eddsa.py
+ª   ª       ª   ª   ª   rsa.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           base.cpython-314.pyc
+ª   ª       ª   ª           cryptography.cpython-314.pyc
+ª   ª       ª   ª           dsa.cpython-314.pyc
+ª   ª       ª   ª           ecdsa.cpython-314.pyc
+ª   ª       ª   ª           eddsa.cpython-314.pyc
+ª   ª       ª   ª           rsa.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---quic
+ª   ª       ª   ª   ª   _asyncio.py
+ª   ª       ª   ª   ª   _common.py
+ª   ª       ª   ª   ª   _sync.py
+ª   ª       ª   ª   ª   _trio.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           _asyncio.cpython-314.pyc
+ª   ª       ª   ª           _common.cpython-314.pyc
+ª   ª       ª   ª           _sync.cpython-314.pyc
+ª   ª       ª   ª           _trio.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---rdtypes
+ª   ª       ª   ª   ª   dnskeybase.py
+ª   ª       ª   ª   ª   dsbase.py
+ª   ª       ª   ª   ª   euibase.py
+ª   ª       ª   ª   ª   mxbase.py
+ª   ª       ª   ª   ª   nsbase.py
+ª   ª       ª   ª   ª   svcbbase.py
+ª   ª       ª   ª   ª   tlsabase.py
+ª   ª       ª   ª   ª   txtbase.py
+ª   ª       ª   ª   ª   util.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---ANY
+ª   ª       ª   ª   ª   ª   AFSDB.py
+ª   ª       ª   ª   ª   ª   AMTRELAY.py
+ª   ª       ª   ª   ª   ª   AVC.py
+ª   ª       ª   ª   ª   ª   CAA.py
+ª   ª       ª   ª   ª   ª   CDNSKEY.py
+ª   ª       ª   ª   ª   ª   CDS.py
+ª   ª       ª   ª   ª   ª   CERT.py
+ª   ª       ª   ª   ª   ª   CNAME.py
+ª   ª       ª   ª   ª   ª   CSYNC.py
+ª   ª       ª   ª   ª   ª   DLV.py
+ª   ª       ª   ª   ª   ª   DNAME.py
+ª   ª       ª   ª   ª   ª   DNSKEY.py
+ª   ª       ª   ª   ª   ª   DS.py
+ª   ª       ª   ª   ª   ª   DSYNC.py
+ª   ª       ª   ª   ª   ª   EUI48.py
+ª   ª       ª   ª   ª   ª   EUI64.py
+ª   ª       ª   ª   ª   ª   GPOS.py
+ª   ª       ª   ª   ª   ª   HINFO.py
+ª   ª       ª   ª   ª   ª   HIP.py
+ª   ª       ª   ª   ª   ª   ISDN.py
+ª   ª       ª   ª   ª   ª   L32.py
+ª   ª       ª   ª   ª   ª   L64.py
+ª   ª       ª   ª   ª   ª   LOC.py
+ª   ª       ª   ª   ª   ª   LP.py
+ª   ª       ª   ª   ª   ª   MX.py
+ª   ª       ª   ª   ª   ª   NID.py
+ª   ª       ª   ª   ª   ª   NINFO.py
+ª   ª       ª   ª   ª   ª   NS.py
+ª   ª       ª   ª   ª   ª   NSEC.py
+ª   ª       ª   ª   ª   ª   NSEC3.py
+ª   ª       ª   ª   ª   ª   NSEC3PARAM.py
+ª   ª       ª   ª   ª   ª   OPENPGPKEY.py
+ª   ª       ª   ª   ª   ª   OPT.py
+ª   ª       ª   ª   ª   ª   PTR.py
+ª   ª       ª   ª   ª   ª   RESINFO.py
+ª   ª       ª   ª   ª   ª   RP.py
+ª   ª       ª   ª   ª   ª   RRSIG.py
+ª   ª       ª   ª   ª   ª   RT.py
+ª   ª       ª   ª   ª   ª   SMIMEA.py
+ª   ª       ª   ª   ª   ª   SOA.py
+ª   ª       ª   ª   ª   ª   SPF.py
+ª   ª       ª   ª   ª   ª   SSHFP.py
+ª   ª       ª   ª   ª   ª   TKEY.py
+ª   ª       ª   ª   ª   ª   TLSA.py
+ª   ª       ª   ª   ª   ª   TSIG.py
+ª   ª       ª   ª   ª   ª   TXT.py
+ª   ª       ª   ª   ª   ª   URI.py
+ª   ª       ª   ª   ª   ª   WALLET.py
+ª   ª       ª   ª   ª   ª   X25.py
+ª   ª       ª   ª   ª   ª   ZONEMD.py
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           AFSDB.cpython-314.pyc
+ª   ª       ª   ª   ª           AMTRELAY.cpython-314.pyc
+ª   ª       ª   ª   ª           AVC.cpython-314.pyc
+ª   ª       ª   ª   ª           CAA.cpython-314.pyc
+ª   ª       ª   ª   ª           CDNSKEY.cpython-314.pyc
+ª   ª       ª   ª   ª           CDS.cpython-314.pyc
+ª   ª       ª   ª   ª           CERT.cpython-314.pyc
+ª   ª       ª   ª   ª           CNAME.cpython-314.pyc
+ª   ª       ª   ª   ª           CSYNC.cpython-314.pyc
+ª   ª       ª   ª   ª           DLV.cpython-314.pyc
+ª   ª       ª   ª   ª           DNAME.cpython-314.pyc
+ª   ª       ª   ª   ª           DNSKEY.cpython-314.pyc
+ª   ª       ª   ª   ª           DS.cpython-314.pyc
+ª   ª       ª   ª   ª           DSYNC.cpython-314.pyc
+ª   ª       ª   ª   ª           EUI48.cpython-314.pyc
+ª   ª       ª   ª   ª           EUI64.cpython-314.pyc
+ª   ª       ª   ª   ª           GPOS.cpython-314.pyc
+ª   ª       ª   ª   ª           HINFO.cpython-314.pyc
+ª   ª       ª   ª   ª           HIP.cpython-314.pyc
+ª   ª       ª   ª   ª           ISDN.cpython-314.pyc
+ª   ª       ª   ª   ª           L32.cpython-314.pyc
+ª   ª       ª   ª   ª           L64.cpython-314.pyc
+ª   ª       ª   ª   ª           LOC.cpython-314.pyc
+ª   ª       ª   ª   ª           LP.cpython-314.pyc
+ª   ª       ª   ª   ª           MX.cpython-314.pyc
+ª   ª       ª   ª   ª           NID.cpython-314.pyc
+ª   ª       ª   ª   ª           NINFO.cpython-314.pyc
+ª   ª       ª   ª   ª           NS.cpython-314.pyc
+ª   ª       ª   ª   ª           NSEC.cpython-314.pyc
+ª   ª       ª   ª   ª           NSEC3.cpython-314.pyc
+ª   ª       ª   ª   ª           NSEC3PARAM.cpython-314.pyc
+ª   ª       ª   ª   ª           OPENPGPKEY.cpython-314.pyc
+ª   ª       ª   ª   ª           OPT.cpython-314.pyc
+ª   ª       ª   ª   ª           PTR.cpython-314.pyc
+ª   ª       ª   ª   ª           RESINFO.cpython-314.pyc
+ª   ª       ª   ª   ª           RP.cpython-314.pyc
+ª   ª       ª   ª   ª           RRSIG.cpython-314.pyc
+ª   ª       ª   ª   ª           RT.cpython-314.pyc
+ª   ª       ª   ª   ª           SMIMEA.cpython-314.pyc
+ª   ª       ª   ª   ª           SOA.cpython-314.pyc
+ª   ª       ª   ª   ª           SPF.cpython-314.pyc
+ª   ª       ª   ª   ª           SSHFP.cpython-314.pyc
+ª   ª       ª   ª   ª           TKEY.cpython-314.pyc
+ª   ª       ª   ª   ª           TLSA.cpython-314.pyc
+ª   ª       ª   ª   ª           TSIG.cpython-314.pyc
+ª   ª       ª   ª   ª           TXT.cpython-314.pyc
+ª   ª       ª   ª   ª           URI.cpython-314.pyc
+ª   ª       ª   ª   ª           WALLET.cpython-314.pyc
+ª   ª       ª   ª   ª           X25.cpython-314.pyc
+ª   ª       ª   ª   ª           ZONEMD.cpython-314.pyc
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---CH
+ª   ª       ª   ª   ª   ª   A.py
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           A.cpython-314.pyc
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---IN
+ª   ª       ª   ª   ª   ª   A.py
+ª   ª       ª   ª   ª   ª   AAAA.py
+ª   ª       ª   ª   ª   ª   APL.py
+ª   ª       ª   ª   ª   ª   DHCID.py
+ª   ª       ª   ª   ª   ª   HTTPS.py
+ª   ª       ª   ª   ª   ª   IPSECKEY.py
+ª   ª       ª   ª   ª   ª   KX.py
+ª   ª       ª   ª   ª   ª   NAPTR.py
+ª   ª       ª   ª   ª   ª   NSAP.py
+ª   ª       ª   ª   ª   ª   NSAP_PTR.py
+ª   ª       ª   ª   ª   ª   PX.py
+ª   ª       ª   ª   ª   ª   SRV.py
+ª   ª       ª   ª   ª   ª   SVCB.py
+ª   ª       ª   ª   ª   ª   WKS.py
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           A.cpython-314.pyc
+ª   ª       ª   ª   ª           AAAA.cpython-314.pyc
+ª   ª       ª   ª   ª           APL.cpython-314.pyc
+ª   ª       ª   ª   ª           DHCID.cpython-314.pyc
+ª   ª       ª   ª   ª           HTTPS.cpython-314.pyc
+ª   ª       ª   ª   ª           IPSECKEY.cpython-314.pyc
+ª   ª       ª   ª   ª           KX.cpython-314.pyc
+ª   ª       ª   ª   ª           NAPTR.cpython-314.pyc
+ª   ª       ª   ª   ª           NSAP.cpython-314.pyc
+ª   ª       ª   ª   ª           NSAP_PTR.cpython-314.pyc
+ª   ª       ª   ª   ª           PX.cpython-314.pyc
+ª   ª       ª   ª   ª           SRV.cpython-314.pyc
+ª   ª       ª   ª   ª           SVCB.cpython-314.pyc
+ª   ª       ª   ª   ª           WKS.cpython-314.pyc
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           dnskeybase.cpython-314.pyc
+ª   ª       ª   ª           dsbase.cpython-314.pyc
+ª   ª       ª   ª           euibase.cpython-314.pyc
+ª   ª       ª   ª           mxbase.cpython-314.pyc
+ª   ª       ª   ª           nsbase.cpython-314.pyc
+ª   ª       ª   ª           svcbbase.cpython-314.pyc
+ª   ª       ª   ª           tlsabase.cpython-314.pyc
+ª   ª       ª   ª           txtbase.cpython-314.pyc
+ª   ª       ª   ª           util.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---__pycache__
+ª   ª       ª           asyncbackend.cpython-314.pyc
+ª   ª       ª           asyncquery.cpython-314.pyc
+ª   ª       ª           asyncresolver.cpython-314.pyc
+ª   ª       ª           btree.cpython-314.pyc
+ª   ª       ª           btreezone.cpython-314.pyc
+ª   ª       ª           dnssec.cpython-314.pyc
+ª   ª       ª           dnssectypes.cpython-314.pyc
+ª   ª       ª           e164.cpython-314.pyc
+ª   ª       ª           edns.cpython-314.pyc
+ª   ª       ª           entropy.cpython-314.pyc
+ª   ª       ª           enum.cpython-314.pyc
+ª   ª       ª           exception.cpython-314.pyc
+ª   ª       ª           flags.cpython-314.pyc
+ª   ª       ª           grange.cpython-314.pyc
+ª   ª       ª           immutable.cpython-314.pyc
+ª   ª       ª           inet.cpython-314.pyc
+ª   ª       ª           ipv4.cpython-314.pyc
+ª   ª       ª           ipv6.cpython-314.pyc
+ª   ª       ª           message.cpython-314.pyc
+ª   ª       ª           name.cpython-314.pyc
+ª   ª       ª           namedict.cpython-314.pyc
+ª   ª       ª           nameserver.cpython-314.pyc
+ª   ª       ª           node.cpython-314.pyc
+ª   ª       ª           opcode.cpython-314.pyc
+ª   ª       ª           query.cpython-314.pyc
+ª   ª       ª           rcode.cpython-314.pyc
+ª   ª       ª           rdata.cpython-314.pyc
+ª   ª       ª           rdataclass.cpython-314.pyc
+ª   ª       ª           rdataset.cpython-314.pyc
+ª   ª       ª           rdatatype.cpython-314.pyc
+ª   ª       ª           renderer.cpython-314.pyc
+ª   ª       ª           resolver.cpython-314.pyc
+ª   ª       ª           reversename.cpython-314.pyc
+ª   ª       ª           rrset.cpython-314.pyc
+ª   ª       ª           serial.cpython-314.pyc
+ª   ª       ª           set.cpython-314.pyc
+ª   ª       ª           tokenizer.cpython-314.pyc
+ª   ª       ª           transaction.cpython-314.pyc
+ª   ª       ª           tsig.cpython-314.pyc
+ª   ª       ª           tsigkeyring.cpython-314.pyc
+ª   ª       ª           ttl.cpython-314.pyc
+ª   ª       ª           update.cpython-314.pyc
+ª   ª       ª           version.cpython-314.pyc
+ª   ª       ª           versioned.cpython-314.pyc
+ª   ª       ª           win32util.cpython-314.pyc
+ª   ª       ª           wire.cpython-314.pyc
+ª   ª       ª           xfr.cpython-314.pyc
+ª   ª       ª           zone.cpython-314.pyc
+ª   ª       ª           zonefile.cpython-314.pyc
+ª   ª       ª           zonetypes.cpython-314.pyc
+ª   ª       ª           _asyncbackend.cpython-314.pyc
+ª   ª       ª           _asyncio_backend.cpython-314.pyc
+ª   ª       ª           _ddr.cpython-314.pyc
+ª   ª       ª           _features.cpython-314.pyc
+ª   ª       ª           _immutable_ctx.cpython-314.pyc
+ª   ª       ª           _no_ssl.cpython-314.pyc
+ª   ª       ª           _tls_util.cpython-314.pyc
+ª   ª       ª           _trio_backend.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---dnspython-2.8.0.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           LICENSE
+ª   ª       ª           
 ª   ª       +---editorconfig
 ª   ª       ª   ª   exceptions.py
 ª   ª       ª   ª   fnmatch.py
@@ -3745,6 +4128,315 @@ C:.
 ª   ª       ª           COPYING
 ª   ª       ª           LICENSE.BSD
 ª   ª       ª           LICENSE.PSF
+ª   ª       ª           
+ª   ª       +---engineio
+ª   ª       ª   ª   async_client.py
+ª   ª       ª   ª   async_server.py
+ª   ª       ª   ª   async_socket.py
+ª   ª       ª   ª   base_client.py
+ª   ª       ª   ª   base_server.py
+ª   ª       ª   ª   base_socket.py
+ª   ª       ª   ª   client.py
+ª   ª       ª   ª   exceptions.py
+ª   ª       ª   ª   json.py
+ª   ª       ª   ª   middleware.py
+ª   ª       ª   ª   packet.py
+ª   ª       ª   ª   payload.py
+ª   ª       ª   ª   server.py
+ª   ª       ª   ª   socket.py
+ª   ª       ª   ª   static_files.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---async_drivers
+ª   ª       ª   ª   ª   aiohttp.py
+ª   ª       ª   ª   ª   asgi.py
+ª   ª       ª   ª   ª   eventlet.py
+ª   ª       ª   ª   ª   gevent.py
+ª   ª       ª   ª   ª   gevent_uwsgi.py
+ª   ª       ª   ª   ª   sanic.py
+ª   ª       ª   ª   ª   threading.py
+ª   ª       ª   ª   ª   tornado.py
+ª   ª       ª   ª   ª   _websocket_wsgi.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           aiohttp.cpython-314.pyc
+ª   ª       ª   ª           asgi.cpython-314.pyc
+ª   ª       ª   ª           eventlet.cpython-314.pyc
+ª   ª       ª   ª           gevent.cpython-314.pyc
+ª   ª       ª   ª           gevent_uwsgi.cpython-314.pyc
+ª   ª       ª   ª           sanic.cpython-314.pyc
+ª   ª       ª   ª           threading.cpython-314.pyc
+ª   ª       ª   ª           tornado.cpython-314.pyc
+ª   ª       ª   ª           _websocket_wsgi.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---__pycache__
+ª   ª       ª           async_client.cpython-314.pyc
+ª   ª       ª           async_server.cpython-314.pyc
+ª   ª       ª           async_socket.cpython-314.pyc
+ª   ª       ª           base_client.cpython-314.pyc
+ª   ª       ª           base_server.cpython-314.pyc
+ª   ª       ª           base_socket.cpython-314.pyc
+ª   ª       ª           client.cpython-314.pyc
+ª   ª       ª           exceptions.cpython-314.pyc
+ª   ª       ª           json.cpython-314.pyc
+ª   ª       ª           middleware.cpython-314.pyc
+ª   ª       ª           packet.cpython-314.pyc
+ª   ª       ª           payload.cpython-314.pyc
+ª   ª       ª           server.cpython-314.pyc
+ª   ª       ª           socket.cpython-314.pyc
+ª   ª       ª           static_files.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---eventlet
+ª   ª       ª   ª   asyncio.py
+ª   ª       ª   ª   backdoor.py
+ª   ª       ª   ª   convenience.py
+ª   ª       ª   ª   corolocal.py
+ª   ª       ª   ª   coros.py
+ª   ª       ª   ª   dagpool.py
+ª   ª       ª   ª   db_pool.py
+ª   ª       ª   ª   debug.py
+ª   ª       ª   ª   event.py
+ª   ª       ª   ª   greenpool.py
+ª   ª       ª   ª   greenthread.py
+ª   ª       ª   ª   lock.py
+ª   ª       ª   ª   patcher.py
+ª   ª       ª   ª   pools.py
+ª   ª       ª   ª   queue.py
+ª   ª       ª   ª   semaphore.py
+ª   ª       ª   ª   timeout.py
+ª   ª       ª   ª   tpool.py
+ª   ª       ª   ª   websocket.py
+ª   ª       ª   ª   wsgi.py
+ª   ª       ª   ª   _version.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---green
+ª   ª       ª   ª   ª   asynchat.py
+ª   ª       ª   ª   ª   asyncore.py
+ª   ª       ª   ª   ª   BaseHTTPServer.py
+ª   ª       ª   ª   ª   builtin.py
+ª   ª       ª   ª   ª   CGIHTTPServer.py
+ª   ª       ª   ª   ª   ftplib.py
+ª   ª       ª   ª   ª   httplib.py
+ª   ª       ª   ª   ª   MySQLdb.py
+ª   ª       ª   ª   ª   os.py
+ª   ª       ª   ª   ª   profile.py
+ª   ª       ª   ª   ª   Queue.py
+ª   ª       ª   ª   ª   select.py
+ª   ª       ª   ª   ª   selectors.py
+ª   ª       ª   ª   ª   SimpleHTTPServer.py
+ª   ª       ª   ª   ª   socket.py
+ª   ª       ª   ª   ª   SocketServer.py
+ª   ª       ª   ª   ª   ssl.py
+ª   ª       ª   ª   ª   subprocess.py
+ª   ª       ª   ª   ª   thread.py
+ª   ª       ª   ª   ª   threading.py
+ª   ª       ª   ª   ª   time.py
+ª   ª       ª   ª   ª   urllib2.py
+ª   ª       ª   ª   ª   zmq.py
+ª   ª       ª   ª   ª   _socket_nodns.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---http
+ª   ª       ª   ª   ª   ª   client.py
+ª   ª       ª   ª   ª   ª   cookiejar.py
+ª   ª       ª   ª   ª   ª   cookies.py
+ª   ª       ª   ª   ª   ª   server.py
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           client.cpython-314.pyc
+ª   ª       ª   ª   ª           cookiejar.cpython-314.pyc
+ª   ª       ª   ª   ª           cookies.cpython-314.pyc
+ª   ª       ª   ª   ª           server.cpython-314.pyc
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---OpenSSL
+ª   ª       ª   ª   ª   ª   crypto.py
+ª   ª       ª   ª   ª   ª   SSL.py
+ª   ª       ª   ª   ª   ª   tsafe.py
+ª   ª       ª   ª   ª   ª   version.py
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           crypto.cpython-314.pyc
+ª   ª       ª   ª   ª           SSL.cpython-314.pyc
+ª   ª       ª   ª   ª           tsafe.cpython-314.pyc
+ª   ª       ª   ª   ª           version.cpython-314.pyc
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---urllib
+ª   ª       ª   ª   ª   ª   error.py
+ª   ª       ª   ª   ª   ª   parse.py
+ª   ª       ª   ª   ª   ª   request.py
+ª   ª       ª   ª   ª   ª   response.py
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           error.cpython-314.pyc
+ª   ª       ª   ª   ª           parse.cpython-314.pyc
+ª   ª       ª   ª   ª           request.cpython-314.pyc
+ª   ª       ª   ª   ª           response.cpython-314.pyc
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           asynchat.cpython-314.pyc
+ª   ª       ª   ª           asyncore.cpython-314.pyc
+ª   ª       ª   ª           BaseHTTPServer.cpython-314.pyc
+ª   ª       ª   ª           builtin.cpython-314.pyc
+ª   ª       ª   ª           CGIHTTPServer.cpython-314.pyc
+ª   ª       ª   ª           ftplib.cpython-314.pyc
+ª   ª       ª   ª           httplib.cpython-314.pyc
+ª   ª       ª   ª           MySQLdb.cpython-314.pyc
+ª   ª       ª   ª           os.cpython-314.pyc
+ª   ª       ª   ª           profile.cpython-314.pyc
+ª   ª       ª   ª           Queue.cpython-314.pyc
+ª   ª       ª   ª           select.cpython-314.pyc
+ª   ª       ª   ª           selectors.cpython-314.pyc
+ª   ª       ª   ª           SimpleHTTPServer.cpython-314.pyc
+ª   ª       ª   ª           socket.cpython-314.pyc
+ª   ª       ª   ª           SocketServer.cpython-314.pyc
+ª   ª       ª   ª           ssl.cpython-314.pyc
+ª   ª       ª   ª           subprocess.cpython-314.pyc
+ª   ª       ª   ª           thread.cpython-314.pyc
+ª   ª       ª   ª           threading.cpython-314.pyc
+ª   ª       ª   ª           time.cpython-314.pyc
+ª   ª       ª   ª           urllib2.cpython-314.pyc
+ª   ª       ª   ª           zmq.cpython-314.pyc
+ª   ª       ª   ª           _socket_nodns.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---greenio
+ª   ª       ª   ª   ª   base.py
+ª   ª       ª   ª   ª   py3.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           base.cpython-314.pyc
+ª   ª       ª   ª           py3.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---hubs
+ª   ª       ª   ª   ª   asyncio.py
+ª   ª       ª   ª   ª   epolls.py
+ª   ª       ª   ª   ª   hub.py
+ª   ª       ª   ª   ª   kqueue.py
+ª   ª       ª   ª   ª   poll.py
+ª   ª       ª   ª   ª   pyevent.py
+ª   ª       ª   ª   ª   selects.py
+ª   ª       ª   ª   ª   timer.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           asyncio.cpython-314.pyc
+ª   ª       ª   ª           epolls.cpython-314.pyc
+ª   ª       ª   ª           hub.cpython-314.pyc
+ª   ª       ª   ª           kqueue.cpython-314.pyc
+ª   ª       ª   ª           poll.cpython-314.pyc
+ª   ª       ª   ª           pyevent.cpython-314.pyc
+ª   ª       ª   ª           selects.cpython-314.pyc
+ª   ª       ª   ª           timer.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---support
+ª   ª       ª   ª   ª   greendns.py
+ª   ª       ª   ª   ª   greenlets.py
+ª   ª       ª   ª   ª   psycopg2_patcher.py
+ª   ª       ª   ª   ª   pylib.py
+ª   ª       ª   ª   ª   stacklesspypys.py
+ª   ª       ª   ª   ª   stacklesss.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           greendns.cpython-314.pyc
+ª   ª       ª   ª           greenlets.cpython-314.pyc
+ª   ª       ª   ª           psycopg2_patcher.cpython-314.pyc
+ª   ª       ª   ª           pylib.cpython-314.pyc
+ª   ª       ª   ª           stacklesspypys.cpython-314.pyc
+ª   ª       ª   ª           stacklesss.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---zipkin
+ª   ª       ª   ª   ª   api.py
+ª   ª       ª   ª   ª   client.py
+ª   ª       ª   ª   ª   greenthread.py
+ª   ª       ª   ª   ª   http.py
+ª   ª       ª   ª   ª   log.py
+ª   ª       ª   ª   ª   patcher.py
+ª   ª       ª   ª   ª   README.rst
+ª   ª       ª   ª   ª   wsgi.py
+ª   ª       ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   
+ª   ª       ª   ª   +---example
+ª   ª       ª   ª   ª       ex1.png
+ª   ª       ª   ª   ª       ex2.png
+ª   ª       ª   ª   ª       ex3.png
+ª   ª       ª   ª   ª       
+ª   ª       ª   ª   +---_thrift
+ª   ª       ª   ª   ª   ª   README.rst
+ª   ª       ª   ª   ª   ª   zipkinCore.thrift
+ª   ª       ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   
+ª   ª       ª   ª   ª   +---zipkinCore
+ª   ª       ª   ª   ª   ª   ª   constants.py
+ª   ª       ª   ª   ª   ª   ª   ttypes.py
+ª   ª       ª   ª   ª   ª   ª   __init__.py
+ª   ª       ª   ª   ª   ª   ª   
+ª   ª       ª   ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª   ª           constants.cpython-314.pyc
+ª   ª       ª   ª   ª   ª           ttypes.cpython-314.pyc
+ª   ª       ª   ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª   ª           
+ª   ª       ª   ª   ª   +---__pycache__
+ª   ª       ª   ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª   ª           
+ª   ª       ª   ª   +---__pycache__
+ª   ª       ª   ª           api.cpython-314.pyc
+ª   ª       ª   ª           client.cpython-314.pyc
+ª   ª       ª   ª           greenthread.cpython-314.pyc
+ª   ª       ª   ª           http.cpython-314.pyc
+ª   ª       ª   ª           log.cpython-314.pyc
+ª   ª       ª   ª           patcher.cpython-314.pyc
+ª   ª       ª   ª           wsgi.cpython-314.pyc
+ª   ª       ª   ª           __init__.cpython-314.pyc
+ª   ª       ª   ª           
+ª   ª       ª   +---__pycache__
+ª   ª       ª           asyncio.cpython-314.pyc
+ª   ª       ª           backdoor.cpython-314.pyc
+ª   ª       ª           convenience.cpython-314.pyc
+ª   ª       ª           corolocal.cpython-314.pyc
+ª   ª       ª           coros.cpython-314.pyc
+ª   ª       ª           dagpool.cpython-314.pyc
+ª   ª       ª           db_pool.cpython-314.pyc
+ª   ª       ª           debug.cpython-314.pyc
+ª   ª       ª           event.cpython-314.pyc
+ª   ª       ª           greenpool.cpython-314.pyc
+ª   ª       ª           greenthread.cpython-314.pyc
+ª   ª       ª           lock.cpython-314.pyc
+ª   ª       ª           patcher.cpython-314.pyc
+ª   ª       ª           pools.cpython-314.pyc
+ª   ª       ª           queue.cpython-314.pyc
+ª   ª       ª           semaphore.cpython-314.pyc
+ª   ª       ª           timeout.cpython-314.pyc
+ª   ª       ª           tpool.cpython-314.pyc
+ª   ª       ª           websocket.cpython-314.pyc
+ª   ª       ª           wsgi.cpython-314.pyc
+ª   ª       ª           _version.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---eventlet-0.40.4.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   REQUESTED
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           AUTHORS
+ª   ª       ª           LICENSE
 ª   ª       ª           
 ª   ª       +---flake8
 ª   ª       ª   ª   checker.py
@@ -3917,6 +4609,27 @@ C:.
 ª   ª       ª       REQUESTED
 ª   ª       ª       WHEEL
 ª   ª       ª       
+ª   ª       +---flask_socketio
+ª   ª       ª   ª   namespace.py
+ª   ª       ª   ª   test_client.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---__pycache__
+ª   ª       ª           namespace.cpython-314.pyc
+ª   ª       ª           test_client.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---flask_socketio-5.6.1.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   REQUESTED
+ª   ª       ª   ª   top_level.txt
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           LICENSE
+ª   ª       ª           
 ª   ª       +---flask_sqlalchemy
 ª   ª       ª   ª   cli.py
 ª   ª       ª   ª   extension.py
@@ -4085,6 +4798,43 @@ C:.
 ª   ª       ª   +---licenses
 ª   ª       ª           LICENSE
 ª   ª       ª           LICENSE.PSF
+ª   ª       ª           
+ª   ª       +---h11
+ª   ª       ª   ª   py.typed
+ª   ª       ª   ª   _abnf.py
+ª   ª       ª   ª   _connection.py
+ª   ª       ª   ª   _events.py
+ª   ª       ª   ª   _headers.py
+ª   ª       ª   ª   _readers.py
+ª   ª       ª   ª   _receivebuffer.py
+ª   ª       ª   ª   _state.py
+ª   ª       ª   ª   _util.py
+ª   ª       ª   ª   _version.py
+ª   ª       ª   ª   _writers.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---__pycache__
+ª   ª       ª           _abnf.cpython-314.pyc
+ª   ª       ª           _connection.cpython-314.pyc
+ª   ª       ª           _events.cpython-314.pyc
+ª   ª       ª           _headers.cpython-314.pyc
+ª   ª       ª           _readers.cpython-314.pyc
+ª   ª       ª           _receivebuffer.cpython-314.pyc
+ª   ª       ª           _state.cpython-314.pyc
+ª   ª       ª           _util.cpython-314.pyc
+ª   ª       ª           _version.cpython-314.pyc
+ª   ª       ª           _writers.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---h11-0.16.0.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   top_level.txt
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           LICENSE.txt
 ª   ª       ª           
 ª   ª       +---itsdangerous
 ª   ª       ª   ª   encoding.py
@@ -5652,6 +6402,26 @@ C:.
 ª   ª       ª       top_level.txt
 ª   ª       ª       WHEEL
 ª   ª       ª       
+ª   ª       +---python_engineio-4.13.1.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   top_level.txt
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           LICENSE
+ª   ª       ª           
+ª   ª       +---python_socketio-5.16.1.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   top_level.txt
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           LICENSE
+ª   ª       ª           
 ª   ª       +---pyyaml-6.0.3.dist-info
 ª   ª       ª   ª   INSTALLER
 ª   ª       ª   ª   METADATA
@@ -5689,6 +6459,28 @@ C:.
 ª   ª       ª   +---licenses
 ª   ª       ª           LICENSE.txt
 ª   ª       ª           
+ª   ª       +---simple_websocket
+ª   ª       ª   ª   aiows.py
+ª   ª       ª   ª   asgi.py
+ª   ª       ª   ª   errors.py
+ª   ª       ª   ª   ws.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---__pycache__
+ª   ª       ª           aiows.cpython-314.pyc
+ª   ª       ª           asgi.cpython-314.pyc
+ª   ª       ª           errors.cpython-314.pyc
+ª   ª       ª           ws.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---simple_websocket-1.1.0.dist-info
+ª   ª       ª       INSTALLER
+ª   ª       ª       LICENSE
+ª   ª       ª       METADATA
+ª   ª       ª       RECORD
+ª   ª       ª       top_level.txt
+ª   ª       ª       WHEEL
+ª   ª       ª       
 ª   ª       +---six-1.17.0.dist-info
 ª   ª       ª       INSTALLER
 ª   ª       ª       LICENSE
@@ -5697,6 +6489,72 @@ C:.
 ª   ª       ª       top_level.txt
 ª   ª       ª       WHEEL
 ª   ª       ª       
+ª   ª       +---socketio
+ª   ª       ª   ª   admin.py
+ª   ª       ª   ª   asgi.py
+ª   ª       ª   ª   async_admin.py
+ª   ª       ª   ª   async_aiopika_manager.py
+ª   ª       ª   ª   async_client.py
+ª   ª       ª   ª   async_manager.py
+ª   ª       ª   ª   async_namespace.py
+ª   ª       ª   ª   async_pubsub_manager.py
+ª   ª       ª   ª   async_redis_manager.py
+ª   ª       ª   ª   async_server.py
+ª   ª       ª   ª   async_simple_client.py
+ª   ª       ª   ª   base_client.py
+ª   ª       ª   ª   base_manager.py
+ª   ª       ª   ª   base_namespace.py
+ª   ª       ª   ª   base_server.py
+ª   ª       ª   ª   client.py
+ª   ª       ª   ª   exceptions.py
+ª   ª       ª   ª   kafka_manager.py
+ª   ª       ª   ª   kombu_manager.py
+ª   ª       ª   ª   manager.py
+ª   ª       ª   ª   middleware.py
+ª   ª       ª   ª   msgpack_packet.py
+ª   ª       ª   ª   namespace.py
+ª   ª       ª   ª   packet.py
+ª   ª       ª   ª   pubsub_manager.py
+ª   ª       ª   ª   redis_manager.py
+ª   ª       ª   ª   server.py
+ª   ª       ª   ª   simple_client.py
+ª   ª       ª   ª   tornado.py
+ª   ª       ª   ª   zmq_manager.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---__pycache__
+ª   ª       ª           admin.cpython-314.pyc
+ª   ª       ª           asgi.cpython-314.pyc
+ª   ª       ª           async_admin.cpython-314.pyc
+ª   ª       ª           async_aiopika_manager.cpython-314.pyc
+ª   ª       ª           async_client.cpython-314.pyc
+ª   ª       ª           async_manager.cpython-314.pyc
+ª   ª       ª           async_namespace.cpython-314.pyc
+ª   ª       ª           async_pubsub_manager.cpython-314.pyc
+ª   ª       ª           async_redis_manager.cpython-314.pyc
+ª   ª       ª           async_server.cpython-314.pyc
+ª   ª       ª           async_simple_client.cpython-314.pyc
+ª   ª       ª           base_client.cpython-314.pyc
+ª   ª       ª           base_manager.cpython-314.pyc
+ª   ª       ª           base_namespace.cpython-314.pyc
+ª   ª       ª           base_server.cpython-314.pyc
+ª   ª       ª           client.cpython-314.pyc
+ª   ª       ª           exceptions.cpython-314.pyc
+ª   ª       ª           kafka_manager.cpython-314.pyc
+ª   ª       ª           kombu_manager.cpython-314.pyc
+ª   ª       ª           manager.cpython-314.pyc
+ª   ª       ª           middleware.cpython-314.pyc
+ª   ª       ª           msgpack_packet.cpython-314.pyc
+ª   ª       ª           namespace.cpython-314.pyc
+ª   ª       ª           packet.cpython-314.pyc
+ª   ª       ª           pubsub_manager.cpython-314.pyc
+ª   ª       ª           redis_manager.cpython-314.pyc
+ª   ª       ª           server.cpython-314.pyc
+ª   ª       ª           simple_client.cpython-314.pyc
+ª   ª       ª           tornado.cpython-314.pyc
+ª   ª       ª           zmq_manager.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
 ª   ª       +---sqlalchemy
 ª   ª       ª   ª   events.py
 ª   ª       ª   ª   exc.py
@@ -6570,6 +7428,37 @@ C:.
 ª   ª       ª   +---licenses
 ª   ª       ª           LICENSE.txt
 ª   ª       ª           
+ª   ª       +---wsproto
+ª   ª       ª   ª   connection.py
+ª   ª       ª   ª   events.py
+ª   ª       ª   ª   extensions.py
+ª   ª       ª   ª   frame_protocol.py
+ª   ª       ª   ª   handshake.py
+ª   ª       ª   ª   py.typed
+ª   ª       ª   ª   typing.py
+ª   ª       ª   ª   utilities.py
+ª   ª       ª   ª   __init__.py
+ª   ª       ª   ª   
+ª   ª       ª   +---__pycache__
+ª   ª       ª           connection.cpython-314.pyc
+ª   ª       ª           events.cpython-314.pyc
+ª   ª       ª           extensions.cpython-314.pyc
+ª   ª       ª           frame_protocol.cpython-314.pyc
+ª   ª       ª           handshake.cpython-314.pyc
+ª   ª       ª           typing.cpython-314.pyc
+ª   ª       ª           utilities.cpython-314.pyc
+ª   ª       ª           __init__.cpython-314.pyc
+ª   ª       ª           
+ª   ª       +---wsproto-1.3.2.dist-info
+ª   ª       ª   ª   INSTALLER
+ª   ª       ª   ª   METADATA
+ª   ª       ª   ª   RECORD
+ª   ª       ª   ª   top_level.txt
+ª   ª       ª   ª   WHEEL
+ª   ª       ª   ª   
+ª   ª       ª   +---licenses
+ª   ª       ª           LICENSE
+ª   ª       ª           
 ª   ª       +---yaml
 ª   ª       ª   ª   composer.py
 ª   ª       ª   ª   constructor.py
@@ -6688,6 +7577,12 @@ C:.
 ª   ª           utils.cpython-314.pyc
 ª   ª           __init__.cpython-314.pyc
 ª   ª           
+ª   +---chat
+ª   ª   ª   __init__.py
+ª   ª   ª   
+ª   ª   +---__pycache__
+ª   ª           __init__.cpython-314.pyc
+ª   ª           
 ª   +---models
 ª   ª   ª   channel.py
 ª   ª   ª   database.py
@@ -6769,7 +7664,7 @@ C:.
 ª   ª       checkout_login_register.js
 ª   ª       input_check_create_ticket.js
 ª   ª       main_task_percent.js
-ª   ª       message.js
+ª   ª       messagerie.js
 ª   ª       navbar.js
 ª   ª       planning.js
 ª   ª       ticket_sort_manager.js

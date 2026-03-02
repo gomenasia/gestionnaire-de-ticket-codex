@@ -1,6 +1,7 @@
 """Modèle message pour les conversation"""
 
 from src.utils import get_utc_now
+from typing import cast
 from src.models.database import db
 
 
@@ -21,4 +22,33 @@ class Message(db.Model):
     author  = db.relationship("User",    back_populates="messages")
     channel = db.relationship("Channel", back_populates="messages")
 
-# INCOMPLETE
+    @classmethod
+    def find_by_id(cls, message_id: int) -> "Message | None":
+        """Retourne un message par son id ou None s'il n'existe pas."""
+        return cast("Message | None", cls.query.get(message_id))
+    
+    @classmethod
+    def find_by_channel_id(cls, channel_id: int) -> "Message | None":
+        """Retourne un channel par son id ou None s'il n'existe pas."""
+        return cast("Message | None", cls.query.get(channel_id))
+    
+    @classmethod
+    def find_all(cls) -> list["Message"]:
+        """Retourne la liste de tous les tickets."""
+        return cast(list[Message], cls.query.all())
+    
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "content": self.content,
+            "created_at": self.created_at,
+            "author_id": self.author_id,
+            "channel_id": self.channel_id
+        }
+    
+    @classmethod
+    def create(cls, **kwargs) -> "Message":
+        ticket = cls(**kwargs)
+        db.session.add(ticket)
+        db.session.commit()
+        return ticket 
