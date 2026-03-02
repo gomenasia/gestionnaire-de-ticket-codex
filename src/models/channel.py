@@ -1,9 +1,9 @@
 """Modèle message pour les conversation"""
 
 from datetime import date
-from typing import Any, cast
-from typing import Optional, cast
+from typing import cast
 from src.models.database import db
+from src.utils import get_utc_now
 
 
 class Channel(db.Model):
@@ -13,7 +13,7 @@ class Channel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime(timezone=True), nullable=True)
+    created_at = db.Column(db.DateTime(timezone=True), default = get_utc_now(), nullable=True)
 
     # Relation parent-enfant
     ticket = db.relationship('Ticket', back_populates="channel")

@@ -114,9 +114,22 @@
 }
 
 .discussion {
-    background-color: red
+    display: block;
+    height: 10 rem;
+    width: 90%;
+    padding: 0.5rem;
+    margin: 1rem 5%;
+    background-color: #887070;
+    border-radius: 8px;
+}
+
+.message_display {
+    width: 100%;
+    border-radius: 8px;
+    background-color: #efefef;
+    padding: 0.5rem;
 }
 
 .discussion.collapsed {
-    background-color: greenyellow;
+    display: none;
 }

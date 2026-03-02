@@ -35,10 +35,10 @@ def on_message(data):
 
     if channel_id is None or not content:
         return
+    
 
-    msg = Message(content=content, author_id=user.id, channel_id=int(channel_id))
-    db.session.add(msg)
-    db.session.commit()
+
+    msg = Message.create(content=content, author_id=user.id, channel_id=int(channel_id))
 
     emit(
         "new_message",
@@ -50,3 +50,5 @@ def on_message(data):
         },
         to=f"channel_{int(channel_id)}",
     )
+
+

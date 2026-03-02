@@ -59,7 +59,7 @@
     })
 
     socket.on("new_message", (msg) => {
-        const panel = document.getElementById(`discussion-${msg.channel_id}`)
+        const panel = document.getElementById(`#discussion-${msg.channel_id}`)
         if (!panel) {
             return
         }
