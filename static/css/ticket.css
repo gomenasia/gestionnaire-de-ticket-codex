@@ -1,7 +1,6 @@
   /* ========================== filtre ticket ========================== */
 .filters form,
-.card form,
-.admin-form {
+.card form {
     display: grid;
     gap: 0.6rem;
 }

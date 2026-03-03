@@ -10,26 +10,25 @@ from src.utils import admin_required, get_utc_now, login_required
 from . import ticket_bp
 
 
-@ticket_bp.route("/<int:ticket_id>/admin", methods=["POST"])
-@admin_required
-def admin_update_ticket(ticket_id: int):
+@ticket_bp.route("/<int:ticket_id>/update_status", methods=["POST"])
+@login_required
+def status_update_ticket(ticket_id: int):
     ticket = Ticket.find_by_id(ticket_id)
     if ticket is None:
         flash("Ticket introuvable.", "danger")
         return redirect(url_for("index"))
 
     status = request.form.get("status", ticket.status)
-    admin_response = request.form.get("admin_response", "").strip()  # FIXME
 
     allowed_statuses = {"en_attente", "en_cours", "resolu"}
     if status not in allowed_statuses:
         flash("Statut invalide.", "danger")
         return redirect(url_for("index"))
 
-    ticket.update(status=status, admin_response=admin_response or None)
+    ticket.update(status=status)
 
     flash("Ticket mis à jour.", "success")
-    return redirect(url_for("index"))
+    return redirect(url_for("ticket.manage_ticket"))
 
 
 @ticket_bp.route("/new", methods=["GET", "POST"])
