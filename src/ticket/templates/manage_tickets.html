@@ -96,7 +96,7 @@
 
           <div id="discussion-{{ ticket.channel_id }}" class="discussion collapsed">
             <!-- Messages chargés depuis Jinja -->
-            <div id="message_display-{{ ticket.channel_id }}" class="message_display">
+            <div id="message_display-{{ ticket.channel_id }}" class="message_display" data-user-id="{{ g.user.id }}">
               {% if ticket.channel %}
                 {% for msg in ticket.channel.messages %}
                   {% if msg.author_id == g.user.id %}

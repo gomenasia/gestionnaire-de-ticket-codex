@@ -1,6 +1,6 @@
 """API pour l'application."""
 
-from flask import jsonify, request, g
+from flask import jsonify, request, g, session
 from src.models import Ticket, User, Task, Message
 from src.utils import login_required
 from . import api_bp
@@ -143,3 +143,11 @@ def delete(task_id):
     else:
         return jsonify({"success": False, 
                         "error": "Vous n'avez pas la permission de suppprimer cette task"}), 404
+
+@api_bp.route('/session')
+def get_session():
+    return jsonify({
+        'user_id': session.get('user_id'),
+        'username': session.get('username'),
+        'role': session.get('role')
+    })

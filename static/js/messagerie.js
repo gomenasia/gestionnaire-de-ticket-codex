@@ -29,6 +29,9 @@
 
                 const messagerie = document.getElementById(`message_display-${channelId}`)
                 messagerie.scrollTop = messagerie.scrollHeight;
+
+                const input_message = panel.querySelector("form input")
+                input_message.focus()
             }
         })
     })
@@ -64,21 +67,24 @@
     })
 
     socket.on("new_message", (msg) => {
-        
         const panel = document.getElementById(`message_display-${msg.channel_id}`)
         if (!panel) {
             return
         }
+        const user_id = Number(panel.dataset.userId);
 
         const p = document.createElement("p")
-        p.innerHTML = `<strong>${msg.author}</strong> : ${msg.content}`
+        p.classList.add('conv_message')
+        if(msg.author_id === user_id){
+            p.classList.add('owned')
+            p.innerHTML = msg.content
+        } else {
+            p.innerHTML = `<strong>${msg.author}</strong> : ${msg.content}`
+        }
 
-        const form = panel.querySelector("form")
         const notice = panel.querySelector(".message.warning")
 
-        if (form) {
-            form.before(p)
-        } else if (notice) {
+        if (notice) {
             notice.before(p)
         } else {
             panel.appendChild(p)

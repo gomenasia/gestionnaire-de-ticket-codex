@@ -46,6 +46,7 @@ def on_message(data):
             "id": msg.id,
             "content": msg.content,
             "author": user.username,
+            "author_id": user.id,
             "channel_id": int(channel_id),
         },
         to=f"channel_{int(channel_id)}",
