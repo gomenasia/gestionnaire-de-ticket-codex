@@ -16,7 +16,7 @@
                 data-item-id="{{ item.id }}"
                 onclick="event.stopPropagation()"
                 data-action="{{ url_for('api.addTask', parent_id=item.id) }}">
-                <i class="fa-solid fa-circle-plus icon"></i>
+                <i class="fa-solid fa-circle-plus "></i>
         </button>
         {% endif %}
         {% if g.user and (g.user.id == item.author_id or g.user.is_admin_user()) %}

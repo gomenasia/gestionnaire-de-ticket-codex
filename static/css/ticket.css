@@ -27,7 +27,6 @@
 }
 
 .filters,
-.card,
 .ticket {
     background: var(--primary-color);
     border-radius: 10px;
@@ -36,9 +35,6 @@
 }
 
 /* ========================== tickets ========================== */
-.card {
-    margin-bottom: 1rem;
-}
 
 .ticket-list {
     display: grid;

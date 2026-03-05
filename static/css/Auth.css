@@ -1,13 +1,17 @@
 .input-wrapper {
-    position: relative;
-    width: 300px;
-    margin-bottom: 10px;
+    margin: 20px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 0px solid var(--lighter_color);
+    background-color: #fff;
+    height: 3rem;
+    width: 32rem;
+    border-radius: 8px;
+    color: rgb(77 163 210);
 }
 
-.input-wrapper .icon {
+.input-wrapper i {
     font-size: 20px;
     margin: 15px;
     color: #aaa;
@@ -15,12 +19,10 @@
 
 .input-wrapper input {
     width: 100%;
-    padding: 12px 12px 12px 40px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
+    border: none;
     outline: none;
-    box-sizing: border-box;
+    font-size: 15px;
+    height: 45px;
 }
 
 .input-wrapper input:focus {

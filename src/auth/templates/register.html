@@ -15,19 +15,19 @@
     <h2>Inscription</h2>
     <form method="post">
       <div class="input-wrapper">
-        <i class="fa-solid fa-circle-user icon"></i>
-        <input id="username" name="username" type="text" required />
+        <i class="fa-solid fa-circle-user "></i>
+        <input id="username" name="username" type="text" placeholder="Username" required />
       </div>
 
       <div class="input-wrapper">
-        <i class="fa-solid fa-envelope icon"></i>
-        <input id="email" name="email" type="email" required />
+        <i class="fa-solid fa-envelope "></i>
+        <input id="email" name="email" type="email" placeholder="Email" required />
       </div>
 
       <div class="input-wrapper">
-        <i class="fa-solid fa-lock icon"></i>
-        <input id="password" name="password" type="password" required />
-        <i class="fa-solid fa-eye icon"></i>
+        <i class="fa-solid fa-lock "></i>
+        <input id="password" name="password" type="password" placeholder="Password" required />
+        <i  class="fa-solid fa-eye  " onclick="changePasswordHideVisible('password', this)""></i>
       </div>
 
       <button type="submit">Créer le compte</button>
