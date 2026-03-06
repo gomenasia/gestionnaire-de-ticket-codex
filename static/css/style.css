@@ -96,7 +96,16 @@ main {
 
 .message button {
   background-color: transparent;
-  padding: 0.2rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.message button i {
+  margin-right: 0;
+}
+
+.message button:hover {
+  background-color: inherit;
+  filter: brightness(0.9);
 }
 
 input,
