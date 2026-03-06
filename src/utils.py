@@ -7,6 +7,16 @@ def get_utc_now():
     return datetime.now(timezone.utc)
 
 
+def expects_json_response() -> bool:
+    """Détermine si la réponse doit être renvoyée au format JSON."""
+    best = request.accept_mimetypes
+    wants_json_from_accept = (
+        best["application/json"] >= best["text/html"]
+        and best["application/json"] > 0
+    )
+    return request.is_json or request.path.startswith("/api/") or wants_json_from_accept
+
+
 def login_required(view):
     @wraps(view)
     def wrapped_view(*args, **kwargs):
@@ -30,4 +40,3 @@ def admin_required(view):
         return view(*args, **kwargs)
 
     return wrapped_view
-

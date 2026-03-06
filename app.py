@@ -3,9 +3,9 @@ Configure l'application, initialise la base de données, et définit les routes 
 
 import os
 
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO
-from src.utils import get_utc_now
+from src.utils import expects_json_response, get_utc_now
 
 from config import config
 from src.api import api_bp
@@ -61,6 +61,8 @@ def inject_now():
 @app.route("/")
 def index():
     """Affiche la page d'accueil avec la liste des tickets."""
+    if expects_json_response():
+        return jsonify({"success": True, "message": "Bienvenue sur l'application de gestion de tickets.", "path": request.path}), 200
     return render_template("index.html")
 
 
