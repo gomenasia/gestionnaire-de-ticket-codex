@@ -1,9 +1,8 @@
 from functools import wraps
 from datetime import datetime, timezone
 from flask import flash, g, redirect, url_for, request, jsonify
-from app import socketio
-from src.models.notification import Notification
 from functools import wraps
+from app import socketio
 from sqlalchemy.exc import OperationalError, DatabaseError
 
 def handle_db_errors(f):
@@ -45,21 +44,15 @@ def admin_required(view):
 
     return wrapped_view
 
-def send_notification(user_id, message, type, ticket_id=None):
-    # 1. Persister en base
-    notif = Notification.create(
-        user_id=user_id,
-        message=message,
-        type=type,
-        ticket_id=ticket_id
-    )
+def send_notification(user_id: int, message: str, notification_type: str, ticket_id: int =None):
+    notif = url_for("api.create_notif")
 
     # 2. Envoyer en temps réel via WebSocket
     socketio.emit(
         "new_notification",
         {
             "message": message,
-            "type": type,
+            "notification_type": notification_type,
             "ticket_id": ticket_id,
             "created_at": notif.created_at.strftime("%d/%m/%Y %H:%M")
         },

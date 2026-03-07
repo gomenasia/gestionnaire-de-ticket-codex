@@ -5,7 +5,8 @@ import os
 
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-from src.utils import get_utc_now
+
+socketio = SocketIO() # permet la connexion au canal de comunication
 
 from config import config
 from src.api import api_bp
@@ -14,9 +15,6 @@ from src.ticket import ticket_bp
 from src.ressources import ressources_bp
 from src.planning import plan_bp
 from src.models.database import db
-
-socketio = SocketIO() # permet la connexion au canal de comunication
-
 from src.chat import chat_bp
 
 def create_app() -> Flask:
@@ -53,10 +51,6 @@ for rule in app.url_map.iter_rules():
     print(
         f"Endpoint: {rule.endpoint}, Methods: {','.join(rule.methods)}, URL: {rule.rule}"
     ) """
-
-@app.context_processor
-def inject_now():
-    return {"now": get_utc_now()}
 
 @app.route("/")
 def index():

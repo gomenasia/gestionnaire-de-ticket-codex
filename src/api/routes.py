@@ -1,7 +1,7 @@
 """API pour l'application."""
 
 from flask import jsonify, request, session
-from src.models import Ticket, User, Task, Message
+from src.models import Ticket, Notification, Task, Message
 from src.utils import handle_db_errors
 from . import api_bp
 
@@ -37,3 +37,15 @@ def get_session():
         'username': session.get('username'),
         'role': session.get('role')
     })
+
+@api_bp.route('/crete_notif')
+@handle_db_errors
+def crete_notif(user_id: int, message: str, notification_type: str, ticket_id: int =None):
+    return jsonify(
+        Notification.create(
+        user_id=user_id,
+        message=message,
+        notification_type=notification_type,
+        ticket_id=ticket_id
+    )), 200
+    

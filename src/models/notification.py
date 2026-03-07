@@ -1,6 +1,6 @@
 """Modèle message pour les notification"""
 
-from utils import get_utc_now
+from src.utils import get_utc_now
 from src.models.database import db
 
 class Notification(db.Model):

@@ -1,14 +1,14 @@
 
 
 from . import plan_bp
-from flask import jsonify, request, g, render_template
+from flask import jsonify, request, g, render_template, url_for
 from src.models import Task
-from src.utils import login_required
+from src.utils import login_required, admin_required
 
 
 @plan_bp.route("/")
 def see_planning():
-    return render_template("planning.html", planning={{ url_for="api/get_task" }})
+    return render_template("planning.html", planning=url_for("api.get_task"))
 
 @plan_bp.route("/addTask", methods=["POST"])
 @login_required
