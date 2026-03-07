@@ -1,8 +1,6 @@
 ﻿"""ModÃ¨le Task pour les taches du planning."""
 
-from datetime import date
-from typing import Any, cast
-from typing import Optional, cast
+from typing import Any, cast, Optional
 from src.models.database import db
 
 
@@ -15,14 +13,15 @@ class Task(db.Model):
     title = db.Column(db.String(150), nullable=False)
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.Boolean, default=False, nullable=False)
-    deadline = db.Column(db.DateTime(timezone=True), nullable=True)
 
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    assign_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=True)
 
     # Relation parent-enfant
     parent_id = db.Column(db.Integer, db.ForeignKey('Task.id'), nullable=True)
     parent = db.relationship('Task', remote_side=[id], backref='subtasks')
     author = db.relationship("User", back_populates="task")
+    assign = db.relationship("User", back_populates="work")
 
     def __repr__(self) -> str:
         return f"<Task {self.title} (status:{self.status})>"
@@ -33,17 +32,16 @@ class Task(db.Model):
             "title": self.title,
             "content": self.content,
             "status": self.status,
-            "deadline": self.deadline.isoformat() if self.deadline else None,
             "author": self.author_id,
+            "assigned": self.assign_id,
             "parent_id": self.parent_id,
             "parent_title": self.parent.title if self.parent else None,
             "subtasks": [s.to_dict() for s in self.subtasks] if self.subtasks else [],
         }
 
     @classmethod
-    def create_Task(cls, title: str, content: str, user_id: int, deadline: date=None, parent_id : int=None) -> "Task":
-        task = cls(title=title, content=content, status=False, 
-                deadline=deadline, author_id=user_id, parent_id=parent_id)
+    def create_Task(cls, title: str, content: str, user_id: int, assigned_id: int=None, parent_id : int=None) -> "Task":
+        task = cls(title=title, content=content, status=False, author_id=user_id, assign_id=assigned_id, parent_id=parent_id)
         db.session.add(task)
         db.session.flush()
         db.session.commit()
@@ -56,6 +54,12 @@ class Task(db.Model):
     def update_status(self, status_up: bool) -> None:
         if hasattr(self, "status"):
             setattr(self, "status", status_up)
+        db.session.add(self)
+        db.session.commit()
+    
+    def update_assign(self, assign_id: int) -> None:
+        if hasattr(self, "assign_id"):
+            setattr(self, "assign_id", assign_id)
         db.session.add(self)
         db.session.commit()
 
@@ -95,6 +99,11 @@ class Task(db.Model):
     def find_parent_by_parent_id(cls, parent_id:int) -> Optional["Task"]:
         return cast(Optional["Task"], cls.query.filter_by(id=parent_id).first())
 
+    @classmethod
+    def find_all_childs_asssign(cls, parent_id:int) ->Optional[list[int]]:
+        subsTask= Task.find_subtasks_by_parent_id(parent_id)
+        if subsTask is not None:
+            
     @property
     def completion_count(self) -> int:
         subtasks = self.find_subtasks_by_parent_id(self.id)
