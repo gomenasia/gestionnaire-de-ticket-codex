@@ -33,10 +33,11 @@ class Task(db.Model):
             "content": self.content,
             "status": self.status,
             "author": self.author_id,
-            "assigned": self.assign_id,
+            "assigned": self.assign_id, 
             "parent_id": self.parent_id,
             "parent_title": self.parent.title if self.parent else None,
             "subtasks": [s.to_dict() for s in self.subtasks] if self.subtasks else [],
+            "all_subtask_assignees": Task.find_all_childs_assign(self.id) if self.subtasks else []
         }
 
     @classmethod
@@ -100,10 +101,11 @@ class Task(db.Model):
         return cast(Optional["Task"], cls.query.filter_by(id=parent_id).first())
 
     @classmethod
-    def find_all_childs_asssign(cls, parent_id:int) ->Optional[list[int]]:
-        subsTask= Task.find_subtasks_by_parent_id(parent_id)
-        if subsTask is not None:
-            
+    def find_all_childs_asssign(cls, parent_id:int) -> list[int]:
+        subtasks = Task.find_subtasks_by_parent_id(parent_id)
+        assign_ids = [sub.assign_id for sub in subtasks if sub.assign_id is not None]
+        return assign_ids
+
     @property
     def completion_count(self) -> int:
         subtasks = self.find_subtasks_by_parent_id(self.id)
