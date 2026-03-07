@@ -100,3 +100,23 @@
         console.warn(payload.message)
     })
 })()
+
+//garder les channel ouvert
+const upDateChannel = ()=>{
+    document.querySelectorAll(".btn-repondre").forEach(btn => {
+    const channelId = btn.dataset.channelId
+    const panel = document.querySelector(`#discussion-${channelId}`)
+
+    // Restaure
+    if (localStorage.getItem(`channel-${channelId}`) === 'true') {
+        panel.classList.toggle("collapsed");
+    }
+
+    // Sauvegarde
+    btn.addEventListener("click", () => {
+        localStorage.setItem(`channel-${channelId}`, !panel.classList.contains("collapsed"));
+        });
+    });
+}
+
+upDateChannel();

@@ -32,7 +32,7 @@ document.getElementById("update-cancel-btn").addEventListener('click', ()=>{
 document.getElementById("modal-form_update").addEventListener('submit', (e) =>{
     e.preventDefault();
     const formData = new FormData(e.target);
-    fetch(`/api/task/${currentItemId}/edit`, {
+    fetch(`/ticket/${currentItemId}/edit`, {
         method: 'POST',
         body: formData
     })
@@ -40,7 +40,6 @@ document.getElementById("modal-form_update").addEventListener('submit', (e) =>{
     .then((data) => {
         if(data.success){
             dialog_update.close();
-            alert("sa marche")
             location.reload();
         }
     })
