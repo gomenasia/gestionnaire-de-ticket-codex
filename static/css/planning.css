@@ -2,12 +2,13 @@
 .planning {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 1rem;
     max-width: 860px;
     margin: 0 auto;
 }
 
 details {
+    margin-top: 0.2rem;
     transition: border-color 0.2s;
     border-radius: 10px;
     border: none;
@@ -22,7 +23,7 @@ details:not(.task0) > summary::before {
 }
 
 summary {
-    padding: 1rem 0.7rem;
+    padding: 0.8rem 0.5rem;
     cursor: pointer;
     font-weight: 700;
     font-size: 1rem;
@@ -323,6 +324,8 @@ dialog .modal-actions {
 
 /* Style des boutons dans le menu */
 .menu-option button {
+    display: flex;
+    align-items: center;
     background: var(--darker-color);
     border: none;
     cursor: pointer;

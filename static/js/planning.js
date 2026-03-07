@@ -25,7 +25,7 @@ dialog_creation.addEventListener('click', (e) => {
 document.getElementById('modal-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const response = await fetch(`/planning/addTask?parent_id=${currentItemId}`, {
+    const response = await fetch(`/tasks/addTask?parent_id=${currentItemId}`, {
         method: 'POST',
         body: formData
     });
@@ -77,7 +77,7 @@ document.addEventListener('click', () => {
 modifBtns.forEach((modif) =>{
     modif.addEventListener('click', ()=> {
         currentItemId= modif.dataset.itemId;
-        fetch(`/planning/task/${currentItemId}/update`, {
+        fetch(`/tasks/${currentItemId}/update`, {
             method: 'GET',
             headers: {
                     'Content-Type': 'application/json'}
@@ -105,7 +105,7 @@ document.getElementById("update-cancel-btn").addEventListener('click', ()=>{
 document.getElementById("modal-form_update").addEventListener('submit', (e) =>{
     e.preventDefault();
     const formData = new FormData(e.target);
-    fetch(`/planning/task/${currentItemId}/update`, {
+    fetch(`/tasks/${currentItemId}/update`, {
         method: 'POST',
         body: formData
     })
@@ -126,7 +126,7 @@ suprBtns.forEach((supr) => {
     supr.addEventListener('click', () => {
         const currentItemId = supr.dataset.itemId;
         
-        fetch(`/planning/task/${currentItemId}/delete`, {
+        fetch(`/tasks/${currentItemId}/delete`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' }
         })

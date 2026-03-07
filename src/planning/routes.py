@@ -1,14 +1,14 @@
 
 
-from . import plan_bp
-from flask import jsonify, request, g, render_template, url_for
+from flask import jsonify, request, g, render_template, flash
 from src.models import Task
 from src.utils import login_required, admin_required
+from . import plan_bp
 
 
 @plan_bp.route("/")
 def see_planning():
-    return render_template("planning.html", planning=url_for("api.get_task"))
+    return render_template("planning.html", planning=Task.find_all())
 
 @plan_bp.route("/addTask", methods=["POST"])
 @login_required
@@ -34,10 +34,11 @@ def addTask():
         return jsonify({"error": str(e)}), 400
 
 
-@plan_bp.route("/task/<int:task_id>/status", methods=["PATCH"])
+@plan_bp.route("/<int:task_id>/status", methods=["PATCH"])
 def UpdateTaskStatus(task_id: int):
     task = Task.find_by_id(task_id)
     if task is None:
+        flash("la tache n'existe pas", "warning")
         return jsonify({"success": False, "error": "Task non trouvée"}), 404
     data = request.get_json()
     task.update_status(data["status"])
@@ -54,7 +55,7 @@ def UpdateTaskStatus(task_id: int):
 
 
 
-@plan_bp.route("/task/<int:task_id>/update", methods=["GET", "POST"])
+@plan_bp.route("/<int:task_id>/update", methods=["GET", "POST"])
 def update(task_id):
     task = Task.find_by_id(task_id)
     if task is None:
@@ -73,8 +74,8 @@ def update(task_id):
             "success": True}), 200
 
 
-@plan_bp.route("/task/<int:task_id>/delete", methods=["DELETE"])
-@admin_required 
+@plan_bp.route("/<int:task_id>/delete", methods=["DELETE"])
+@admin_required
 def delete(task_id):
     task = Task.find_by_id(task_id)
     if task is None:

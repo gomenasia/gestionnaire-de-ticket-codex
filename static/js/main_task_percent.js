@@ -35,7 +35,7 @@ const updateAllParents = (checkboxElement) => {
             const id = progressBar.getAttribute('id');
 
             if(progress == 100 && localStorage.getItem(`progress-${id}`) <100){
-                fetch(`/planning/task/${id}/status`,{
+                fetch(`/tasks/${id}/status`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'},
@@ -46,7 +46,7 @@ const updateAllParents = (checkboxElement) => {
                 })
             }
             if(progress < 100 && localStorage.getItem(`progress-${id}`) ==100){
-                fetch(`/planning/task/${id}/status`,{
+                fetch(`/tasks/${id}/status`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'},
@@ -74,7 +74,7 @@ const upDateCheckboxes = () =>{
 
             const taskId = checkboxe.dataset.taskId; 
             
-            fetch(`/planning/task/${taskId}/status`,{
+            fetch(`/tasks/${taskId}/status`,{
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'},
