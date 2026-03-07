@@ -3,7 +3,6 @@ from flask_socketio import emit, join_room
 
 from app import socketio
 from src.models import User
-from src.models.database import db
 from src.models.message import Message
 
 chat_bp = Blueprint("chat", __name__)

@@ -28,9 +28,14 @@ class Message(db.Model):
         return cast("Message | None", cls.query.get(message_id))
     
     @classmethod
-    def find_by_channel_id(cls, channel_id: int) -> "Message | None":
+    def find_by_channel_id(cls, channel_id: int) -> list["Message"]:
         """Retourne un channel par son id ou None s'il n'existe pas."""
-        return cast("Message | None", cls.query.get(channel_id))
+        return cast(list[Message], cls.query.filter(Message.channel_id == channel_id).all())
+
+    @classmethod
+    def find_since(cls, channel_id: int, since: int) -> list["Message"]:
+        """Retourne les message d'un channel depuis since."""
+        return cast(list[Message], cls.query.filter(Message.channel_id == channel_id, Message.id > since).all())
     
     @classmethod
     def find_all(cls) -> list["Message"]:
