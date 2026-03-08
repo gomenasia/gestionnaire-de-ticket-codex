@@ -124,8 +124,7 @@ def update(task_id):
 
 
 @plan_bp.route("/<int:task_id>/delete", methods=["DELETE"])
-@login_required
-#@admin_required TODO remettre le admin required
+@admin_required
 def delete(task_id):
     task = Task.find_by_id(task_id)
     if task is None:
