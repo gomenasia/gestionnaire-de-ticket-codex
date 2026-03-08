@@ -8,7 +8,6 @@
     height: 3rem;
     width: 32rem;
     border-radius: 8px;
-    color: rgb(77 163 210);
 }
 
 .input-wrapper i {
@@ -27,4 +26,30 @@
 
 .input-wrapper input:focus {
     border-color: #999;
+}
+
+.auth_card {
+    margin: 5% 30%;
+    padding: 1rem 0.8rem;
+}
+
+.auth_card form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.auth_card button {
+    align-self: center;
+    margin-top: 1.5rem;
+    width: 40%;
+}
+
+.auth_card h1 {
+    margin: 1rem 0 0.5rem 2rem;
+    align-self: start;
+}
+
+.form-control-other {
+    margin-top: 2rem;
 }

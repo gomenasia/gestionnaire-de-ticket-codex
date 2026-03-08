@@ -5,11 +5,7 @@ function changePasswordHideVisible(Id, e) {
   password.setAttribute("type", password.getAttribute("type") === "password" ? "text" : "password");
 };
 
-// Permet de se concentrer automatiquement sur le champ email à l'ouverture de la page
-document.addEventListener('DOMContentLoaded', () => {
-    const emailInput = document.getElementById('email');
-    if (emailInput) {
-    emailInput.focus();
-    }
-  }
-);
+document.addEventListener('DOMContentLoaded', function () {
+  const firstInput = document.querySelector('form input');
+  if (firstInput) firstInput.focus();
+});

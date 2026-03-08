@@ -7,18 +7,20 @@
 {% endblock styles %}
 
 {% block content %}
-  <section class="card">
-    <h2>Connexion</h2>
+  <section class="card auth_card">
+    <h1>Connexion</h1>
     <form method="post">
-      <div class="input-wrapper">
-        <i class="fa-solid fa-envelope "></i>
-        <input id="email" name="email" type="email" placeholder="Email" required />
-      </div>
-
-      <div class="input-wrapper">
-        <i class="fa-solid fa-lock "></i>
-        <input id="password" name="password" type="password" placeholder="Password" required />
-        <i class="fa-solid fa-eye" onclick="changePasswordHideVisible('password', this)""></i>
+      <div>
+        <div class="input-wrapper">
+          <i class="fa-solid fa-envelope "></i>
+          <input id="email" name="email" type="email" placeholder="Email" required />
+        </div>
+  
+        <div class="input-wrapper">
+          <i class="fa-solid fa-lock "></i>
+          <input id="password" name="password" type="password" placeholder="Password" required />
+          <i class="fa-solid fa-eye" onclick="changePasswordHideVisible('password', this)""></i>
+        </div>
       </div>
 
       <button type="submit">Se connecter</button>
