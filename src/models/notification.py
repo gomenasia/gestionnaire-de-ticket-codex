@@ -1,5 +1,6 @@
 """Modèle message pour les notification"""
 
+from typing import cast
 from src.utils import get_utc_now
 from src.models.database import db
 
@@ -14,6 +15,12 @@ class Notification(db.Model):
 
     user   = db.relationship("User", backref="notifications")
     ticket = db.relationship("Ticket", backref="notifications")
+
+    @classmethod
+    def find_by_user(cls, user_id: int) -> list["Notification"]:
+        """Retourne les notif destiner a un user"""
+        return cast(list["Notification"], cls.query.filter_by(user_id=user_id).all())
+
 
     def to_dict(self) -> dict:
         return {

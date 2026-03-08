@@ -1,12 +1,9 @@
-from flask import Blueprint, session
 from flask_socketio import emit, join_room
 
+from flask import  session
 from app import socketio
 from src.models import User
 from src.models.message import Message
-
-chat_bp = Blueprint("chat", __name__)
-
 
 @socketio.on("join")
 def on_join(data):
@@ -50,5 +47,3 @@ def on_message(data):
         },
         to=f"channel_{int(channel_id)}",
     )
-
-

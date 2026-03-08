@@ -99,24 +99,25 @@
         }
         console.warn(payload.message)
     })
-})()
-
-//garder les channel ouvert
-const upDateChannel = ()=>{
+    
+    //garder les channel ouvert
     document.querySelectorAll(".btn-repondre").forEach(btn => {
-    const channelId = btn.dataset.channelId
-    const panel = document.querySelector(`#discussion-${channelId}`)
+        const channelId = btn.dataset.channelId
+        const panel = document.querySelector(`#discussion-${channelId}`)
 
-    // Restaure
-    if (localStorage.getItem(`channel-${channelId}`) === 'true') {
-        panel.classList.toggle("collapsed");
-    }
+        // Restaure
+        if (localStorage.getItem(`channel-${channelId}`) === 'true') {
+            panel.classList.toggle("collapsed");
+            
+            if (socket && !joinedChannels.has(channelId)) {
+                socket.emit("join", { channel_id: Number(channelId) })
+                joinedChannels.add(channelId)
+            }
+        }
 
-    // Sauvegarde
-    btn.addEventListener("click", () => {
-        localStorage.setItem(`channel-${channelId}`, !panel.classList.contains("collapsed"));
+        // Sauvegarde
+        btn.addEventListener("click", () => {
+            localStorage.setItem(`channel-${channelId}`, !panel.classList.contains("collapsed"));
         });
     });
-}
-
-upDateChannel();
+})()

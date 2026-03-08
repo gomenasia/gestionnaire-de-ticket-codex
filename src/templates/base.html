@@ -30,11 +30,13 @@
           </div>
 
           <div class="notifications">
-            <ul id="notification">
-              <li>Item 1 - Test Notification</li>
-              <li>Item 2 - Test Notification</li>
-              <li>Item 3 - Test Notification</li>
-            </ul>
+            {% if g.user %}
+            <ul id="notification"></ul> <!-- display des notifs -->
+            {% else %}
+            <li>
+              connecter vous pour recevoir des notification
+            </li>
+            {% endif %}
           </div>
 
           <!-- ======================================== menu utilisateur ======================================== -->

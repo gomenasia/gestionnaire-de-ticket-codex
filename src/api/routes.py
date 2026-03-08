@@ -38,14 +38,19 @@ def get_session():
         'role': session.get('role')
     })
 
-@api_bp.route('/crete_notif')
+@api_bp.route('/create_notif')
 @handle_db_errors
-def crete_notif(user_id: int, message: str, notification_type: str, ticket_id: int =None):
+def create_notif(user_id: int, message: str, notification_type: str, ticket_id: int =None):
     return jsonify(
         Notification.create(
         user_id=user_id,
         message=message,
-        notification_type=notification_type,
+        type=notification_type,
         ticket_id=ticket_id
     )), 200
-    
+
+@api_bp.route('/notification/<int:user_id>')
+@handle_db_errors
+def get_notif_by_user(user_id):
+    notifs = Notification.find_by_user(user_id)
+    return jsonify([notification.to_dict() for notification in notifs]), 200

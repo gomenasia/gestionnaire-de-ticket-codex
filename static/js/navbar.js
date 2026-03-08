@@ -4,14 +4,11 @@ const withSub = document.querySelectorAll(".withSub .nav-link");
 const sidebarOpen = document.querySelector(".sidebarOpen");
 const logo = document.querySelector(".logo");
 const darkLight = document.querySelector(".darkLight");
-const notification = document.querySelector(".notification");
-const notifications = document.querySelector(".notifications");
 
 const resetNavStates = () => {
   withSub.forEach((menu) => {
     menu.classList.remove("openSubMenu");
   });
-  notifications?.classList.remove("open");
 };
 
 const toggleSidebar = () => {
@@ -43,12 +40,6 @@ withSub.forEach((menu) => {
     sideBar?.classList.remove("close");
   });
 });
-
-if (notification && notifications) {
-  notification.addEventListener("click", () => {
-    notifications.classList.toggle("open");
-  });
-}
 
 const message_display = document.getElementById('messages');
 

@@ -2,12 +2,13 @@
 
 from flask import jsonify, request, g, render_template, flash
 from src.models import Task, User
-from src.utils import login_required, admin_required
+from src.utils import login_required, admin_required, send_notification
 from . import plan_bp
 
 
 @plan_bp.route("/")
 def see_planning():
+    send_notification(g.user.id, "feur", "osef")
     all_tasks = Task.query.all()
     
     children_by_parent = {}

@@ -15,7 +15,7 @@ from src.ticket import ticket_bp
 from src.ressources import ressources_bp
 from src.planning import plan_bp
 from src.models.database import db
-from src.chat import chat_bp
+from src.socketio import socketio_bp
 
 def create_app() -> Flask:
     """Factory Flask pour créer l'application avec la config appropriée."""
@@ -38,7 +38,7 @@ def create_app() -> Flask:
     app.register_blueprint(api_bp)
     app.register_blueprint(plan_bp)
     app.register_blueprint(ressources_bp)
-    app.register_blueprint(chat_bp)
+    app.register_blueprint(socketio_bp)
     
     socketio.init_app(app)               # ← ajouter
     return app
