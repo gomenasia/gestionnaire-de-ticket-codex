@@ -14,7 +14,7 @@ socket.on("new_notification", (data) => {
         .then(response => response.json())
         .then((data) => {
             if(data.success){
-                const user_id = data.user_id;
+                update_notif_display(data.user_id)
             }
         })
     update_notif_display(user_id)
@@ -48,10 +48,9 @@ if (content_notifications) {                          // ============= afiche le
                 .then(response => response.json())
                 .then((data) => {
                     if(data.success){
-                        const user_id = data.user_id;
+                        update_notif_display(data.user_id)
                     }
                 })
-            update_notif_display(user_id)
         }
     });
 }

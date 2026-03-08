@@ -45,7 +45,7 @@ def create_notif(user_id: int, message: str, notification_type: str, ticket_id: 
         Notification.create(
         user_id=user_id,
         message=message,
-        notification_type=notification_type,
+        type=notification_type,
         ticket_id=ticket_id
     )), 200
 

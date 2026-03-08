@@ -5,7 +5,7 @@ from app import socketio
 
 @socketio.on("connect")
 def on_connect():
-    if g.user:
+    if hasattr(g, "user"):
         join_room(f"user_{g.user.id}")
 
 @socketio.on("disconnect")

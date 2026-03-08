@@ -45,9 +45,14 @@ def admin_required(view):
     return wrapped_view
 
 def send_notification(user_id: int, message: str, notification_type: str, ticket_id: int =None):
-    notif = url_for("api.create_notif")
+    notif = url_for("api.create_notif",
+                    user_id=user_id,
+                    message=message,
+                    notification_type=notification_type,
+                    ticket_id=ticket_id)
+    
 
-    # 2. Envoyer en temps réel via WebSocket
+    # Envoyer en temps réel via WebSocket
     socketio.emit(
         "new_notification",
         {
