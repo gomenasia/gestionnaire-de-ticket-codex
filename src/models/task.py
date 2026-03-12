@@ -44,8 +44,7 @@ class Task(db.Model):
             "assigned": self.assign_id, 
             "parent_id": self.parent_id,
             "parent_title": self.parent.title if self.parent else None,
-            "subtasks": [s.to_dict() for s in self.subtasks] if self.subtasks else [],
-            "all_subtask_assignees": Task.find_all_childs_assign(self.id) if self.subtasks else []
+            "subtasks": [s.to_dict() for s in self.subtasks] if self.subtasks else []
         }
 
     @classmethod

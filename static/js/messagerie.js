@@ -144,6 +144,8 @@
         return
     }
 
+    //TODO implement typing...
+
     // Envoi d'un message (uniquement formulaires présents = utilisateurs connectés)
     document.querySelectorAll(".form-message").forEach((form) => {
         form.addEventListener("submit", (e) => {
