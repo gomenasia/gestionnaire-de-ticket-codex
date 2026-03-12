@@ -1,11 +1,11 @@
-﻿"""ModÃ¨le Task pour les taches du planning."""
+﻿"""Modèle Task pour les taches du planning."""
 
 from typing import Any, cast, Optional
 from src.models.database import db
 
 
 class Task(db.Model):
-    "ModÃ¨le Task reprÃ©snetant les tahce d'un Plannning"
+    "Modèle Task représantant les tache d'un Plannning"
 
     __tablename__ = "Task"
 

@@ -13,7 +13,7 @@ class Channel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime(timezone=True), default = get_utc_now(), nullable=True)
+    created_at = db.Column(db.DateTime(timezone=True), default = get_utc_now, nullable=True)
 
     # Relation parent-enfant
     ticket = db.relationship('Ticket', back_populates="channel")
@@ -22,7 +22,7 @@ class Channel(db.Model):
     # INCOMPLETE
 
     def __repr__(self) -> str:
-        return f"<Channel {self.name} (created_at: {self.create_at}), associated ticket {self.ticket.id}>"
+        return f"<Channel {self.name} (created_at: {self.created_at}), associated ticket {self.ticket.id}>"
 
     @classmethod
     def find_by_id(cls, channel_id: int) -> "Channel | None":

@@ -59,7 +59,7 @@ class Ticket(db.Model):
     @classmethod
     def find_by_channel_id(cls, channel_id: int) -> "Ticket | None":
         """renoie le ticket lier au channel si il exist"""
-        return cast("Ticket | None", cls.query.get({"channel_id": channel_id}))
+        return cast("Ticket | None", cls.query.filter_by(channel_id= channel_id))
 
     def to_dict(self) -> dict:
         return {
