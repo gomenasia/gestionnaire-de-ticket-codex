@@ -32,6 +32,13 @@ class Notification(db.Model):
         return cast(list["Notification"], updated)
 
     @classmethod
+    def marke_read(cls, notification_id) -> "Notification | None":
+        """marque comme lu une notification"""
+        updated = cls.query.filter_by(id=notification_id, is_read=False).update({'is_read': True})
+        db.session.commit()
+        return cast("Notification | None", updated)
+
+    @classmethod
     def get_notif_count_by_user(cls, receiver_id) -> int:
         return cls.query.filter_by(user_id=receiver_id, is_read=False).count()
 

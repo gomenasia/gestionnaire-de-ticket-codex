@@ -16,14 +16,15 @@
 
     function updateNotificationBadge() {             // ============= compte le nombre de notif ============
         const badge = document.querySelector(".notif_badge");
-        alert("fontion appeler")
         if (badge) {
-            alert("badge reconu")
-            console.log("badge reconu");
-            badge.textContent = parseInt(badge.textContent || 0) + 1;
+            fetch(`/api/notification/unread-counts`)
+                .then(res => res.json())
+                .then(count => {
+                    badge.textContent = count;
+                });
             badge.classList.remove("collapsed");
+            }; 
         }
-    }
 
     const content_notifications = document.querySelector(".notification");
     const list_notification = document.querySelector(".notifications");
@@ -58,14 +59,35 @@
                 }).format(date);
 
                 list_notification.innerHTML += `
-                <li class="notif-item ${notif.is_read ? '' : 'unread'}">
+                <li class="notif-item ${notif.is_read ? '' : 'unread'} data-notification-id="${notif.id}"">
                     <p>${notif.message}</p>
                     <small>${local_time}</small>
                 </li>
                 `;
             });
-        }); 
+        });
+        Array.from(list_notification.children).forEach(li_notif => {
+            li_notif.addEventListener('click', () => {
+                mark_notification_read(li_notif.dataset.notificationId)
+            });
+        });
     }
+
+    async function mark_notification_read(notif_id) {
+        await fetch('/api/notification/mark-read', {
+            method:  'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ notification_id: notif_id }),
+        });
+    }
+
+    addEventListener("DOMContentLoaded", () => {
+        if (CURRENT_USER_ID != null){
+            updateNotificationBadge();
+        }
+    });
 
     if (!socket) {
         // Pas de transport temps réel disponible: on garde le comportement UI (toggle) uniquement

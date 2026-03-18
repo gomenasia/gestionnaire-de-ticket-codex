@@ -77,7 +77,10 @@ def mark_notification_as_read():
     if not user_id:
         return jsonify({'error': 'Non authentifié'}), 401
 
-    updated = Notification.marke_all_read(user_id)
+    data = request.get_json()
+    notif = Notification.find_by_id(data.get('notification_id'))
+
+    updated = Notification.marke_read(notif)
     return jsonify({'updated': updated}), 200
 
 
