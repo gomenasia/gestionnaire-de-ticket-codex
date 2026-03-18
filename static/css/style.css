@@ -356,6 +356,10 @@ nav a:hover {
   justify-content: center;
 }
 
+.notif_badge {
+  display: inline-block;
+}
+
 .notifications {
   position: absolute;
   top: 75px;

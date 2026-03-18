@@ -1,7 +1,7 @@
 
 (() => {
-    const CURRENT_USER_ID   = parseInt(document.body.dataset.userId);
-    // Charger socket.io depuis le CDN ou depuis Flask-SocketIO
+    const CURRENT_USER_ID = parseInt(document.body.dataset.userId);
+
     const socket = typeof window.io === "function"
         ? window.io({ transports: ["websocket", "polling"] })
         : null
@@ -16,7 +16,10 @@
 
     function updateNotificationBadge() {             // ============= compte le nombre de notif ============
         const badge = document.querySelector(".notif_badge");
+        alert("fontion appeler")
         if (badge) {
+            alert("badge reconu")
+            console.log("badge reconu");
             badge.textContent = parseInt(badge.textContent || 0) + 1;
             badge.classList.remove("collapsed");
         }
@@ -70,12 +73,11 @@
     }
 
     socket.on("connect", () => {
-        console.log("======================================================== WebSocket connecté");
+        console.log("WebSocket connecté");
     });
 
     // Écouter les nouvelles notifications
     socket.on("new_notification", (notif) => {
-        alert("debug notif")
         showNotificationToast(notif.message, notif.type);
         updateNotificationBadge();  // incrémenter le compteur dans le menu
 

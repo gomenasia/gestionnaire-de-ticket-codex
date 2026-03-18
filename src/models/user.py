@@ -1,7 +1,7 @@
 """Modèle User pour les utilisateurs du site (admin, gérant, client)."""
 
-from werkzeug.security import check_password_hash, generate_password_hash
 from typing import Any, cast
+from werkzeug.security import check_password_hash, generate_password_hash
 from src.models.database import db
 
 
@@ -33,13 +33,14 @@ class User(db.Model):
         return f"<User {self.username} ({self.role})>"
 
     def to_dict(self) -> dict[str, Any]:
+        """renvoie l'utilisateur sous forme de disctionaire"""
         return {
             "id": self.id,
             "username": self.username,
             "email": self.email,
             "role": self.role
         }
-    
+
     @classmethod
     def find_by_id(cls, user_id: int) -> "User | None":
         """Retourne un utilisateur par son id ou None s'il n'existe pas."""
@@ -59,7 +60,6 @@ class User(db.Model):
     def find_all(cls) -> list["User"]:
         """Retourne la liste de tous les utilisateurs."""
         return cast(list[User], cls.query.all())
-    
 
     def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
@@ -78,7 +78,10 @@ class User(db.Model):
     @classmethod
     def create_user(cls, username: str, email: str, password: str, role: str = "user") -> "User":
         """Crée un nouvel utilisateur et le retourne."""
-        user = cls(username=username, email=email, password_hash = generate_password_hash(password) , role=role)
+        user = cls(username=username, 
+                    email=email,
+                    password_hash = generate_password_hash(password),
+                    role=role)
         db.session.add(user)
         db.session.commit()
         return user
