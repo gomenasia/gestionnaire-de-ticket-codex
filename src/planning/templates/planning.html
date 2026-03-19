@@ -4,7 +4,7 @@
 
     <summary>
         {% if not item.subtasks %}<input type="checkbox" onclick="event.stopPropagation()" data-task-id="{{ item.id }}" {% if item.status %} checked {% endif %}>{% endif %}
-        {{ item.title }}
+        <h3>{{ item.title }}</h3>
         {% if depth<max_depth and item.subtasks %}
             <div class="progressbar" id="{{ item.id }}">
                 <span>Il faut js</span> <!-- RECHECK -->
@@ -13,7 +13,7 @@
         {% if item.subtasks %}
             {% if personnes.get(item.id) %}
             <div class="list">
-                <p class="assigned">{{ personnes.get(item.id) }}</p>
+                <a><p class="assigned">{{ personnes.get(item.id) }}</p></a>
             </div>
             {% endif %}
         {% else %}
