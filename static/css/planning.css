@@ -37,6 +37,7 @@ summary {
     border-radius: 10px;
     overflow: visible;
     width: 100%;
+    position: relative;
 }
 
 summary::before {
@@ -296,12 +297,15 @@ dialog .modal-actions {
 }
 
 /* Boutton d'option*/
-.option-wrapper {
+.wrapper {
     position: relative;
     display: flex;
     align-items: center;  /* centre verticalement */
     justify-content: center;  /* centre horizontalement */
-    margin-left: auto; /* pousse à droite */
+}
+
+.option{
+    margin-left: auto;
 }
 .option-btn {
     background-color: transparent;
@@ -309,7 +313,7 @@ dialog .modal-actions {
 }
 
 /* Le sous-menu caché par défaut */
-.menu-option {
+.menu {
     display: flex;  
     flex-direction: column;
     position: absolute;
@@ -324,7 +328,7 @@ dialog .modal-actions {
 }
 
 /* Style des boutons dans le menu */
-.menu-option button {
+.menu button {
     display: flex;
     align-items: center;
     background: var(--darker-color);
@@ -334,22 +338,28 @@ dialog .modal-actions {
     border-radius: 6px;
     transition: background-color 0.2s ease;
 }
-.collapsed{
-    display: none;
-}
+
 
 .menu-option button:hover {
     background-color: var(--lighter-color);
 }
 
-.list {
+button.list {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     flex-wrap: nowrap;
     margin: 4px 8px;
 
-    p{
+    /* Reset bouton */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+
+    p {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -358,3 +368,18 @@ dialog .modal-actions {
         max-width: 100px;
     }
 }
+
+/*Menu pour afficher les noms*/
+.name-link {
+    position: relative;
+}
+
+.names{
+    white-space: nowrap;
+}
+
+
+.collapsed{
+    display: none;
+}
+

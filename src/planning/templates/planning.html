@@ -12,8 +12,13 @@
         {% endif %}
         {% if item.subtasks %}
             {% if personnes.get(item.id) %}
-            <div class="list">
-                <a><p class="assigned">{{ personnes.get(item.id) }}</p></a>
+            <div class="wrapper">
+                <button class="list" type="button" onclick="event.stopPropagation()">
+                    <p class="assigned">{{ personnes.get(item.id) }}</p>
+                </button>
+                <div class="menu names collapsed">
+                    <p>{{ personnes.get(item.id) }}</p>
+                </div>
             </div>
             {% endif %}
         {% else %}
@@ -40,10 +45,10 @@
         </button>
         {% endif %}
         {% if g.user and (g.user.id == item.author_id or g.user.is_admin_user()) %}
-            <div class="option-wrapper">
+            <div class="option wrapper">
                 <button type ="button" class="option-btn"><i class="fa-solid fa-ellipsis"></i></button>
                 <!--Sous menu pour les options-->
-                <div class="menu-option collapsed">
+                <div class="menu collapsed">
                     <button class="modif-btn" data-item-id="{{ item.id }}"><i class="fa-solid fa-pen-to-square"></i>Modifier</button>
                     {% if not item.subtasks %}
                     <button class="suppr-btn" data-item-id="{{ item.id }}"><i class="fa-solid fa-trash"></i>Suprimer</button>
@@ -106,6 +111,7 @@
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/planning.js') }}" defer></script>
 <script src="{{ url_for('static', filename='js/main_task_percent.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/assigned_name.js') }}" defer></script>
 {% endblock scripts %}
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/planning.css') }}" />
