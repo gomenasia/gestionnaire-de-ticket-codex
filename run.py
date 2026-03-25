@@ -3,57 +3,41 @@
 Script de lancement pour différents environnements.
 Facilite le changement d'environnement pour les étudiants.
 """
-
-import os
-import subprocess
 import sys
+import subprocess
 
 
-def main() -> None:
-    """Point d'entrée principal."""
+def main():
     if len(sys.argv) != 2:
-        print("Usage: python run.py [development|production]")
-        print("\nExemples:")
-        print("  python run.py development  # Lance en mode développement")
-        print("  python run.py production   # Lance en mode production")
-        sys.exit(1)
+        print("Usage: python run.py [dev|prod]")
+        return
 
-    env_name: str = sys.argv[1].lower()
-
-    if env_name not in ["development", "production"]:
-        print(
-            "❌ Environnement invalide. Utilisez 'development' ou 'production'"
-        )
-        sys.exit(1)
-
-
-    # Lancer l'application
-    print(f"🚀 Lancement en mode {env_name.upper()}...")
-
-    if env_name == "development":
+    mode = sys.argv[1]
+    
+    if mode == "dev":
+        print("🚀 Mode DEV (Flask + SocketIO)")
         print("📍 URL: http://localhost:5000")
-        subprocess.run([sys.executable, "app.py"], check=False)
-    else:
-        print("📍 Mode production - Lancement avec Gunicorn")
+        subprocess.run([sys.executable, "app.py"])
+
+    elif mode == "prod":
+        print("🚀 Mode PROD (simulation Railway)")
         print("📍 URL: http://localhost:8000")
 
-        # Activer l'environnement virtuel et lancer gunicorn
-        venv_activate: str = os.path.join(
-            os.getcwd(), "..", ".venv", "bin", "activate"
-        )
-        if os.path.exists(venv_activate):
-            # Utiliser subprocess pour gérer correctement les espaces
-            cmd: str = (
-                f'source "{venv_activate}" && gunicorn --bind 0.0.0.0:8000 --workers 4 app:app'
-            )
-            subprocess.run(
-                cmd, shell=True, executable="/bin/bash", check=False
-            )
-        else:
-            print(
-                "⚠️ Environnement virtuel non trouvé, tentative avec gunicorn global"
-            )
-            os.system("gunicorn --bind 0.0.0.0:8000 --workers 4 app:app")
+        subprocess.run([
+            sys.executable,
+            "-m",
+            "gunicorn",
+            "-k",
+            "geventwebsocket.gunicorn.workers.GeventWebSocketWorker",
+            "-w",
+            "1",
+            "-b",
+            "127.0.0.1:8000",
+            "app:app"
+        ])
+
+    else:
+        print("❌ mode invalide")
 
 
 if __name__ == "__main__":
