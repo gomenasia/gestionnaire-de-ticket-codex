@@ -31,6 +31,9 @@ def create_app() -> Flask:
     # ⚠️ Ne crée PAS les tables automatiquement
     # Pour créer et peupler les tables, exécutez : python3 -m datafixtures.import_all
     db.init_app(app)
+
+    # Import des modèles pour que db.create_all() les connaisse
+    from src.models import User, Ticket, Task, Channel, Message, Notification  # noqa: F401
     app.register_blueprint(ticket_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(api_bp)
